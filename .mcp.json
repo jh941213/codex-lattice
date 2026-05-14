@@ -1,0 +1,22 @@
+{
+  "mcp_servers": {
+    "mgrep": {
+      "command": "mgrep",
+      "args": ["mcp"]
+    },
+    "tavily": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "TAVILY_API_KEY=\"${TAVILY_API_KEY:-$(jq -r '.mcpServers.tavily.env.TAVILY_API_KEY // empty' ~/.mcp.json 2>/dev/null)}\"; export TAVILY_API_KEY; exec npx -y tavily-mcp"
+      ]
+    },
+    "exa": {
+      "command": "bash",
+      "args": [
+        "-lc",
+        "EXA_API_KEY=\"${EXA_API_KEY:-$(jq -r '.mcpServers.exa.env.EXA_API_KEY // empty' ~/.mcp.json 2>/dev/null)}\"; export EXA_API_KEY; exec npx -y exa-mcp-server"
+      ]
+    }
+  }
+}

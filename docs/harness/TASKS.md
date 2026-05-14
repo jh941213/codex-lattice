@@ -9,6 +9,7 @@
 - [x] Verify search/lint/security tooling coverage including `mgrep`, `rg`, `sg`, `semgrep`, `gitleaks`, `shellcheck`, `shfmt`, and `az`.
 - [x] Add Tavily and Exa MCP search routing with env/`~/.mcp.json` credential fallback.
 - [x] Generate a Codex README hero image and include it in Korean and English README files.
+- [x] Reconcile repo skills and plugin metadata with the current local Codex harness install.
 
 ## Status Legend
 

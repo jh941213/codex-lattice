@@ -8,9 +8,9 @@
 
 **Codex를 팀 단위 개발 루프처럼 굴리기 위한 설치형 하네스**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.2.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-36-blue.svg?style=for-the-badge)](#skills-36개)
+[![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
 [![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#custom-agents-15개)
 [![Hooks](https://img.shields.io/badge/hooks-15-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
 
@@ -24,7 +24,7 @@
 
 ## 한 줄 요약
 
-이 저장소는 OpenAI Codex에 **36개 skills**, **15개 custom agents**, **15개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
+이 저장소는 OpenAI Codex에 **39개 skills**, **15개 custom agents**, **15개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
 
 결과적으로 Codex가 매 작업마다 다음 루프를 따르게 됩니다.
 
@@ -97,12 +97,24 @@ bash install.sh --ko
 
 Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TAVILY_API_KEY`, `EXA_API_KEY` 환경변수를 먼저 보고, 없으면 기존 `~/.mcp.json`의 `tavily`/`exa` 항목에서 읽도록 Codex MCP 설정을 구성합니다.
 
+## Codex Plugin 구조
+
+이 저장소는 레포 루트 자체가 Codex plugin root입니다.
+
+| 파일 | 역할 |
+|------|------|
+| `.codex-plugin/plugin.json` | Codex plugin manifest. `skills`, `hooks`, `mcpServers` 경로를 선언 |
+| `.mcp.json` | plugin 설치 시 사용할 `mgrep`, Tavily, Exa MCP 설정 |
+| `.agents/plugins/marketplace.json` | 로컬 marketplace. `source.path`가 이 레포 루트 `./`를 가리킴 |
+
+즉, 배포용으로는 Codex plugin metadata를 갖고 있고, 로컬 적용은 `install.sh`가 현재 `~/.codex` 구조에 복사/등록합니다.
+
 ## 설치되는 것
 
 ```text
 ~/.codex/
 ├── config.toml                         # features, skills, hooks, agents 관리 블록
-├── skills/                             # 36개 Codex skills
+├── skills/                             # 39개 Codex skills
 ├── agents/                             # 15개 custom agent TOML
 ├── hooks/                              # 15개 lifecycle hook 스크립트
 ├── rules/                              # Git/workflow 규칙
@@ -163,7 +175,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 
 `&goal` 같은 별도 alias는 설치하지 않습니다. Codex 내장 명령은 `/goal`, 하네스 skill은 `$verify`처럼 구분합니다.
 
-## Skills 36개
+## Skills 39개
 
 | Skill | 쓰는 상황 |
 |-------|-----------|
@@ -175,7 +187,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `$build-fix`, `$tdd`, `$e2e-verify`, `$e2e-agent-browser` | 빌드 복구, TDD, E2E 검증 |
 | `$frontend`, `$ui-ux-pro-max`, `$react-patterns`, `$shadcn-ui`, `$tailwind-design-system` | UI, React, Tailwind, 디자인 시스템 |
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | 하네스 점검, 감사, 품질 평가 |
-| 기술 스킬 | FastAPI, API 설계, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana |
+| 기술 스킬 | FastAPI, API 설계, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, 계층형 plan memory |
 
 ## Custom Agents 15개
 

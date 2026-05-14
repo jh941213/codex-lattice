@@ -8,9 +8,9 @@
 
 **An installable agent-first harness for OpenAI Codex**
 
-[![Version](https://img.shields.io/badge/version-1.2.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.2.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-36-blue.svg?style=for-the-badge)](#36-skills)
+[![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
 [![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#15-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-15-111827.svg?style=for-the-badge)](#always-on-hooks)
 
@@ -24,7 +24,7 @@
 
 ## What This Is
 
-This repository installs a Codex harness with **36 skills**, **15 custom agents**, **15 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+This repository installs a Codex harness with **39 skills**, **15 custom agents**, **15 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 The target loop is:
 
@@ -97,12 +97,24 @@ If a tool is missing, skills and agents skip that check where possible. For team
 
 Tavily/Exa MCP keys are not stored in this repository. The installer config first reads `TAVILY_API_KEY` and `EXA_API_KEY` from the environment, then falls back to existing `tavily`/`exa` entries in `~/.mcp.json`.
 
+## Codex Plugin Structure
+
+This repository root is the Codex plugin root.
+
+| File | Role |
+|------|------|
+| `.codex-plugin/plugin.json` | Codex plugin manifest declaring `skills`, `hooks`, and `mcpServers` paths |
+| `.mcp.json` | MCP config for `mgrep`, Tavily, and Exa when installed as a plugin |
+| `.agents/plugins/marketplace.json` | Local marketplace. `source.path` points at this repo root, `./` |
+
+So the repo has Codex plugin metadata for distribution, while `install.sh` still copies and registers the same harness into the current `~/.codex` layout.
+
 ## Installed Layout
 
 ```text
 ~/.codex/
 ├── config.toml                         # managed features, skills, hooks, agents
-├── skills/                             # 36 Codex skills
+├── skills/                             # 39 Codex skills
 ├── agents/                             # 15 custom agent TOML files
 ├── hooks/                              # 15 lifecycle hook scripts
 ├── rules/                              # Git/workflow rules
@@ -163,7 +175,7 @@ The harness does not recreate what Codex already provides.
 
 No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `$verify`.
 
-## 36 Skills
+## 39 Skills
 
 | Skill | Use case |
 |-------|----------|
@@ -175,7 +187,7 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `$build-fix`, `$tdd`, `$e2e-verify`, `$e2e-agent-browser` | Build recovery, TDD, and E2E verification |
 | `$frontend`, `$ui-ux-pro-max`, `$react-patterns`, `$shadcn-ui`, `$tailwind-design-system` | UI, React, Tailwind, and design systems |
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | Harness diagnostics, audit, and quality evaluation |
-| Technical skills | FastAPI, API design, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana |
+| Technical skills | FastAPI, API design, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, layered plan memory |
 
 ## 15 Custom Agents
 

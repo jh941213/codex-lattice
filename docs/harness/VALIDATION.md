@@ -41,3 +41,21 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no visual OCR or manual image inspection tool was run.
 - evidence: `assets/codex-harness-hero.png` is a PNG image, 1672 x 941 pixels, 8-bit RGB, 1.6 MB; integration checker reports required/recommended tools available; gitleaks found no leaks.
+
+### 2026-05-14T07:06:56Z
+- task: reconcile repository contents with the current local Codex harness install and plugin packaging.
+- commands:
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json`
+  - `CODEX_HOME=/tmp/my-codex-harness-install-test bash install.sh --ko`
+  - `rg -c '^\\[\\[skills\\.config\\]\\]' /tmp/my-codex-harness-install-test/config.toml`
+  - `find /tmp/my-codex-harness-install-test/skills -mindepth 1 -maxdepth 1 -type d`
+  - `find /tmp/my-codex-harness-install-test/agents -maxdepth 1 -name '*.toml'`
+  - `comm -3 <local harness skill list> <repo skill list>`
+  - `bash scripts/check-codex-integrations.sh`
+  - `shellcheck install.sh hooks/*.sh scripts/*.sh`
+  - `shfmt -d install.sh hooks/*.sh scripts/*.sh`
+  - `git diff --check`
+  - `gitleaks detect --source . --no-git --redact --no-banner`
+- result: pass.
+- skipped: did not install the repo as a Codex plugin cache entry; validated plugin manifest/marketplace/MCP JSON shape locally instead.
+- evidence: clean temp install produced 39 skill config entries, 39 skill directories, and 15 agent TOML files; local active harness skill list matches repo `skills/`; JSON, shell lint/format, integration checks, whitespace checks, and secret scan passed.

@@ -103,17 +103,19 @@ fi
 CONFIG_FILE="$CODEX_HOME/config.toml"
 touch "$CONFIG_FILE"
 
-python3 - "$CONFIG_FILE" "$CODEX_HOME" <<'PY'
+python3 - "$CONFIG_FILE" "$CODEX_HOME" "$SRC_DIR" "$SKILLS_SRC" <<'PY'
 import sys
 from pathlib import Path
 
 path = Path(sys.argv[1]).expanduser()
 codex_home = Path(sys.argv[2]).expanduser()
+src_dir = Path(sys.argv[3]).expanduser()
+skills_src = sys.argv[4]
 text = path.read_text(encoding="utf-8") if path.exists() else ""
 start = "# >>> my-codex-harness >>>"
 end = "# <<< my-codex-harness <<<"
 
-skill_root = codex_home / "skills"
+skill_root = src_dir / skills_src
 skill_names = []
 if skill_root.exists():
     skill_names = sorted(
