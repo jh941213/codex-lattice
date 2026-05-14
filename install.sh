@@ -5,31 +5,15 @@
 
 set -euo pipefail
 
-LANG_CHOICE=""
-if [ "${1:-}" = "--en" ] || [ "${1:-}" = "--english" ]; then
-	LANG_CHOICE="en"
-elif [ "${1:-}" = "--ko" ] || [ "${1:-}" = "--korean" ]; then
-	LANG_CHOICE="ko"
-fi
+case "${1:-}" in
+--en | --english | --ko | --korean | "") ;;
+*)
+	echo "Usage: bash install.sh [--ko|--en]"
+	exit 2
+	;;
+esac
 
-if [ -z "$LANG_CHOICE" ]; then
-	echo ""
-	echo "Select language / 언어를 선택하세요:"
-	echo "  1) English"
-	echo "  2) 한국어 (Korean)"
-	echo ""
-	read -r -p "Enter choice (1 or 2): " lang_input
-	case "$lang_input" in
-	1 | en | english | EN | English) LANG_CHOICE="en" ;;
-	*) LANG_CHOICE="ko" ;;
-	esac
-fi
-
-if [ "$LANG_CHOICE" = "en" ]; then
-	echo "Starting My Codex Harness installation..."
-else
-	echo "My Codex Harness 설치 시작..."
-fi
+echo "My Codex Harness 설치 시작..."
 
 TEMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEMP_DIR"' EXIT
@@ -42,24 +26,12 @@ else
 fi
 
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-mkdir -p "$CODEX_HOME/skills" "$CODEX_HOME/hooks" "$CODEX_HOME/agents" "$CODEX_HOME/scripts" "$CODEX_HOME/agent-instructions/my-codex-harness"
-
-if [ "$LANG_CHOICE" = "en" ]; then
-	AGENTS_SRC="agents_en"
-	SKILLS_SRC="skills_en"
-	RULES_SRC="rules_en"
-	TEAM_ROLES_SRC="team-roles_en"
-else
-	AGENTS_SRC="agents"
-	SKILLS_SRC="skills"
-	RULES_SRC="rules"
-	TEAM_ROLES_SRC="team-roles"
-fi
+mkdir -p "$CODEX_HOME/skills" "$CODEX_HOME/hooks" "$CODEX_HOME/agents" "$CODEX_HOME/scripts" "$CODEX_HOME/rules"
 
 echo "Copying Codex skills, hooks, rules, and sub-agent config..."
 
-if [ -d "$SRC_DIR/$SKILLS_SRC" ]; then
-	cp -R "$SRC_DIR/$SKILLS_SRC/"* "$CODEX_HOME/skills/" 2>/dev/null || true
+if [ -d "$SRC_DIR/skills" ]; then
+	cp -R "$SRC_DIR/skills/"* "$CODEX_HOME/skills/" 2>/dev/null || true
 fi
 
 if [ -d "$SRC_DIR/hooks" ]; then
@@ -72,17 +44,8 @@ if [ -d "$SRC_DIR/scripts" ]; then
 	chmod +x "$CODEX_HOME/scripts/check-codex-integrations.sh" 2>/dev/null || true
 fi
 
-if [ -d "$SRC_DIR/$AGENTS_SRC" ]; then
-	cp "$SRC_DIR/$AGENTS_SRC/"*.md "$CODEX_HOME/agent-instructions/my-codex-harness/" 2>/dev/null || true
-fi
-
-if [ -d "$SRC_DIR/$TEAM_ROLES_SRC" ]; then
-	cp "$SRC_DIR/$TEAM_ROLES_SRC/bezos.md" "$CODEX_HOME/agent-instructions/my-codex-harness/bezos-qa.md" 2>/dev/null || true
-fi
-
-if [ -d "$SRC_DIR/$RULES_SRC" ]; then
-	mkdir -p "$CODEX_HOME/rules"
-	cp "$SRC_DIR/$RULES_SRC/"*.md "$CODEX_HOME/rules/" 2>/dev/null || true
+if [ -d "$SRC_DIR/rules" ]; then
+	cp "$SRC_DIR/rules/"*.md "$CODEX_HOME/rules/" 2>/dev/null || true
 fi
 
 if [ -d "$SRC_DIR/.codex/agents" ]; then
@@ -103,19 +66,18 @@ fi
 CONFIG_FILE="$CODEX_HOME/config.toml"
 touch "$CONFIG_FILE"
 
-python3 - "$CONFIG_FILE" "$CODEX_HOME" "$SRC_DIR" "$SKILLS_SRC" <<'PY'
+python3 - "$CONFIG_FILE" "$CODEX_HOME" "$SRC_DIR" <<'PY'
 import sys
 from pathlib import Path
 
 path = Path(sys.argv[1]).expanduser()
 codex_home = Path(sys.argv[2]).expanduser()
 src_dir = Path(sys.argv[3]).expanduser()
-skills_src = sys.argv[4]
 text = path.read_text(encoding="utf-8") if path.exists() else ""
 start = "# >>> my-codex-harness >>>"
 end = "# <<< my-codex-harness <<<"
 
-skill_root = src_dir / skills_src
+skill_root = src_dir / "skills"
 skill_names = []
 if skill_root.exists():
     skill_names = sorted(
@@ -277,7 +239,7 @@ text = ensure_table(text, "agents", {"max_threads": "6", "max_depth": "1", "job_
 
 agents = [
     ("planner", "복잡한 기능 구현이나 리팩토링을 위한 전문 계획 수립 에이전트.", "./agents/planner.toml", ["planner", "plan-reviewer"]),
-    ("architect", "아키텍처, 모듈 경계, 의존성 방향을 검토하는 설계 에이전트.", "./agents/architect.toml", ["architect", "pichai"]),
+    ("architect", "아키텍처, 모듈 경계, 의존성 방향을 검토하는 설계 에이전트.", "./agents/architect.toml", ["architect", "architecture-reviewer"]),
     ("frontend_developer", "프론트엔드 UI, React, 접근성, UX 구현을 담당하는 에이전트.", "./agents/frontend-developer.toml", ["frontend", "ui-builder"]),
     ("junior_mentor", "초보 개발자가 구현 내용을 이해하도록 쉬운 설명과 학습 문서를 만드는 멘토 에이전트.", "./agents/junior-mentor.toml", ["junior", "mentor", "junior-mentor"]),
     ("langchain_specialist", "LangChain, LangGraph, Deep Agents 프로젝트의 프레임워크 선택과 구현 전략을 돕는 에이전트.", "./agents/langchain-specialist.toml", ["langchain", "langgraph", "deep-agents"]),
@@ -285,8 +247,8 @@ agents = [
     ("code_reviewer", "변경사항의 버그, 회귀, 보안 위험, 테스트 누락을 찾는 코드 리뷰 에이전트.", "./agents/code-reviewer.toml", ["reviewer", "code-reviewer"]),
     ("security_reviewer", "보안, 비밀정보, 입력 검증, 의존성 위험을 검토하는 에이전트.", "./agents/security-reviewer.toml", ["security", "security-reviewer"]),
     ("azure_infra", "Azure CLI 기반 인프라 산정, 리소스 검토, 운영, 모니터링을 담당하는 에이전트.", "./agents/azure-infra.toml", ["azure", "azure-infra", "azops", "cloudops"]),
-    ("qa", "검증, 테스트 시나리오, 사용자 관점 품질 게이트를 담당하는 QA 에이전트.", "./agents/bezos-qa.toml", ["qa", "bezos"]),
-    ("evaluator", "작업 결과를 독립적으로 평가하고 개선 루프를 제안하는 에이전트.", "./agents/evaluator-musk.toml", ["evaluator", "musk"]),
+    ("qa", "검증, 테스트 시나리오, 사용자 관점 품질 게이트를 담당하는 QA 에이전트.", "./agents/qa.toml", ["qa", "quality-reviewer"]),
+    ("evaluator", "작업 결과를 독립적으로 평가하고 개선 루프를 제안하는 에이전트.", "./agents/evaluator.toml", ["evaluator", "quality-evaluator"]),
     ("docs_writer", "변경사항에 맞춰 문서와 인계 내용을 정리하는 에이전트.", "./agents/docs-writer.toml", ["docs", "docs-writer"]),
     ("docs_maintainer", "코딩 작업 중 생성된 docs/harness 문서를 최신 구현과 동기화하는 에이전트.", "./agents/docs-maintainer.toml", ["docs-maintainer", "doc-sync"]),
     ("tdd_guide", "테스트 우선 개발과 테스트 설계를 돕는 에이전트.", "./agents/tdd-guide.toml", ["tdd", "test-guide"]),
@@ -300,10 +262,5 @@ text = text.rstrip() + "\n\n" + block + "\n"
 path.write_text(text, encoding="utf-8")
 PY
 
-if [ "$LANG_CHOICE" = "en" ]; then
-	echo "Installation complete. Restart Codex for config changes to load."
-	echo "Installed: skills, hooks, rules, sub-agent config, and managed config.toml block."
-else
-	echo "설치 완료. config 변경을 로드하려면 Codex를 재시작하세요."
-	echo "설치 항목: skills, hooks, rules, sub-agent config, config.toml 관리 블록."
-fi
+echo "설치 완료. config 변경을 로드하려면 Codex를 재시작하세요."
+echo "설치 항목: skills, hooks, rules, sub-agent config, config.toml 관리 블록."

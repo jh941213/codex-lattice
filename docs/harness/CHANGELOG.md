@@ -12,3 +12,6 @@
 - Added a Codex-generated README hero image and wired it into the Korean and English README files.
 - Synced repo skills with the current local harness skill list: `codex-image`, `microsoft-agent-framework`, and `plan-memory-hierarchy`.
 - Added plugin MCP metadata for `mgrep`, Tavily, and Exa, and constrained installer skill registration to repo-provided skills.
+- Rebuilt the repo layout around Codex-native installed surfaces only: `skills/`, `.codex/agents/*.toml`, `hooks/`, `rules/`, plugin metadata, MCP config, installer, and docs.
+- Removed duplicate language-specific install trees, Markdown role-agent copies, and old role source folders.
+- Renamed custom agent config files to neutral Codex-native names: `qa.toml` and `evaluator.toml`.

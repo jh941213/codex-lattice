@@ -10,6 +10,7 @@
 - [x] Add Tavily and Exa MCP search routing with env/`~/.mcp.json` credential fallback.
 - [x] Generate a Codex README hero image and include it in Korean and English README files.
 - [x] Reconcile repo skills and plugin metadata with the current local Codex harness install.
+- [x] Rebuild the repository layout to remove legacy Markdown agent, duplicate language tree, and old role artifacts.
 
 ## Status Legend
 

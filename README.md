@@ -8,7 +8,7 @@
 
 **Codex를 팀 단위 개발 루프처럼 굴리기 위한 설치형 하네스**
 
-[![Version](https://img.shields.io/badge/version-1.2.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.3.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
 [![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#custom-agents-15개)
@@ -119,7 +119,6 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ├── hooks/                              # 15개 lifecycle hook 스크립트
 ├── rules/                              # Git/workflow 규칙
 ├── scripts/check-codex-integrations.sh # 설치 검증 스크립트
-└── agent-instructions/my-codex-harness/
 ```
 
 프로젝트별 런타임 로그는 작업 중인 저장소의 `.codex-harness/` 아래에 쌓입니다.
@@ -208,6 +207,8 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `docs_maintainer` | `docs/harness/`를 실제 diff와 동기화 |
 | `tdd_guide` | 테스트 우선 설계 |
 | `stitch_developer` | Stitch 산출물의 React 변환 |
+
+Custom agent는 `.codex/agents/*.toml`만 사용합니다. Markdown role 파일은 설치하지 않습니다.
 
 ## 첫 실행 체크
 

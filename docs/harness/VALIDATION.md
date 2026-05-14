@@ -59,3 +59,24 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: did not install the repo as a Codex plugin cache entry; validated plugin manifest/marketplace/MCP JSON shape locally instead.
 - evidence: clean temp install produced 39 skill config entries, 39 skill directories, and 15 agent TOML files; local active harness skill list matches repo `skills/`; JSON, shell lint/format, integration checks, whitespace checks, and secret scan passed.
+
+### 2026-05-14T07:14:55Z
+- task: rebuild repository layout to remove legacy role-agent folders and duplicate install trees.
+- commands:
+  - `find . -maxdepth 2 -type d`
+  - `find .codex/agents -maxdepth 1 -type f`
+  - `rg <legacy-harness-patterns> . --glob '!/.git/**' --glob '!skills/microsoft-agent-framework/**' --glob '!assets/codex-harness-hero.png'`
+  - `CODEX_HOME=/tmp/my-codex-harness-clean-test bash install.sh --ko`
+  - parse `/tmp/my-codex-harness-clean-test/config.toml` with Python `tomllib`
+  - count temp install skills, agent TOML files, and agent Markdown files
+  - `bash install.sh --ko`
+  - parse `~/.codex/config.toml` with Python `tomllib`
+  - `bash scripts/check-codex-integrations.sh`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json`
+  - `shellcheck install.sh hooks/*.sh scripts/*.sh`
+  - `shfmt -d install.sh hooks/*.sh scripts/*.sh`
+  - `git diff --check`
+  - `gitleaks detect --source . --no-git --redact --no-banner`
+- result: pass.
+- skipped: Microsoft Agent Framework reference docs were excluded from legacy-string scanning because they are upstream framework docs, not harness structure.
+- evidence: repo root now contains no duplicate language install trees or Markdown role-agent folders; custom agents are 15 TOML files under `.codex/agents`; clean temp install produced 39 skills, 15 agent TOML files, 0 agent Markdown files, and no old instruction directory; local `~/.codex` now has 15 agent TOML files, 0 agent Markdown files, and no old instruction directory; legacy-string scan found no matches outside excluded upstream docs; JSON/TOML, shell lint/format, whitespace, integration, and secret scans passed.

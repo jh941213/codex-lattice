@@ -17,7 +17,7 @@ Restart Codex after installation so `~/.codex/config.toml` is reloaded.
 - `~/.codex/skills/`: bundled skills
 - `~/.codex/hooks/codex-*.sh`: lifecycle hooks
 - `~/.codex/agents/`: Codex custom agent TOML files
-- `~/.codex/agent-instructions/my-codex-harness/`: Markdown role instruction notes for reference
+- `.codex/agents/*.toml`: Codex-native custom agent configuration. Markdown role files are intentionally not installed.
 - `~/.codex/config.toml`: managed Codex config entries
 - `~/.codex/harness/model-visible/AZURE_INFRA_MEMORY.md`: Azure infrastructure memory template
 

@@ -173,4 +173,4 @@ security_reviewer: 시크릿, 권한, 입력 검증
 ```
 
 프롬프트에는 Codex custom agent 이름과 파일 소유권을 명확히 포함한다.
-팀 역할 문서는 설치 시 `~/.codex/agent-instructions/my-codex-harness/`에 보관된다.
+팀 역할 Markdown 문서는 설치하지 않는다. 병렬 작업 역할은 Codex-native `.codex/agents/*.toml` custom agent 설정을 따른다.

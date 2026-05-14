@@ -3,7 +3,7 @@ description = "검증, 테스트 시나리오, 사용자 관점 품질 게이트
 model = "gpt-5.4"
 model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
-nickname_candidates = ["qa", "bezos"]
+nickname_candidates = ["qa", "quality-reviewer"]
 developer_instructions = """
 You are a QA sub-agent with a customer-first bias.
 Turn acceptance criteria into concrete test scenarios, boundary cases, and verification commands.

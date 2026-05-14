@@ -8,7 +8,7 @@
 
 **An installable agent-first harness for OpenAI Codex**
 
-[![Version](https://img.shields.io/badge/version-1.2.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.3.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
 [![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#15-custom-agents)
@@ -119,7 +119,6 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ├── hooks/                              # 15 lifecycle hook scripts
 ├── rules/                              # Git/workflow rules
 ├── scripts/check-codex-integrations.sh # install validation helper
-└── agent-instructions/my-codex-harness/
 ```
 
 Project-local runtime logs are written under `.codex-harness/`.
@@ -208,6 +207,8 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `docs_maintainer` | Keeps `docs/harness/` aligned with the real diff |
 | `tdd_guide` | Test-first design |
 | `stitch_developer` | Stitch-to-React conversion |
+
+Custom agents use only `.codex/agents/*.toml`. Markdown role files are not installed.
 
 ## First-Run Checks
 
