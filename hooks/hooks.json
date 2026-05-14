@@ -1,0 +1,143 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh SessionStart",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-visible-error-reminder.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "UserPromptSubmit": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh UserPromptSubmit",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-git-strategy-log.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PreToolUse": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh PreToolUse",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "exec_command",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-git-guard.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh PostToolUse",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-major-error-log.sh",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-docs-sync-log.sh",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "exec_command",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-commit-log.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PermissionRequest": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh PermissionRequest",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PreCompact": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh PreCompact",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PostCompact": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh PostCompact",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-visible-error-reminder.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "Stop": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash ~/.codex/hooks/codex-event-log.sh Stop",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

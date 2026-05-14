@@ -1,0 +1,41 @@
+{
+  "name": "my-codex-harness",
+  "version": "1.2.0",
+  "description": "Codex용 에이전트 하네스. skills, custom agents, /goal 정책, Git 전략 로그, 작업 로그, 주요 에러 가시화 훅, Azure Infra memory를 포함합니다.",
+  "author": {
+    "name": "Community Contributors"
+  },
+  "homepage": "https://github.com/jh941213/my-codex-harness",
+  "repository": "https://github.com/jh941213/my-codex-harness",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "harness",
+    "skills",
+    "hooks",
+    "git-strategy",
+    "audit-log",
+    "azure"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "My Codex Harness",
+    "shortDescription": "Codex 작업 로그와 Git 전략을 강제하는 하네스",
+    "longDescription": "매 작업마다 Git 전략을 남기고, 장기 작업은 Codex /goal에 연결하며, 커밋 후보 로그와 전체 작업 이벤트 로그, 모델이 다시 읽을 수 있는 주요 에러 로그, Azure Infra memory, docs/harness 동기화 큐를 관리합니다.",
+    "developerName": "Community Contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/jh941213/my-codex-harness",
+    "brandColor": "#10A37F",
+    "composerIcon": "./assets/lilysTextLogo.svg",
+    "logo": "./assets/lilysTextLogo.svg",
+    "defaultPrompt": [
+      "Use My Codex Harness to plan the Git strategy before changing files.",
+      "Use My Codex Harness to check model-visible major error logs before retrying failed work."
+    ]
+  }
+}

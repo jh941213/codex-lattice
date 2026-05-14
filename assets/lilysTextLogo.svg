@@ -1,0 +1,9 @@
+<svg width="720" height="240" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">lilysTextLogo</title>
+  <desc id="desc">Text logo for the Codex harness plugin.</desc>
+  <rect width="720" height="240" rx="40" fill="#0B0F14"/>
+  <path d="M93 70C117 70 136 89 136 113C136 146 106 169 83 182C60 169 30 146 30 113C30 89 49 70 73 70C77 70 81 71 85 72C88 73 91 74 93 70Z" fill="#10A37F"/>
+  <path d="M83 54C91 75 91 98 83 119C75 98 75 75 83 54Z" fill="#DFFBF0"/>
+  <text x="170" y="124" fill="#F6F8FA" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="700">Lily's Codex Harness</text>
+  <text x="174" y="165" fill="#8EA3B0" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">git strategy · audit logs · visible error memory</text>
+</svg>

@@ -1,0 +1,20 @@
+{
+  "name": "my-codex-harness-marketplace",
+  "interface": {
+    "displayName": "My Codex Harness"
+  },
+  "plugins": [
+    {
+      "name": "my-codex-harness",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
