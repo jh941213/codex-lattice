@@ -8,6 +8,7 @@
 - [x] Add Azure Infra custom agent with Azure CLI, cost review, operations monitoring, and memory rules.
 - [x] Verify search/lint/security tooling coverage including `mgrep`, `rg`, `sg`, `semgrep`, `gitleaks`, `shellcheck`, `shfmt`, and `az`.
 - [x] Add Tavily and Exa MCP search routing with env/`~/.mcp.json` credential fallback.
+- [x] Generate a Codex README hero image and include it in Korean and English README files.
 
 ## Status Legend
 

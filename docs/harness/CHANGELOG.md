@@ -9,3 +9,4 @@
 - Added integration coverage for `mgrep`, `ripgrep`, `ast-grep`, `semgrep`, `gitleaks`, `scc`, `shellcheck`, `shfmt`, `osv-scanner`, and `azure-cli`.
 - Documented `mgrep install-codex` sync behavior so users can decide whether semantic search is appropriate for sensitive repositories.
 - Added Tavily and Exa MCP config for web search/research. The config reads API keys from environment variables first, then falls back to existing `~/.mcp.json` entries.
+- Added a Codex-generated README hero image and wired it into the Korean and English README files.

@@ -16,6 +16,8 @@
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
 
+<img src="assets/codex-harness-hero.png" alt="My Codex Harness hero illustration" width="880" />
+
 </div>
 
 ---
