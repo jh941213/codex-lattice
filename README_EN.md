@@ -8,10 +8,10 @@
 
 **An installable agent-first harness for OpenAI Codex**
 
-[![Version](https://img.shields.io/badge/version-1.3.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.3.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
-[![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#15-custom-agents)
+[![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-15-111827.svg?style=for-the-badge)](#always-on-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
@@ -24,7 +24,7 @@
 
 ## What This Is
 
-This repository installs a Codex harness with **39 skills**, **15 custom agents**, **15 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+This repository installs a Codex harness with **39 skills**, **14 custom agents**, **15 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 The target loop is:
 
@@ -115,7 +115,7 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ~/.codex/
 ├── config.toml                         # managed features, skills, hooks, agents
 ├── skills/                             # 39 Codex skills
-├── agents/                             # 15 custom agent TOML files
+├── agents/                             # 14 custom agent TOML files
 ├── hooks/                              # 15 lifecycle hook scripts
 ├── rules/                              # Git/workflow rules
 ├── scripts/check-codex-integrations.sh # install validation helper
@@ -188,7 +188,7 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | Harness diagnostics, audit, and quality evaluation |
 | Technical skills | FastAPI, API design, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, layered plan memory |
 
-## 15 Custom Agents
+## 14 Custom Agents
 
 | Agent | Role |
 |-------|------|
@@ -196,7 +196,6 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `architect` | Module boundaries, dependency direction, migration risks |
 | `frontend_developer` | UI, React, accessibility, responsive implementation |
 | `junior_mentor` | Beginner-friendly implementation notes |
-| `langchain_specialist` | LangChain, LangGraph, and Deep Agents strategy |
 | `prd_planner` | CPS, PRD, and SPEC synthesis |
 | `code_reviewer` | Bugs, regressions, missing tests, structural diff review |
 | `security_reviewer` | Secrets, authorization, input validation, dependency security |

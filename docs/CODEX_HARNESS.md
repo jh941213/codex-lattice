@@ -68,7 +68,6 @@ Before finalizing coding work, reconcile these docs with `git diff`; use `docs_m
 - `architect`: module boundaries, dependencies, migration risk.
 - `frontend_developer`: React/TypeScript/Tailwind UI implementation.
 - `junior_mentor`: beginner-friendly learning notes for implemented work.
-- `langchain_specialist`: LangChain, LangGraph, and Deep Agents framework strategy.
 - `prd_planner`: CPS/PRD/SPEC planning synthesis.
 - `code_reviewer`: correctness, regressions, missing tests.
 - `security_reviewer`: secrets, auth, input validation, dependency risk.

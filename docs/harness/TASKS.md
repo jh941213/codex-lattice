@@ -11,6 +11,7 @@
 - [x] Generate a Codex README hero image and include it in Korean and English README files.
 - [x] Reconcile repo skills and plugin metadata with the current local Codex harness install.
 - [x] Rebuild the repository layout to remove legacy Markdown agent, duplicate language tree, and old role artifacts.
+- [x] Remove the LangChain framework specialist from custom agents.
 
 ## Status Legend
 

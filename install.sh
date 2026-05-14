@@ -242,7 +242,6 @@ agents = [
     ("architect", "아키텍처, 모듈 경계, 의존성 방향을 검토하는 설계 에이전트.", "./agents/architect.toml", ["architect", "architecture-reviewer"]),
     ("frontend_developer", "프론트엔드 UI, React, 접근성, UX 구현을 담당하는 에이전트.", "./agents/frontend-developer.toml", ["frontend", "ui-builder"]),
     ("junior_mentor", "초보 개발자가 구현 내용을 이해하도록 쉬운 설명과 학습 문서를 만드는 멘토 에이전트.", "./agents/junior-mentor.toml", ["junior", "mentor", "junior-mentor"]),
-    ("langchain_specialist", "LangChain, LangGraph, Deep Agents 프로젝트의 프레임워크 선택과 구현 전략을 돕는 에이전트.", "./agents/langchain-specialist.toml", ["langchain", "langgraph", "deep-agents"]),
     ("prd_planner", "제품 아이디어를 CPS, PRD, SPEC, 리스크, 기능 문서로 합성하는 기획 에이전트.", "./agents/prd-planner.toml", ["prd", "prd-planner", "product-planner"]),
     ("code_reviewer", "변경사항의 버그, 회귀, 보안 위험, 테스트 누락을 찾는 코드 리뷰 에이전트.", "./agents/code-reviewer.toml", ["reviewer", "code-reviewer"]),
     ("security_reviewer", "보안, 비밀정보, 입력 검증, 의존성 위험을 검토하는 에이전트.", "./agents/security-reviewer.toml", ["security", "security-reviewer"]),

@@ -80,3 +80,24 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: Microsoft Agent Framework reference docs were excluded from legacy-string scanning because they are upstream framework docs, not harness structure.
 - evidence: repo root now contains no duplicate language install trees or Markdown role-agent folders; custom agents are 15 TOML files under `.codex/agents`; clean temp install produced 39 skills, 15 agent TOML files, 0 agent Markdown files, and no old instruction directory; local `~/.codex` now has 15 agent TOML files, 0 agent Markdown files, and no old instruction directory; legacy-string scan found no matches outside excluded upstream docs; JSON/TOML, shell lint/format, whitespace, integration, and secret scans passed.
+
+### 2026-05-14T08:01:56Z
+- task: remove the LangChain framework specialist from Codex custom agents.
+- commands:
+  - `find .codex/agents -maxdepth 1 -type f`
+  - `rg <removed-agent-and-old-count-patterns> README.md README_EN.md install.sh docs .codex/agents .codex-plugin/plugin.json`
+  - `CODEX_HOME=/tmp/my-codex-harness-agent-test bash install.sh --ko`
+  - parse `/tmp/my-codex-harness-agent-test/config.toml` with Python `tomllib`
+  - count temp install agent TOML files
+  - apply install to local `~/.codex`
+  - parse `~/.codex/config.toml` with Python `tomllib`
+  - count local agent TOML files
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json`
+  - `shellcheck install.sh hooks/*.sh scripts/*.sh`
+  - `shfmt -d install.sh hooks/*.sh scripts/*.sh`
+  - `git diff --check`
+  - `bash scripts/check-codex-integrations.sh`
+  - `gitleaks detect --source . --no-git --redact --no-banner`
+- result: pass.
+- skipped: no skill was removed; only the custom agent registration was removed.
+- evidence: repo custom agents are 14 TOML files; temp install produces 14 agent TOML files; local `~/.codex` has 14 agent TOML files after reinstall; README badges/counts and installer registration no longer reference the removed custom agent; JSON/TOML, shell lint/format, whitespace, integration, and secret scans passed.

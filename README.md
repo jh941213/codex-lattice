@@ -8,10 +8,10 @@
 
 **Codex를 팀 단위 개발 루프처럼 굴리기 위한 설치형 하네스**
 
-[![Version](https://img.shields.io/badge/version-1.3.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.3.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
-[![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#custom-agents-15개)
+[![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#custom-agents-14개)
 [![Hooks](https://img.shields.io/badge/hooks-15-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
@@ -24,7 +24,7 @@
 
 ## 한 줄 요약
 
-이 저장소는 OpenAI Codex에 **39개 skills**, **15개 custom agents**, **15개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
+이 저장소는 OpenAI Codex에 **39개 skills**, **14개 custom agents**, **15개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
 
 결과적으로 Codex가 매 작업마다 다음 루프를 따르게 됩니다.
 
@@ -115,7 +115,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ~/.codex/
 ├── config.toml                         # features, skills, hooks, agents 관리 블록
 ├── skills/                             # 39개 Codex skills
-├── agents/                             # 15개 custom agent TOML
+├── agents/                             # 14개 custom agent TOML
 ├── hooks/                              # 15개 lifecycle hook 스크립트
 ├── rules/                              # Git/workflow 규칙
 ├── scripts/check-codex-integrations.sh # 설치 검증 스크립트
@@ -188,7 +188,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | 하네스 점검, 감사, 품질 평가 |
 | 기술 스킬 | FastAPI, API 설계, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, 계층형 plan memory |
 
-## Custom Agents 15개
+## Custom Agents 14개
 
 | Agent | 역할 |
 |-------|------|
@@ -196,7 +196,6 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `architect` | 모듈 경계, 의존성 방향, 마이그레이션 위험 검토 |
 | `frontend_developer` | UI, React, 접근성, 반응형 구현 |
 | `junior_mentor` | 초보 개발자가 이해할 수 있는 구현 설명과 학습 문서 |
-| `langchain_specialist` | LangChain, LangGraph, Deep Agents 전략 |
 | `prd_planner` | CPS, PRD, SPEC 기획 산출물 합성 |
 | `code_reviewer` | 버그, 회귀, 테스트 누락, 구조적 diff 리뷰 |
 | `security_reviewer` | 시크릿, 권한, 입력 검증, 의존성 보안 |

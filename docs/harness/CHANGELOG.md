@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Published clean Codex-only harness layout.
-- Added Codex plugin metadata, 39 skills, 15 custom agents, 15 lifecycle hooks, rules, installer, and integration checker.
+- Added Codex plugin metadata, 39 skills, 14 custom agents, 15 lifecycle hooks, rules, installer, and integration checker.
 - Added always-on Git strategy logging, hidden event logging, commit metadata logging, major-error memory, Azure Infra memory, and docs sync queue behavior.
 - Added Azure Infra agent for Azure CLI based sizing, resource review, operations monitoring, cost/security/reliability analysis, and memory updates.
 - Added integration coverage for `mgrep`, `ripgrep`, `ast-grep`, `semgrep`, `gitleaks`, `scc`, `shellcheck`, `shfmt`, `osv-scanner`, and `azure-cli`.
@@ -15,3 +15,4 @@
 - Rebuilt the repo layout around Codex-native installed surfaces only: `skills/`, `.codex/agents/*.toml`, `hooks/`, `rules/`, plugin metadata, MCP config, installer, and docs.
 - Removed duplicate language-specific install trees, Markdown role-agent copies, and old role source folders.
 - Renamed custom agent config files to neutral Codex-native names: `qa.toml` and `evaluator.toml`.
+- Removed the LangChain framework specialist from custom agents; framework guidance remains available through skills and direct documentation lookup.
