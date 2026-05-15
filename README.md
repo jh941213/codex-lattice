@@ -2,13 +2,13 @@
 
 **🌐 [English](README_EN.md) | 한국어**
 
-<img src="assets/lilysTextLogo.svg" alt="My Codex Harness" width="96" />
+<img src="assets/lilysTextLogo.svg" alt="Codex Lattice" width="96" />
 
-# My Codex Harness
+# Codex Lattice
 
 **Codex를 팀 단위 개발 루프처럼 굴리기 위한 설치형 하네스**
 
-[![Version](https://img.shields.io/badge/version-1.3.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.4.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#custom-agents-14개)
@@ -16,7 +16,7 @@
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
 
-<img src="assets/codex-harness-hero.png" alt="My Codex Harness hero illustration" width="880" />
+<img src="assets/codex-lattice-hero.png" alt="Codex Lattice hero illustration" width="880" />
 
 </div>
 
@@ -37,8 +37,8 @@
 macOS와 Homebrew 기준입니다.
 
 ```bash
-git clone https://github.com/jh941213/my-codex-harness.git
-cd my-codex-harness
+git clone https://github.com/jh941213/codex-lattice.git
+cd codex-lattice
 
 # 코드 검색, 구조적 diff, 시크릿 스캔, 쉘 검증 도구 설치
 brew bundle --file Brewfile.codex
@@ -88,6 +88,7 @@ bash install.sh --ko
 | `scc` | 코드 통계와 복잡도 분석 |
 | `shellcheck`, `shfmt` | hook/install 스크립트 품질 검증 |
 | `osv-scanner` | 의존성 취약점 확인 |
+| `uv`, `ruff`, `pnpm` | Python/Node 프로젝트 검증과 빠른 로컬 툴 실행 |
 | `git-delta` | diff 가독성 개선 |
 | `az` (`azure-cli`) | Azure 리소스 검토, 비용 산정, 운영 모니터링 |
 
@@ -121,10 +122,10 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ├── scripts/check-codex-integrations.sh # 설치 검증 스크립트
 ```
 
-프로젝트별 런타임 로그는 작업 중인 저장소의 `.codex-harness/` 아래에 쌓입니다.
+프로젝트별 런타임 로그는 작업 중인 저장소의 `.codex-lattice/` 아래에 쌓입니다.
 
 ```text
-.codex-harness/
+.codex-lattice/
 ├── git-strategy.md
 ├── logs/events.jsonl
 ├── commits/*.json

@@ -2,13 +2,13 @@
 
 **🌐 English | [한국어](README.md)**
 
-<img src="assets/lilysTextLogo.svg" alt="My Codex Harness" width="96" />
+<img src="assets/lilysTextLogo.svg" alt="Codex Lattice" width="96" />
 
-# My Codex Harness
+# Codex Lattice
 
 **An installable agent-first harness for OpenAI Codex**
 
-[![Version](https://img.shields.io/badge/version-1.3.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/my-codex-harness)
+[![Version](https://img.shields.io/badge/version-1.4.0-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
@@ -16,7 +16,7 @@
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
 
-<img src="assets/codex-harness-hero.png" alt="My Codex Harness hero illustration" width="880" />
+<img src="assets/codex-lattice-hero.png" alt="Codex Lattice hero illustration" width="880" />
 
 </div>
 
@@ -37,8 +37,8 @@ plan -> write Git strategy -> implement -> log events -> verify -> update docs/h
 The commands below assume macOS and Homebrew.
 
 ```bash
-git clone https://github.com/jh941213/my-codex-harness.git
-cd my-codex-harness
+git clone https://github.com/jh941213/codex-lattice.git
+cd codex-lattice
 
 # Code search, structural diff, secret scanning, shell validation
 brew bundle --file Brewfile.codex
@@ -88,6 +88,7 @@ Integration tools are installed through `Brewfile.codex`.
 | `scc` | Code statistics and complexity |
 | `shellcheck`, `shfmt` | Hook and installer shell quality |
 | `osv-scanner` | Dependency vulnerability checks |
+| `uv`, `ruff`, `pnpm` | Python/Node validation and fast local tool execution |
 | `git-delta` | More readable diffs |
 | `az` (`azure-cli`) | Azure resource review, cost estimation, operations monitoring |
 
@@ -121,10 +122,10 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ├── scripts/check-codex-integrations.sh # install validation helper
 ```
 
-Project-local runtime logs are written under `.codex-harness/`.
+Project-local runtime logs are written under `.codex-lattice/`.
 
 ```text
-.codex-harness/
+.codex-lattice/
 ├── git-strategy.md
 ├── logs/events.jsonl
 ├── commits/*.json

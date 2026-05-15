@@ -38,7 +38,7 @@ prompt = data.get("prompt") or data.get("user_prompt") or ""
 prompt = " ".join(str(prompt).split())[:240]
 ts = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-harness = cwd / ".codex-harness"
+harness = cwd / ".codex-lattice"
 harness.mkdir(parents=True, exist_ok=True)
 path = harness / "git-strategy.md"
 if not path.exists():

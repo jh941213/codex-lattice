@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Codex Harness Installer
-# https://github.com/jh941213/my-codex-harness
+# Codex Lattice Installer
+# https://github.com/jh941213/codex-lattice
 
 set -euo pipefail
 
@@ -13,7 +13,7 @@ case "${1:-}" in
 	;;
 esac
 
-echo "My Codex Harness 설치 시작..."
+echo "Codex Lattice 설치 시작..."
 
 TEMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TEMP_DIR"' EXIT
@@ -21,7 +21,7 @@ trap 'rm -rf "$TEMP_DIR"' EXIT
 if [ -d ".git" ] && [ -f ".codex-plugin/plugin.json" ]; then
 	SRC_DIR="$(pwd)"
 else
-	git clone --depth 1 https://github.com/jh941213/my-codex-harness.git "$TEMP_DIR"
+	git clone --depth 1 https://github.com/jh941213/codex-lattice.git "$TEMP_DIR"
 	SRC_DIR="$TEMP_DIR"
 fi
 
@@ -56,11 +56,11 @@ mkdir -p "$CODEX_HOME/harness/model-visible" "$CODEX_HOME/harness/logs" "$CODEX_
 if [ -f "$SRC_DIR/Brewfile.codex" ]; then
 	cp "$SRC_DIR/Brewfile.codex" "$CODEX_HOME/harness/Brewfile.codex" 2>/dev/null || true
 fi
-if [ -f "$SRC_DIR/.codex-harness/model-visible/MAJOR_ERRORS.md" ] && [ ! -f "$CODEX_HOME/harness/model-visible/MAJOR_ERRORS.md" ]; then
-	cp "$SRC_DIR/.codex-harness/model-visible/MAJOR_ERRORS.md" "$CODEX_HOME/harness/model-visible/MAJOR_ERRORS.md"
+if [ -f "$SRC_DIR/.codex-lattice/model-visible/MAJOR_ERRORS.md" ] && [ ! -f "$CODEX_HOME/harness/model-visible/MAJOR_ERRORS.md" ]; then
+	cp "$SRC_DIR/.codex-lattice/model-visible/MAJOR_ERRORS.md" "$CODEX_HOME/harness/model-visible/MAJOR_ERRORS.md"
 fi
-if [ -f "$SRC_DIR/.codex-harness/model-visible/AZURE_INFRA_MEMORY.md" ] && [ ! -f "$CODEX_HOME/harness/model-visible/AZURE_INFRA_MEMORY.md" ]; then
-	cp "$SRC_DIR/.codex-harness/model-visible/AZURE_INFRA_MEMORY.md" "$CODEX_HOME/harness/model-visible/AZURE_INFRA_MEMORY.md"
+if [ -f "$SRC_DIR/.codex-lattice/model-visible/AZURE_INFRA_MEMORY.md" ] && [ ! -f "$CODEX_HOME/harness/model-visible/AZURE_INFRA_MEMORY.md" ]; then
+	cp "$SRC_DIR/.codex-lattice/model-visible/AZURE_INFRA_MEMORY.md" "$CODEX_HOME/harness/model-visible/AZURE_INFRA_MEMORY.md"
 fi
 
 CONFIG_FILE="$CODEX_HOME/config.toml"
@@ -74,8 +74,13 @@ path = Path(sys.argv[1]).expanduser()
 codex_home = Path(sys.argv[2]).expanduser()
 src_dir = Path(sys.argv[3]).expanduser()
 text = path.read_text(encoding="utf-8") if path.exists() else ""
-start = "# >>> my-codex-harness >>>"
-end = "# <<< my-codex-harness <<<"
+start = "# >>> codex-lattice >>>"
+end = "# <<< codex-lattice <<<"
+legacy_name = "my-" + "codex-" + "harness"
+managed_markers = [
+    (start, end),
+    (f"# >>> {legacy_name} >>>", f"# <<< {legacy_name} <<<"),
+]
 
 skill_root = src_dir / "skills"
 skill_names = []
@@ -89,7 +94,7 @@ skill_entries = "\n".join(
     for name in skill_names
 )
 
-block = "# >>> my-codex-harness >>>\n" + skill_entries + """
+block = "# >>> codex-lattice >>>\n" + skill_entries + """
 [mcp_servers.tavily]
 command = "bash"
 args = ["-lc", "TAVILY_API_KEY=\\"${TAVILY_API_KEY:-$(jq -r '.mcpServers.tavily.env.TAVILY_API_KEY // empty' ~/.mcp.json 2>/dev/null)}\\"; export TAVILY_API_KEY; exec npx -y tavily-mcp"]
@@ -162,14 +167,15 @@ matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh Stop", timeout = 5 },
 ]
-# <<< my-codex-harness <<<
+# <<< codex-lattice <<<
 """
 
 def strip_managed_block(value: str) -> str:
-    if start in value and end in value:
-        before = value.split(start, 1)[0].rstrip()
-        after = value.split(end, 1)[1].lstrip()
-        return (before + "\n\n" if before else "") + after
+    for block_start, block_end in managed_markers:
+        while block_start in value and block_end in value:
+            before = value.split(block_start, 1)[0].rstrip()
+            after = value.split(block_end, 1)[1].lstrip()
+            value = (before + "\n\n" if before else "") + after
     return value
 
 def ensure_table(value: str, table: str, assignments: dict[str, str]) -> str:

@@ -1,7 +1,7 @@
-.codex-harness/logs/*.jsonl
-.codex-harness/commits/*.json
-.codex-harness/commits/*.md
-.codex-harness/docs-sync-queue.jsonl
+.codex-lattice/logs/*.jsonl
+.codex-lattice/commits/*.json
+.codex-lattice/commits/*.md
+.codex-lattice/docs-sync-queue.jsonl
 .compact-state/
 .DS_Store
 node_modules/

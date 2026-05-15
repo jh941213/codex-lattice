@@ -15,7 +15,7 @@ except json.JSONDecodeError:
     data = {}
 
 cwd = Path(data.get("cwd") or data.get("working_dir") or os.getcwd()).expanduser().resolve()
-path = cwd / ".codex-harness" / "model-visible" / "MAJOR_ERRORS.md"
+path = cwd / ".codex-lattice" / "model-visible" / "MAJOR_ERRORS.md"
 if not path.exists():
     raise SystemExit(0)
 

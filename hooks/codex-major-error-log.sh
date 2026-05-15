@@ -40,7 +40,7 @@ tool = data.get("tool_name") or data.get("tool") or tool_input.get("tool") or "u
 cmd = short(tool_input.get("cmd") or tool_input.get("command") or data.get("command"), 500)
 ts = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-visible_dir = cwd / ".codex-harness" / "model-visible"
+visible_dir = cwd / ".codex-lattice" / "model-visible"
 visible_dir.mkdir(parents=True, exist_ok=True)
 path = visible_dir / "MAJOR_ERRORS.md"
 if not path.exists():

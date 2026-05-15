@@ -58,11 +58,11 @@ Codex 세션에서 먼저 목표를 설정한다:
 # 1. autodev 브랜치 생성
 git checkout -b autodev/$(date +%Y%m%d-%H%M)
 
-# 2. .codex-harness/autodev/ 상태 디렉토리 생성
-mkdir -p .codex-harness/autodev
+# 2. .codex-lattice/autodev/ 상태 디렉토리 생성
+mkdir -p .codex-lattice/autodev
 
 # 3. 상태 파일 초기화
-cat > .codex-harness/autodev/state.json << 'STATE'
+cat > .codex-lattice/autodev/state.json << 'STATE'
 {
   "active": true,
   "iteration": 0,
@@ -76,11 +76,11 @@ cat > .codex-harness/autodev/state.json << 'STATE'
 }
 STATE
 
-# 4. .gitignore에 .codex-harness/autodev/ 추가
-echo ".codex-harness/autodev/" >> .gitignore
+# 4. .gitignore에 .codex-lattice/autodev/ 추가
+echo ".codex-lattice/autodev/" >> .gitignore
 
 # 5. 베이스라인 검증
-{verify} 2>&1 | tee .codex-harness/autodev/baseline.log
+{verify} 2>&1 | tee .codex-lattice/autodev/baseline.log
 ```
 
 ## Phase 2: 반복 실행 (매 세션)
@@ -110,7 +110,7 @@ echo ".codex-harness/autodev/" >> .gitignore
    - 성공 시:
      git add [specific-files]
      git commit -m "[autodev] {항목 요약}"
-     .codex-harness/commits/에 후보 로그 확인
+     .codex-lattice/commits/에 후보 로그 확인
    - PRD에서 해당 항목을 [x]로 체크
 
 6. CHECK COMPLETION
@@ -158,10 +158,10 @@ autodev/{tag} — main 머지 준비 완료
 
 `~/.codex/hooks/codex-*.sh`가 작업 이벤트를 기록한다:
 
-- `.codex-harness/logs/events.jsonl`: 이벤트 추적
-- `.codex-harness/git-strategy.md`: 반복 시작 시 Git 전략
-- `.codex-harness/model-visible/MAJOR_ERRORS.md`: 반복을 막는 주요 에러
-- `.codex-harness/docs-sync-queue.jsonl`: 문서 동기화 큐
+- `.codex-lattice/logs/events.jsonl`: 이벤트 추적
+- `.codex-lattice/git-strategy.md`: 반복 시작 시 Git 전략
+- `.codex-lattice/model-visible/MAJOR_ERRORS.md`: 반복을 막는 주요 에러
+- `.codex-lattice/docs-sync-queue.jsonl`: 문서 동기화 큐
 
 Codex hooks는 새 작업을 자동 주입하지 않는다. 다음 반복은 `/goal`이 붙은 같은 목표로 사용자가 재개하거나 별도 스케줄러가 Codex를 다시 호출해야 한다.
 

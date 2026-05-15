@@ -1,12 +1,12 @@
-# Codex Harness
+# Codex Lattice
 
 This repository now includes a Codex-native harness layer.
 
 ## Install
 
 ```bash
-git clone https://github.com/jh941213/my-codex-harness.git
-cd my-codex-harness
+git clone https://github.com/jh941213/codex-lattice.git
+cd codex-lattice
 bash install.sh --ko
 ```
 
@@ -41,14 +41,14 @@ Restart Codex after installation so `~/.codex/config.toml` is reloaded.
 
 ## Runtime Logs
 
-Project-local runtime files are written under `.codex-harness/`.
+Project-local runtime files are written under `.codex-lattice/`.
 
-- `.codex-harness/logs/events.jsonl`: hidden hook/event stream
-- `.codex-harness/git-strategy.md`: task-level Git strategy entries
-- `.codex-harness/commits/*.json`: commit metadata
-- `.codex-harness/commits/*.md`: human-readable commit log
-- `.codex-harness/model-visible/MAJOR_ERRORS.md`: blocking/repeated errors that the model should read
-- `.codex-harness/docs-sync-queue.jsonl`: changed-file queue for docs maintenance
+- `.codex-lattice/logs/events.jsonl`: hidden hook/event stream
+- `.codex-lattice/git-strategy.md`: task-level Git strategy entries
+- `.codex-lattice/commits/*.json`: commit metadata
+- `.codex-lattice/commits/*.md`: human-readable commit log
+- `.codex-lattice/model-visible/MAJOR_ERRORS.md`: blocking/repeated errors that the model should read
+- `.codex-lattice/docs-sync-queue.jsonl`: changed-file queue for docs maintenance
 
 ## Model-Visible Work Docs
 

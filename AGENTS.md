@@ -2,18 +2,18 @@
 
 Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한다.
 
-## Codex Harness Rules
+## Codex Lattice Rules
 - 매 작업 시작 시 이 문서를 기준으로 Git 전략을 먼저 정한다: 현재 브랜치, 변경 범위, 커밋 분리 기준, 검증 명령, 롤백 방식.
-- 작업 단위가 커밋 가능해지면 `.codex-harness/commits/`에 커밋 후보 로그를 남긴다.
-- 모든 hook 이벤트는 `.codex-harness/logs/events.jsonl`에 기록한다. 이 파일은 운영 추적용이며 모델 컨텍스트로 먼저 읽지 않는다.
-- 주요 에러가 반복되거나 작업을 막으면 `.codex-harness/model-visible/MAJOR_ERRORS.md`를 갱신한다. 재시도 전 이 파일은 모델이 읽어야 한다.
+- 작업 단위가 커밋 가능해지면 `.codex-lattice/commits/`에 커밋 후보 로그를 남긴다.
+- 모든 hook 이벤트는 `.codex-lattice/logs/events.jsonl`에 기록한다. 이 파일은 운영 추적용이며 모델 컨텍스트로 먼저 읽지 않는다.
+- 주요 에러가 반복되거나 작업을 막으면 `.codex-lattice/model-visible/MAJOR_ERRORS.md`를 갱신한다. 재시도 전 이 파일은 모델이 읽어야 한다.
 - 코딩 작업 중 변경된 구현과 문서는 함께 움직여야 한다. 모든 작업은 최종 응답 전 `docs/harness/`를 실제 diff와 검증 결과에 맞춰 갱신한다.
 - 숨은 지식 금지: 반복되는 운영 규칙은 hook, 스크립트, 또는 이 문서에 남긴다.
 
 ## Always-On Harness
 - Git 전략, 작업 로그, 주요 에러 로그, docs sync는 사용자가 호출하는 스킬이 아니라 모든 작업의 기본 루프다.
 - `hooks/codex-git-strategy-log.sh`는 작업 시작 프롬프트를 기준으로 Git 전략 초안을 남긴다. 에이전트는 실제 변경 전 이 전략을 확인하고 필요하면 보정한다.
-- `hooks/codex-docs-sync-log.sh`는 diff가 생기면 `.codex-harness/docs-sync-queue.jsonl`에 동기화 큐를 남긴다. 에이전트는 최종 응답 전 이 큐를 반영해 `docs/harness/`를 갱신한다.
+- `hooks/codex-docs-sync-log.sh`는 diff가 생기면 `.codex-lattice/docs-sync-queue.jsonl`에 동기화 큐를 남긴다. 에이전트는 최종 응답 전 이 큐를 반영해 `docs/harness/`를 갱신한다.
 - hidden logs는 기본 컨텍스트가 아니다. 장애 분석, 재시도, 감사 요청 때만 읽는다.
 
 ## Codex Built-ins First
@@ -44,13 +44,13 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - `architect`: 모듈 경계, 레이어 의존성, 큰 구조 변경을 검토할 때.
 - `frontend_developer`: UI 구현이나 접근성/반응형 품질이 핵심일 때.
 - `junior_mentor`: 구현 결과를 초보자용 학습 문서로 설명해야 할 때.
-- `langchain_specialist`: LangChain, LangGraph, Deep Agents 프레임워크 선택과 구현 전략이 필요할 때.
 - `prd_planner`: CPS/PRD/SPEC 산출물을 합성해야 할 때.
 - `code_reviewer`: 구현 후 버그, 회귀, 테스트 누락을 찾을 때.
 - `security_reviewer`: 인증, 권한, 입력 검증, 시크릿, 의존성 보안이 걸릴 때.
 - `qa`: 사용자 시나리오와 검증 체크리스트가 필요할 때.
 - `evaluator`: 작업 결과를 독립 점수화하거나 개선 루프를 정리할 때.
 - `docs_maintainer`: 구현 변경 후 `docs/harness/`를 실제 diff와 맞출 때.
+- LangChain, LangGraph, Deep Agents 판단은 custom agent가 아니라 관련 skills와 공식 문서 조회로 처리한다.
 - 서브에이전트는 사용자가 요청했거나 현재 Codex 실행 지침상 허용되는 범위에서만 사용한다. 병렬 작업은 파일 소유권이 분리될 때만 맡긴다.
 
 ## Git Strategy Template
@@ -64,12 +64,12 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 ```
 
 ## Log Locations
-- Hidden event log: `.codex-harness/logs/events.jsonl`
-- Git strategy log: `.codex-harness/git-strategy.md`
-- Commit candidate logs: `.codex-harness/commits/*.json` and `.codex-harness/commits/*.md`
-- Model-visible major errors: `.codex-harness/model-visible/MAJOR_ERRORS.md`
+- Hidden event log: `.codex-lattice/logs/events.jsonl`
+- Git strategy log: `.codex-lattice/git-strategy.md`
+- Commit candidate logs: `.codex-lattice/commits/*.json` and `.codex-lattice/commits/*.md`
+- Model-visible major errors: `.codex-lattice/model-visible/MAJOR_ERRORS.md`
 - Model-visible work docs: `docs/harness/*.md`
-- Docs sync queue: `.codex-harness/docs-sync-queue.jsonl`
+- Docs sync queue: `.codex-lattice/docs-sync-queue.jsonl`
 
 ## Docs Maintenance
 - `docs/harness/TASKS.md` tracks current scope and status.

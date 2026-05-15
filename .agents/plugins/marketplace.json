@@ -1,11 +1,11 @@
 {
-  "name": "my-codex-harness-marketplace",
+  "name": "codex-lattice-marketplace",
   "interface": {
-    "displayName": "My Codex Harness"
+    "displayName": "Codex Lattice"
   },
   "plugins": [
     {
-      "name": "my-codex-harness",
+      "name": "codex-lattice",
       "source": {
         "source": "local",
         "path": "./"

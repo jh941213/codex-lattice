@@ -46,7 +46,7 @@ changed = run(cwd, ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "
 stat = run(cwd, ["git", "diff", "--stat", "HEAD~1", "HEAD"])
 ts = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
-out_dir = cwd / ".codex-harness" / "commits"
+out_dir = cwd / ".codex-lattice" / "commits"
 out_dir.mkdir(parents=True, exist_ok=True)
 payload = {
     "timestamp": ts,

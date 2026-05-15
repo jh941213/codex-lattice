@@ -10,4 +10,4 @@ Sub-agents should keep these files aligned with implementation changes:
 - `VALIDATION.md`: checks run and results
 - `RISKS.md`: remaining risks and follow-ups
 
-Hidden runtime logs stay in `.codex-harness/logs/` and should not be loaded by default.
+Hidden runtime logs stay in `.codex-lattice/logs/` and should not be loaded by default.

@@ -12,6 +12,8 @@
 - [x] Reconcile repo skills and plugin metadata with the current local Codex harness install.
 - [x] Rebuild the repository layout to remove legacy Markdown agent, duplicate language tree, and old role artifacts.
 - [x] Remove the LangChain framework specialist from custom agents.
+- [x] Rename the package, plugin metadata, README, runtime folder, and GitHub target to `codex-lattice`.
+- [x] Remove project-level `.codex/config.toml` to avoid duplicate hook/agent registrations after install.
 
 ## Status Legend
 

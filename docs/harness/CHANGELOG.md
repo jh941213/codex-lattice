@@ -16,3 +16,7 @@
 - Removed duplicate language-specific install trees, Markdown role-agent copies, and old role source folders.
 - Renamed custom agent config files to neutral Codex-native names: `qa.toml` and `evaluator.toml`.
 - Removed the LangChain framework specialist from custom agents; framework guidance remains available through skills and direct documentation lookup.
+- Renamed the distribution to `codex-lattice`, including plugin metadata, README badges, clone URLs, hero asset path, stable Codex docs, and project-local runtime folder `.codex-lattice/`.
+- Added legacy managed-block cleanup so reinstalling `codex-lattice` removes the previous installer block before writing the new Codex config block.
+- Added `uv`, `ruff`, and `pnpm` to `Brewfile.codex` to match the integration checker recommendations.
+- Removed project-level `.codex/config.toml`; `install.sh` is the single source that writes Codex config entries, which prevents duplicate hook review prompts inside the repo.

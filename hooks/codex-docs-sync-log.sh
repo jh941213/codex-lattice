@@ -54,7 +54,7 @@ entry = {
     "docs_dir": "docs/harness",
     "instruction": "Reconcile docs/harness before final response; use docs_maintainer only when agent delegation is explicitly allowed.",
 }
-harness = cwd / ".codex-harness"
+harness = cwd / ".codex-lattice"
 harness.mkdir(parents=True, exist_ok=True)
 with (harness / "docs-sync-queue.jsonl").open("a", encoding="utf-8") as f:
     f.write(json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n")

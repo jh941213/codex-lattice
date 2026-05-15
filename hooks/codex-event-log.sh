@@ -55,7 +55,7 @@ entry = {
     "error": short(data.get("error") or data.get("tool_error") or data.get("stderr")),
 }
 
-log_dir = cwd / ".codex-harness" / "logs"
+log_dir = cwd / ".codex-lattice" / "logs"
 log_dir.mkdir(parents=True, exist_ok=True)
 with (log_dir / "events.jsonl").open("a", encoding="utf-8") as f:
     f.write(json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n")

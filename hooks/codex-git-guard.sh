@@ -39,7 +39,7 @@ branch = run(cwd, ["git", "branch", "--show-current"])
 is_protected = branch in {"main", "master", "production", "prod"}
 
 if re.search(r"\bgit\s+push\b", cmd) and (("--force" in cmd) or (" -f" in cmd)):
-    print("BLOCKED: force push is not allowed by my-codex-harness.", file=sys.stderr)
+    print("BLOCKED: force push is not allowed by codex-lattice.", file=sys.stderr)
     raise SystemExit(2)
 
 if is_protected and re.search(r"\bgit\s+(commit|push)\b", cmd):
