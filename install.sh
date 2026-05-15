@@ -240,7 +240,7 @@ text = strip_managed_block(text)
 text = remove_table_keys(text, "features", {"codex_hooks", "hooks"})
 text = remove_table(text, "[mcp_servers.tavily]")
 text = remove_table(text, "[mcp_servers.exa]")
-text = ensure_table(text, "features", {"hooks": "true", "multi_agent": "true", "plugins": "true", "goals": "true"})
+text = ensure_table(text, "features", {"hooks": "true", "multi_agent": "true", "plugins": "true", "goals": "true", "image_generation": "true"})
 text = ensure_table(text, "agents", {"max_threads": "6", "max_depth": "1", "job_max_runtime_seconds": "1800"})
 
 agents = [

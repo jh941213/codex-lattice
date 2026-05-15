@@ -122,3 +122,16 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: GitHub repository rename and push are tracked separately in Git history after the local validation passes.
 - evidence: old-name scan returned no matches; `.codex/config.toml` was removed so installed user config is the single registration source; temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 8 hook scripts, and 15 hook command registrations; `features.hooks` is true and `features.codex_hooks` is absent; shell syntax, JSON/TOML/YAML parsing, shellcheck, shfmt, integration checker, and gitleaks passed.
+
+### 2026-05-15T03:05:00Z
+- task: enable Codex built-in image generation for the system `$imagegen` skill.
+- commands:
+  - `rg -n "image_generation|image_gen|features" ~/.codex/config.toml install.sh README.md README_EN.md .codex-plugin/plugin.json`
+  - `codex exec --help`
+  - `bash install.sh --ko`
+  - parse `~/.codex/config.toml` and temp install config for `features.image_generation`
+  - `bash -n install.sh`
+  - `git diff --check`
+- result: pass.
+- skipped: no live image was generated during this config check.
+- evidence: installer now writes `features.image_generation = true`; local `~/.codex/config.toml` has `features.image_generation = true`; `codex exec --help` confirms `--enable <FEATURE>` maps to `features.<name>=true`.

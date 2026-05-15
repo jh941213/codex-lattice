@@ -162,6 +162,7 @@ The harness does not recreate what Codex already provides.
 | `/compact` | Summarizing long sessions | Check major errors and work docs before and after compaction |
 | `/agent` | Inspecting sub-agent state | Role guidance from `.codex/agents/*.toml` |
 | `/debug-config`, `/plugins`, `/mcp` | Config, plugin, and MCP diagnostics | Reproducible installer and validation scripts |
+| `$imagegen` | Codex built-in image generation | Installer enables `features.image_generation = true` so the built-in `image_gen` tool can be used |
 
 ## Search Routing
 

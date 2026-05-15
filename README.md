@@ -162,6 +162,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `/compact` | 긴 세션 요약 | compact 전후 주요 에러와 작업 문서 확인 |
 | `/agent` | sub-agent 상태 확인 | `.codex/agents/*.toml` 역할 지침 사용 |
 | `/debug-config`, `/plugins`, `/mcp` | 설정/플러그인/MCP 진단 | 설치 스크립트와 검증 스크립트로 재현 가능하게 관리 |
+| `$imagegen` | Codex 내장 이미지 생성 | installer가 `features.image_generation = true`를 켜서 built-in `image_gen` 툴을 사용할 수 있게 함 |
 
 ## 검색 라우팅
 

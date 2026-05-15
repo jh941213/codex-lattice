@@ -20,3 +20,4 @@
 - Added legacy managed-block cleanup so reinstalling `codex-lattice` removes the previous installer block before writing the new Codex config block.
 - Added `uv`, `ruff`, and `pnpm` to `Brewfile.codex` to match the integration checker recommendations.
 - Removed project-level `.codex/config.toml`; `install.sh` is the single source that writes Codex config entries, which prevents duplicate hook review prompts inside the repo.
+- Enabled `features.image_generation = true` so the system `$imagegen` skill can access Codex's built-in `image_gen` tool without requiring `OPENAI_API_KEY`.
