@@ -2,7 +2,7 @@
 
 ## Version
 
-- README displays version `0.01`.
+- README displays version `0.0.1`.
 
 ## Rollout
 

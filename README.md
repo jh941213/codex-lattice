@@ -8,7 +8,7 @@
 
 **Codex를 팀 단위 개발 루프처럼 굴리기 위한 설치형 하네스**
 
-[![Version](https://img.shields.io/badge/version-0.01-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
+[![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#custom-agents-14개)

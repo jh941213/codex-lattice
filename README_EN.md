@@ -8,7 +8,7 @@
 
 **An installable agent-first harness for OpenAI Codex**
 
-[![Version](https://img.shields.io/badge/version-0.01-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
+[![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)

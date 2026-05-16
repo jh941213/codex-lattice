@@ -16,7 +16,7 @@
 - [x] Remove project-level `.codex/config.toml` to avoid duplicate hook/agent registrations after install.
 - [x] Add simplify gate before HITL, review, PR, or final response.
 - [x] Add docs agent gate for product, feature, API, infra, security, data, test, observability, migration, release, and UX docs.
-- [x] Set README/plugin version display to `0.01`.
+- [x] Set README/plugin version display to `0.0.1`.
 
 ## Status Legend
 
