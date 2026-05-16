@@ -6,7 +6,7 @@
 
 # Codex Lattice
 
-**현업에서 잘쓰기 위해 고민한 하네스*
+**현업에서 잘쓰기 위해 고민한 하네스**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
