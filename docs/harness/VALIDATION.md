@@ -165,3 +165,24 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no installer rerun was needed for a display/version-only change.
 - evidence: README Korean/English badges, plugin manifest, release plan, task log, changelog, and validation docs now reference `0.0.1`; no `0.01` references remain.
+
+### 2026-05-16T02:36:22Z
+- task: add reflection gate for sequential prompts and compact resume.
+- commands:
+  - `bash -n install.sh`
+  - `for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - temp install with `CODEX_HOME=/tmp/... bash install.sh --ko`
+  - count temp install skill config entries, skill directories, agent TOML files, hook scripts, and hook command registrations
+  - `shellcheck install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - parse skill frontmatter with Ruby YAML and custom agent TOML with Python `tomllib`
+  - simulate `codex-reflection-reminder.sh UserPromptSubmit`, `PostCompact`, and `Stop` in temporary git repositories
+  - `bash scripts/check-codex-integrations.sh`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+  - `bash install.sh --ko`
+  - parse local `~/.codex/config.toml` and confirm installed reflection hook
+- result: pass.
+- skipped: Python `yaml` module was not installed locally, so skill frontmatter parsing used Ruby `YAML.safe_load` instead.
+- evidence: temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; `features.hooks` is true and `features.codex_hooks` is absent; simulated multi-step prompt and PostCompact runs created `REFLECTION_REQUIRED.md`; Stop run printed a pending reflection reminder; local `~/.codex` now has 10 hook scripts, 21 hook command registrations, and `codex-reflection-reminder.sh`; integration checker, JSON/TOML/YAML parsing, shellcheck, shfmt, whitespace check, and gitleaks passed.

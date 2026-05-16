@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#custom-agents-14개)
-[![Hooks](https://img.shields.io/badge/hooks-18-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
+[![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
 
@@ -24,7 +24,7 @@
 
 ## 한 줄 요약
 
-이 저장소는 OpenAI Codex에 **39개 skills**, **14개 custom agents**, **18개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
+이 저장소는 OpenAI Codex에 **39개 skills**, **14개 custom agents**, **21개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
 
 결과적으로 Codex가 매 작업마다 다음 루프를 따르게 됩니다.
 
@@ -60,7 +60,7 @@ bash install.sh --ko
 /hooks
 ```
 
-`18 hooks need review before they can run`은 첫 설치 후 정상 동작입니다. trust가 끝나면 `/hooks` 화면에서 `Installed`와 `Active` 숫자가 같아집니다.
+`21 hooks need review before they can run`은 첫 설치 후 정상 동작입니다. trust가 끝나면 `/hooks` 화면에서 `Installed`와 `Active` 숫자가 같아집니다.
 
 ## 사전 요구사항
 
@@ -117,7 +117,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ├── config.toml                         # features, skills, hooks, agents 관리 블록
 ├── skills/                             # 39개 Codex skills
 ├── agents/                             # 14개 custom agent TOML
-├── hooks/                              # 18개 lifecycle hook command 등록
+├── hooks/                              # 21개 lifecycle hook command 등록
 ├── rules/                              # Git/workflow 규칙
 ├── scripts/check-codex-integrations.sh # 설치 검증 스크립트
 ```
@@ -135,7 +135,8 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 └── model-visible/
     ├── MAJOR_ERRORS.md
     ├── SIMPLIFY_REQUIRED.md
-    └── DOCS_AGENT_REQUIRED.md
+    ├── DOCS_AGENT_REQUIRED.md
+    └── REFLECTION_REQUIRED.md
 ```
 
 ## 항상 켜지는 Hooks
@@ -150,6 +151,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 | `codex-major-error-log.sh` | 반복되거나 막히는 에러를 모델이 읽을 수 있는 `MAJOR_ERRORS.md`에 기록 |
 | `codex-docs-sync-log.sh` | 변경 파일을 docs 동기화 큐에 남기고 docs agent gate를 표시 |
 | `codex-simplify-gate.sh` | 코드 diff 누적, 큰 변경, HITL/Stop 직전에 simplify gate를 표시 |
+| `codex-reflection-reminder.sh` | 복잡한 순차 지시나 compact 이후 reflection gate를 표시 |
 | `codex-visible-error-reminder.sh` | 세션/compact 이후 주요 에러 로그 확인을 유도 |
 | `codex-git-guard.sh` | force push, protected branch 직접 push, `.env` 커밋 같은 위험 작업 차단 |
 | `codex-prettier.sh` | 필요 시 포맷터 연동을 위한 hook 슬롯 |
@@ -160,6 +162,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 
 | Gate | 생성 파일 | 처리 |
 |------|-----------|------|
+| reflection gate | `.codex-lattice/model-visible/REFLECTION_REQUIRED.md` | 최신 지시, 순서, 의존성, 완료 기준을 재확인 |
 | simplify gate | `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md` | HITL, 리뷰, PR 전 단순화/정규화와 재검증 수행 |
 | docs agent gate | `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md` | `docs_maintainer` 또는 부모 에이전트가 관련 문서를 실제 diff에 맞춰 갱신 |
 
@@ -270,7 +273,7 @@ Codex 안에서는 아래 순서로 확인하면 됩니다.
 
 | 증상 | 처리 |
 |------|------|
-| `18 hooks need review before they can run` | `/hooks`에서 hook을 검토하고 trust 하세요. 첫 설치 후 한 번만 필요합니다. |
+| `21 hooks need review before they can run` | `/hooks`에서 hook을 검토하고 trust 하세요. 첫 설치 후 한 번만 필요합니다. |
 | `[features].codex_hooks is deprecated` | 오래된 설정입니다. `bash install.sh --ko`를 다시 실행하면 `features.hooks = true`로 정리됩니다. |
 | `Skipped loading skill ... invalid YAML` | 최신 저장소를 pull 한 뒤 `bash install.sh --ko`를 다시 실행하고 Codex를 재시작하세요. |
 | integration tool missing | `brew bundle --file Brewfile.codex`를 실행하세요. 일부 검사는 도구가 없으면 자동 skip 됩니다. |

@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
-[![Hooks](https://img.shields.io/badge/hooks-18-111827.svg?style=for-the-badge)](#always-on-hooks)
+[![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#always-on-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
 
@@ -24,7 +24,7 @@
 
 ## What This Is
 
-This repository installs a Codex harness with **39 skills**, **14 custom agents**, **18 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+This repository installs a Codex harness with **39 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 The target loop is:
 
@@ -60,7 +60,7 @@ Restart Codex after installation. On the first run, open `/hooks`, review the ne
 /hooks
 ```
 
-`18 hooks need review before they can run` is expected after a fresh install. Once trusted, the `/hooks` screen should show matching `Installed` and `Active` counts.
+`21 hooks need review before they can run` is expected after a fresh install. Once trusted, the `/hooks` screen should show matching `Installed` and `Active` counts.
 
 ## Prerequisites
 
@@ -117,7 +117,7 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ├── config.toml                         # managed features, skills, hooks, agents
 ├── skills/                             # 39 Codex skills
 ├── agents/                             # 14 custom agent TOML files
-├── hooks/                              # 18 lifecycle hook command registrations
+├── hooks/                              # 21 lifecycle hook command registrations
 ├── rules/                              # Git/workflow rules
 ├── scripts/check-codex-integrations.sh # install validation helper
 ```
@@ -135,7 +135,8 @@ Project-local runtime logs are written under `.codex-lattice/`.
 └── model-visible/
     ├── MAJOR_ERRORS.md
     ├── SIMPLIFY_REQUIRED.md
-    └── DOCS_AGENT_REQUIRED.md
+    ├── DOCS_AGENT_REQUIRED.md
+    └── REFLECTION_REQUIRED.md
 ```
 
 ## Always-On Hooks
@@ -150,6 +151,7 @@ These run through Codex lifecycle hooks. They are not user-invoked skills.
 | `codex-major-error-log.sh` | Stores blocking or repeated failures in model-visible `MAJOR_ERRORS.md` |
 | `codex-docs-sync-log.sh` | Queues changed files and marks the docs agent gate |
 | `codex-simplify-gate.sh` | Marks the simplify gate after repeated code edits, large diffs, HITL, or Stop |
+| `codex-reflection-reminder.sh` | Marks the reflection gate for complex sequential prompts or post-compact resume |
 | `codex-visible-error-reminder.sh` | Reminds the agent to inspect major errors after session start or compact |
 | `codex-git-guard.sh` | Blocks force pushes, protected-branch direct pushes, and `.env` commits |
 | `codex-prettier.sh` | Reserved hook slot for formatter integration |
@@ -160,6 +162,7 @@ When code changes exist, hooks do not edit code automatically. They create model
 
 | Gate | Generated file | Required handling |
 |------|----------------|-------------------|
+| reflection gate | `.codex-lattice/model-visible/REFLECTION_REQUIRED.md` | Re-check the newest instruction, sequence, dependencies, and completion criteria |
 | simplify gate | `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md` | Simplify/normalize and re-verify before HITL, review, or PR |
 | docs agent gate | `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md` | `docs_maintainer` or the parent agent updates docs against the real diff |
 
@@ -270,7 +273,7 @@ Inside Codex, inspect:
 
 | Symptom | Fix |
 |---------|-----|
-| `18 hooks need review before they can run` | Open `/hooks`, review the hooks, and trust them once. |
+| `21 hooks need review before they can run` | Open `/hooks`, review the hooks, and trust them once. |
 | `[features].codex_hooks is deprecated` | Old config. Run `bash install.sh --en` again to write `features.hooks = true`. |
 | `Skipped loading skill ... invalid YAML` | Pull the latest repo, run `bash install.sh --en`, then restart Codex. |
 | Missing integration tool | Run `brew bundle --file Brewfile.codex`. Some checks auto-skip when tools are missing. |

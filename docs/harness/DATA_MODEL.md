@@ -10,6 +10,7 @@
 - `docs/harness/` is model-visible work documentation.
 - `.codex-lattice/logs/` is hidden operational telemetry.
 - `.codex-lattice/model-visible/` contains files the model may need to read before retrying or handing off.
+- `REFLECTION_REQUIRED.md` is a transient model-visible gate that points to `docs/harness/REFLECTION.md`.
 
 ## Persistence
 
