@@ -115,6 +115,7 @@ matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh UserPromptSubmit", timeout = 5 },
   { type = "command", command = "bash ~/.codex/hooks/codex-git-strategy-log.sh", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-reflection-reminder.sh UserPromptSubmit", timeout = 5 },
 ]
 
 [[hooks.PreToolUse]]
@@ -162,6 +163,7 @@ matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh PostCompact", timeout = 5 },
   { type = "command", command = "bash ~/.codex/hooks/codex-visible-error-reminder.sh", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-reflection-reminder.sh PostCompact", timeout = 5 },
 ]
 
 [[hooks.Stop]]
@@ -169,6 +171,7 @@ matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh Stop", timeout = 5 },
   { type = "command", command = "bash ~/.codex/hooks/codex-simplify-gate.sh Stop", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-reflection-reminder.sh Stop", timeout = 5 },
 ]
 # <<< codex-lattice <<<
 """

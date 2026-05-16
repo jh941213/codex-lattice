@@ -5,6 +5,7 @@
 .codex-lattice/simplify-state.json
 .codex-lattice/model-visible/SIMPLIFY_REQUIRED.md
 .codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md
+.codex-lattice/model-visible/REFLECTION_REQUIRED.md
 .compact-state/
 .DS_Store
 node_modules/

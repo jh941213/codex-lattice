@@ -17,6 +17,7 @@ Sub-agents should keep these files aligned with implementation changes:
 - `MIGRATION_PLAN.md`: compatibility, data migration, rollback, and verification
 - `RELEASE_PLAN.md`: version, rollout, backout, and operator notes
 - `UX_SPEC.md`: primary flow, states, accessibility, and responsive behavior
+- `REFLECTION.md`: drift checks for sequential work, interruptions, compact resume, and final response
 - `DECISIONS.md`: decisions and rationale
 - `CHANGELOG.md`: implementation changes
 - `VALIDATION.md`: checks run and results

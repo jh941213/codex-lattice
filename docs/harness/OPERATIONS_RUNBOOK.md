@@ -10,6 +10,7 @@
 - Check `/hooks` after install and confirm installed hooks are trusted and active.
 - Run `~/.codex/scripts/check-codex-integrations.sh` after setup changes.
 - Check `.codex-lattice/model-visible/MAJOR_ERRORS.md` after repeated tool failures.
+- Check `.codex-lattice/model-visible/REFLECTION_REQUIRED.md` before HITL, PR, merge, or final response.
 - Check `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md` before HITL, review, or PR.
 - Check `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md` before HITL, review, or PR.
 

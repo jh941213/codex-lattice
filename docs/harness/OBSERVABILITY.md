@@ -13,6 +13,7 @@
 
 - `MAJOR_ERRORS.md` is model-visible when blocking failures recur.
 - `SIMPLIFY_REQUIRED.md` and `DOCS_AGENT_REQUIRED.md` indicate pre-HITL gates.
+- `REFLECTION_REQUIRED.md` indicates a newest-request and instruction-ledger check is required.
 
 ## Dashboards
 
@@ -20,4 +21,4 @@
 
 ## Incident Signals
 
-- Repeated tool failures, security scans, missing MCP keys, stale docs, and untrusted hooks require attention.
+- Repeated tool failures, security scans, missing MCP keys, stale docs, unresolved reflection gates, and untrusted hooks require attention.

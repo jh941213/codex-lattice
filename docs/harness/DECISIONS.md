@@ -39,7 +39,7 @@
 
 - context: Keeping a repo-local `.codex/config.toml` duplicates the user-level registrations written by `install.sh`, causing duplicate hook review prompts and stale agent paths when the repo is opened directly in Codex.
 - decision: remove `.codex/config.toml` from the distribution and keep only `.codex/agents/*.toml` as reusable agent role files.
-- reason: one config registration path is easier to verify and avoids 18 hook registrations becoming 30 inside this repository.
+- reason: one config registration path is easier to verify and avoids duplicate hook registrations inside this repository.
 - impact: users must run `bash install.sh --ko` or `bash install.sh --en`; plugin metadata and installer remain the supported entry points.
 
 ## 2026-05-16 - HITL requires simplify and docs gates
@@ -55,3 +55,10 @@
 - decision: keep dedicated docs under `docs/harness/` for product brief, feature spec, API spec, infra spec, security policy, data model, test plan, observability, operations runbook, migration plan, release plan, and UX spec.
 - reason: these documents let implementation details feed back into PRD and review decisions without relying on hidden session memory.
 - impact: docs gate requirements expand based on changed file paths and extensions; stale docs must be resolved before HITL unless blocked and recorded in `RISKS.md`.
+
+## 2026-05-16 - Reflection gate controls instruction drift
+
+- context: Long Codex sessions can drift when users give several ordered instructions, interrupt a workflow, or resume after compaction.
+- decision: add `docs/harness/REFLECTION.md` and a `codex-reflection-reminder.sh` hook that creates `REFLECTION_REQUIRED.md` for complex sequential prompts, post-compact resume, and Stop reminders.
+- reason: direction checks should be explicit, model-visible, and repeatable instead of relying on hidden conversation memory.
+- impact: before HITL, PR, merge, or final response, the agent must confirm the newest request, ordered steps, dependencies, blocked items, validation, and git status.
