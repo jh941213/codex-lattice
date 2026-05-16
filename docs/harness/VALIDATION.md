@@ -121,7 +121,7 @@ Track checks run for each coding task.
   - `gitleaks detect --no-banner --redact --source .`
 - result: pass.
 - skipped: GitHub repository rename and push are tracked separately in Git history after the local validation passes.
-- evidence: old-name scan returned no matches; `.codex/config.toml` was removed so installed user config is the single registration source; temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 8 hook scripts, and 15 hook command registrations; `features.hooks` is true and `features.codex_hooks` is absent; shell syntax, JSON/TOML/YAML parsing, shellcheck, shfmt, integration checker, and gitleaks passed.
+- evidence: old-name scan returned no matches; `.codex/config.toml` was removed so installed user config is the single registration source; temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 8 hook scripts, and 18 hook command registrations; `features.hooks` is true and `features.codex_hooks` is absent; shell syntax, JSON/TOML/YAML parsing, shellcheck, shfmt, integration checker, and gitleaks passed.
 
 ### 2026-05-15T03:05:00Z
 - task: enable Codex built-in image generation for the system `$imagegen` skill.
@@ -135,3 +135,33 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no live image was generated during this config check.
 - evidence: installer now writes `features.image_generation = true`; local `~/.codex/config.toml` has `features.image_generation = true`; `codex exec --help` confirms `--enable <FEATURE>` maps to `features.<name>=true`.
+
+### 2026-05-16T02:21:05Z
+- task: add simplify and docs agent gates before HITL/review/PR and set README version to `0.0.1`.
+- commands:
+  - `bash -n install.sh && for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - `CODEX_HOME=/tmp/codex-lattice-gates.* bash install.sh --ko`
+  - count temp install skill config entries, skill directories, agent TOML files, hook scripts, and hook command registrations
+  - parse temp install `features` with Python `tomllib`
+  - `shellcheck install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - parse all skill YAML frontmatter
+  - simulate docs and simplify hooks in a temporary git repository with a code/API diff
+  - simulate docs hook in a temporary git repository with an infra-only diff
+  - `bash scripts/check-codex-integrations.sh`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: no live Codex TUI `/hooks` trust flow was run; PR creation is tracked by GitHub after commit/push.
+- evidence: temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 9 hook scripts, and 18 hook command registrations; features include hooks, multi_agent, plugins, goals, and image_generation; simulated code/API hook run created `DOCS_AGENT_REQUIRED.md`, `SIMPLIFY_REQUIRED.md`, and docs/harness templates including product, feature, API, infra, security, data, test, observability, operations runbook, migration, release, and UX docs; simulated infra-only hook run required `INFRA_SPEC.md`, `OBSERVABILITY.md`, `OPERATIONS_RUNBOOK.md`, `RELEASE_PLAN.md`, and `SECURITY_POLICY.md`; integration checker, shellcheck, shfmt, whitespace check, and gitleaks passed.
+
+### 2026-05-16T02:27:52Z
+- task: correct README and plugin version display to `0.0.1`.
+- commands:
+  - `rg -n "0\\.01|0\\.0\\.1|version-" README.md README_EN.md .codex-plugin/plugin.json docs/harness`
+  - `jq empty .codex-plugin/plugin.json`
+  - `git diff --check`
+- result: pass.
+- skipped: no installer rerun was needed for a display/version-only change.
+- evidence: README Korean/English badges, plugin manifest, release plan, task log, changelog, and validation docs now reference `0.0.1`; no `0.01` references remain.

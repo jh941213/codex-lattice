@@ -14,7 +14,15 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - Git 전략, 작업 로그, 주요 에러 로그, docs sync는 사용자가 호출하는 스킬이 아니라 모든 작업의 기본 루프다.
 - `hooks/codex-git-strategy-log.sh`는 작업 시작 프롬프트를 기준으로 Git 전략 초안을 남긴다. 에이전트는 실제 변경 전 이 전략을 확인하고 필요하면 보정한다.
 - `hooks/codex-docs-sync-log.sh`는 diff가 생기면 `.codex-lattice/docs-sync-queue.jsonl`에 동기화 큐를 남긴다. 에이전트는 최종 응답 전 이 큐를 반영해 `docs/harness/`를 갱신한다.
+- `hooks/codex-simplify-gate.sh`는 코드 diff가 누적되거나 HITL/Stop 직전에 `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md`를 남긴다. 에이전트는 사람에게 넘기기 전에 단순화/정규화와 재검증을 끝낸다.
+- 코드 diff가 생기면 `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md`를 확인한다. sub-agent 사용이 가능한 실행에서는 `docs_maintainer`로 기능명세/API 명세/인프라 정의/검증 문서를 맞추고, 불가능하면 부모 에이전트가 직접 갱신한다.
 - hidden logs는 기본 컨텍스트가 아니다. 장애 분석, 재시도, 감사 요청 때만 읽는다.
+
+## HITL Gates
+- 사람에게 승인, 리뷰, PR 판단을 요청하기 전에 simplify gate와 docs agent gate를 통과해야 한다.
+- simplify gate는 코드를 자동 수정하지 않는다. 모델이 `$simplify` 체크리스트 또는 동일 원칙으로 직접 정리하고 검증한다.
+- docs agent gate는 코드를 자동 문서화하지 않는다. `docs_maintainer` 또는 부모 에이전트가 실제 diff 기준으로 제품 맥락, 기능명세, API 명세, 인프라 정의, 보안정책, 데이터 모델, 테스트 계획, 관측성, 운영 런북, 마이그레이션, 릴리즈, UX 문서를 갱신한다.
+- gate를 통과하지 못하고 HITL이 필요한 경우, `docs/harness/RISKS.md`에 이유와 남은 작업을 먼저 남긴다.
 
 ## Codex Built-ins First
 - 표기 규칙: Codex 내장 명령은 `/goal`처럼 `/`, 하네스 skill은 `$prd`처럼 `$`를 사용한다. `&goal` alias는 만들지 않는다.
@@ -73,6 +81,18 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 
 ## Docs Maintenance
 - `docs/harness/TASKS.md` tracks current scope and status.
+- `docs/harness/PRODUCT_BRIEF.md` records problem, users, scope, non-goals, and open questions before PRD.
+- `docs/harness/FEATURE_SPEC.md` records feature behavior and acceptance criteria.
+- `docs/harness/API_SPEC.md` records endpoint, request/response, validation, and error contracts.
+- `docs/harness/INFRA_SPEC.md` records resources, configuration, operations, monitoring, and rollout notes.
+- `docs/harness/SECURITY_POLICY.md` records trust boundaries, auth, data handling, secrets, and abuse/failure modes.
+- `docs/harness/DATA_MODEL.md` records entities, ownership, persistence, and normalization rules.
+- `docs/harness/TEST_PLAN.md` records unit, integration, E2E, regression, and manual checks.
+- `docs/harness/OBSERVABILITY.md` records logs, metrics, alerts, dashboards, and incident signals.
+- `docs/harness/OPERATIONS_RUNBOOK.md` records SLOs, monitoring checklist, alert response, rollback, and incident review.
+- `docs/harness/MIGRATION_PLAN.md` records compatibility, data migration, rollback, and verification.
+- `docs/harness/RELEASE_PLAN.md` records version, rollout, backout, and user/operator notes.
+- `docs/harness/UX_SPEC.md` records flows, states, accessibility, and responsive behavior.
 - `docs/harness/DECISIONS.md` records decisions future agents need.
 - `docs/harness/CHANGELOG.md` summarizes implementation changes.
 - `docs/harness/VALIDATION.md` records checks and skipped checks.

@@ -1,6 +1,6 @@
 {
   "name": "codex-lattice",
-  "version": "1.4.0",
+  "version": "0.0.1",
   "description": "Codex용 에이전트 하네스. skills, custom agents, /goal 정책, Git 전략 로그, 작업 로그, 주요 에러 가시화 훅, Azure Infra memory를 포함합니다.",
   "author": {
     "name": "Community Contributors"
