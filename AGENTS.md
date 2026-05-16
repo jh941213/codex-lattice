@@ -18,6 +18,7 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - `hooks/codex-simplify-gate.sh`는 코드 diff가 누적되거나 HITL/Stop 직전에 `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md`를 남긴다. 에이전트는 사람에게 넘기기 전에 단순화/정규화와 재검증을 끝낸다.
 - `hooks/codex-reflection-reminder.sh`는 복잡한 순차 지시나 compact 이후 `.codex-lattice/model-visible/REFLECTION_REQUIRED.md`를 남긴다. 에이전트는 `docs/harness/REFLECTION.md`를 읽고 instruction ledger를 재구성한 뒤 계속한다.
 - 코드 diff가 생기면 `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md`를 확인한다. sub-agent 사용이 가능한 실행에서는 `docs_maintainer`로 기능명세/API 명세/인프라 정의/검증 문서를 맞추고, 불가능하면 부모 에이전트가 직접 갱신한다.
+- sub-agent를 쓰는 작업은 `docs/harness/SUBAGENT_PROTOCOL.md`를 따른다. 부모 에이전트가 plan/task/context를 추출해 전달하고, sub-agent에게 긴 계획 파일을 알아서 읽게 하지 않는다.
 - hidden logs는 기본 컨텍스트가 아니다. 장애 분석, 재시도, 감사 요청 때만 읽는다.
 
 ## Reflection Guard
@@ -58,6 +59,11 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - 하네스 통합 점검은 `scripts/check-codex-integrations.sh` 또는 설치 후 `~/.codex/scripts/check-codex-integrations.sh`를 사용한다.
 
 ## Sub-Agent Routing
+- 원칙: 부모 에이전트가 orchestration을 소유한다. sub-agent는 명확한 파일 소유권, acceptance criteria, 검증 명령, 보고 형식을 받은 bounded task만 수행한다.
+- 구현 sub-agent는 `DONE`, `DONE_WITH_CONCERNS`, `NEEDS_CONTEXT`, `BLOCKED` 중 하나로 보고한다. `DONE_WITH_CONCERNS`, `NEEDS_CONTEXT`, `BLOCKED`는 무시하지 말고 context 보강, task 분할, 더 강한 모델/agent, 또는 사용자 확인으로 조건을 바꾼 뒤 재시도한다.
+- sub-agent가 작성한 코드는 부모가 실제 diff와 검증 결과로 확인한다. implementer 보고만 믿지 않는다.
+- 코드 작성 후 review는 가능하면 두 단계로 나눈다: 먼저 spec compliance, 그 다음 code quality/security/simplicity.
+- 병렬 구현은 write scope가 분리될 때만 허용한다. 모든 worker에게 다른 agent의 변경을 되돌리지 말고 파일 소유권을 지키라고 명시한다.
 - `planner`: 구현 순서, 위험, 검증 기준을 분해해야 할 때.
 - `architect`: 모듈 경계, 레이어 의존성, 큰 구조 변경을 검토할 때.
 - `frontend_developer`: UI 구현이나 접근성/반응형 품질이 핵심일 때.
@@ -105,6 +111,7 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - `docs/harness/RELEASE_PLAN.md` records version, rollout, backout, and user/operator notes.
 - `docs/harness/UX_SPEC.md` records flows, states, accessibility, and responsive behavior.
 - `docs/harness/REFLECTION.md` records drift checks for sequential work, interruptions, compact resume, and final response.
+- `docs/harness/SUBAGENT_PROTOCOL.md` records Codex-native delegation, review ordering, report statuses, and parallel ownership rules.
 - `docs/harness/DECISIONS.md` records decisions future agents need.
 - `docs/harness/CHANGELOG.md` summarizes implementation changes.
 - `docs/harness/VALIDATION.md` records checks and skipped checks.

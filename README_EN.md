@@ -245,6 +245,20 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 
 Custom agents use only `.codex/agents/*.toml`. Markdown role files are not installed.
 
+## Sub-Agent Protocol
+
+Codex Lattice treats sub-agents as bounded workers, not as automatic magic. The parent agent owns task decomposition, context curation, and final verification.
+
+| Principle | Meaning |
+|-----------|---------|
+| bounded context | The parent supplies task text, file ownership, acceptance criteria, and verification commands directly in the prompt |
+| status contract | Implementers report `DONE`, `DONE_WITH_CONCERNS`, `NEEDS_CONTEXT`, or `BLOCKED` |
+| review order | Check spec compliance first, then code quality/security/simplicity |
+| no blind trust | The parent verifies sub-agent claims against the real diff and test output |
+| parallel safety | Parallel implementation is allowed only with disjoint write scopes |
+
+Detailed rules live in `docs/harness/SUBAGENT_PROTOCOL.md`.
+
 ## First-Run Checks
 
 After installing:

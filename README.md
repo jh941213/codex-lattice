@@ -245,6 +245,20 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 
 Custom agent는 `.codex/agents/*.toml`만 사용합니다. Markdown role 파일은 설치하지 않습니다.
 
+## Sub-Agent 운용 규칙
+
+Codex Lattice는 sub-agent를 자동 마법처럼 쓰지 않고, 부모 에이전트가 작업을 분해하고 검증하는 방식으로 씁니다.
+
+| 원칙 | 내용 |
+|------|------|
+| bounded context | 부모가 task 본문, 파일 소유권, acceptance criteria, 검증 명령을 prompt에 직접 넣음 |
+| status contract | implementer는 `DONE`, `DONE_WITH_CONCERNS`, `NEEDS_CONTEXT`, `BLOCKED` 중 하나로 보고 |
+| review order | spec compliance를 먼저 확인하고, 통과 후 code quality/security/simplicity 검토 |
+| no blind trust | sub-agent 보고를 그대로 믿지 않고 부모가 실제 diff와 검증 결과를 확인 |
+| parallel safety | 병렬 구현은 write scope가 분리될 때만 허용 |
+
+상세 규칙은 `docs/harness/SUBAGENT_PROTOCOL.md`에 있습니다.
+
 ## 첫 실행 체크
 
 설치 후 아래를 한 번 실행하세요.

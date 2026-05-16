@@ -18,6 +18,7 @@
 - [x] Add docs agent gate for product, feature, API, infra, security, data, test, observability, migration, release, and UX docs.
 - [x] Set README/plugin version display to `0.0.1`.
 - [x] Add reflection gate for multi-step prompts, compact resume, and final newest-request checks.
+- [x] Add Codex-native sub-agent protocol for bounded task delegation, status handling, and staged review.
 
 ## Status Legend
 
