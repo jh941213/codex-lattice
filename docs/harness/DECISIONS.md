@@ -39,5 +39,19 @@
 
 - context: Keeping a repo-local `.codex/config.toml` duplicates the user-level registrations written by `install.sh`, causing duplicate hook review prompts and stale agent paths when the repo is opened directly in Codex.
 - decision: remove `.codex/config.toml` from the distribution and keep only `.codex/agents/*.toml` as reusable agent role files.
-- reason: one config registration path is easier to verify and avoids 15 hook registrations becoming 30 inside this repository.
+- reason: one config registration path is easier to verify and avoids 18 hook registrations becoming 30 inside this repository.
 - impact: users must run `bash install.sh --ko` or `bash install.sh --en`; plugin metadata and installer remain the supported entry points.
+
+## 2026-05-16 - HITL requires simplify and docs gates
+
+- context: Human review should not receive code that still needs obvious simplification, normalization, or documentation reconciliation.
+- decision: add advisory model-visible gates for simplification and docs maintenance before HITL, review, PR, or final response.
+- reason: hooks should not rewrite code automatically, but they can create durable prompts that force the parent agent or a docs sub-agent to finish the pre-review work.
+- impact: `codex-simplify-gate.sh` writes `SIMPLIFY_REQUIRED.md`; docs sync writes `DOCS_AGENT_REQUIRED.md` and classifies required docs. The parent agent remains responsible for spawning `docs_maintainer` when the current Codex run allows sub-agents, otherwise it updates the docs directly.
+
+## 2026-05-16 - Docs cover PRD-adjacent development context
+
+- context: Feature/API/infra docs alone miss security, data, test, observability, operations response, migration, release, UX, and pre-PRD product context.
+- decision: keep dedicated docs under `docs/harness/` for product brief, feature spec, API spec, infra spec, security policy, data model, test plan, observability, operations runbook, migration plan, release plan, and UX spec.
+- reason: these documents let implementation details feed back into PRD and review decisions without relying on hidden session memory.
+- impact: docs gate requirements expand based on changed file paths and extensions; stale docs must be resolved before HITL unless blocked and recorded in `RISKS.md`.

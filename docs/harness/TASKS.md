@@ -14,6 +14,9 @@
 - [x] Remove the LangChain framework specialist from custom agents.
 - [x] Rename the package, plugin metadata, README, runtime folder, and GitHub target to `codex-lattice`.
 - [x] Remove project-level `.codex/config.toml` to avoid duplicate hook/agent registrations after install.
+- [x] Add simplify gate before HITL, review, PR, or final response.
+- [x] Add docs agent gate for product, feature, API, infra, security, data, test, observability, migration, release, and UX docs.
+- [x] Set README/plugin version display to `0.01`.
 
 ## Status Legend
 

@@ -135,6 +135,7 @@ hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh PostToolUse", timeout = 5 },
   { type = "command", command = "bash ~/.codex/hooks/codex-major-error-log.sh", timeout = 5 },
   { type = "command", command = "bash ~/.codex/hooks/codex-docs-sync-log.sh", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-simplify-gate.sh PostToolUse", timeout = 5 },
 ]
 
 [[hooks.PostToolUse]]
@@ -147,6 +148,7 @@ hooks = [
 matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh PermissionRequest", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-simplify-gate.sh PermissionRequest", timeout = 5 },
 ]
 
 [[hooks.PreCompact]]
@@ -166,6 +168,7 @@ hooks = [
 matcher = "*"
 hooks = [
   { type = "command", command = "bash ~/.codex/hooks/codex-event-log.sh Stop", timeout = 5 },
+  { type = "command", command = "bash ~/.codex/hooks/codex-simplify-gate.sh Stop", timeout = 5 },
 ]
 # <<< codex-lattice <<<
 """
