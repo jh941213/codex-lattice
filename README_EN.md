@@ -6,7 +6,7 @@
 
 # Codex Lattice
 
-**An agent-first harness that turns Codex into a reliable development loop**
+**A Codex agent harness built for real enterprise development and operations**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
@@ -26,14 +26,19 @@
 
 Codex Lattice is an installable harness that configures OpenAI Codex for production-style development work.
 
+It is not a demo prompt pack. It is designed to make Codex usable in enterprise development and operations by binding reflection, operational observability, validation evidence, documentation sync, review boundaries, and scheduling into one repeatable loop.
+
 It installs **47 skills**, **14 custom agents**, **27 lifecycle hook commands**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 | Area | What you get |
 |------|--------------|
 | Work loop | Planning, Git strategy, implementation, verification, docs sync, commit candidate logs |
+| Reflection | Latest-user-request checks, compact resume, instruction drift checks, lesson learned records |
 | Always-on hooks | Event logs, major error logs, docs sync gate, simplify/reflection gates |
 | Skills & agents | PRD, SPEC, review, verification, security, operations, Azure, UI, and testing workers |
 | Operating docs | Feature, API, infra, security, data, test, SLO, and runbook documents |
+| Operational observability | Health packets, log analysis, scheduler reports, model-visible major error memory |
+| Review evidence | Context packets, review packets, harness health, validation evidence |
 | Search/analysis | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
 | Scheduler | Off-by-default healthcheck/log analysis. Enable only when needed |
 
@@ -42,6 +47,12 @@ The default loop is:
 ```text
 plan -> write Git strategy -> implement -> log events -> verify -> update docs/harness -> record commit candidates
 ```
+
+## Why It Exists
+
+In enterprise environments, “the code runs” is not enough. You need durable evidence that Codex kept the latest instruction in view, chose context deliberately, actually ran validation, kept operations/security/data/release docs in sync, and left failures visible for the next run.
+
+Codex Lattice turns those expectations into harness behavior instead of README advice. Hooks record the work loop, packets produce model-readable summaries, docs gates push documentation forward, and reflection gates force a direction check after sequential instructions or context compaction.
 
 ## 3-Minute Install
 

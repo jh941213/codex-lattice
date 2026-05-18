@@ -312,3 +312,13 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no browser/app rebuild was needed for this harness-only change; no optional model summary was run.
 - evidence: temp install and local install both report 47 skill configs, 47 skill dirs, 14 agents, 10 hook scripts, 8 scripts, and 27 hook commands; `hooks/hooks.json` also contains 27 command entries; generated context packet includes branch, dirty files, package scripts, validation candidates, required reading, and retrieval rules; generated review packet includes risk routing and validation evidence; generated harness health reports `features.hooks = true`, no deprecated `codex_hooks`, 27 hook commands, 8 scripts, scheduler inactive, and gate attention items; per-run packet snapshots were created; seeded `.env` secret value did not appear in generated packet files; all static, integration, skill, whitespace, and secret checks passed.
+
+### 2026-05-18T05:07:45Z
+- task: reposition README opening around enterprise operations, reflection, observability, and review evidence.
+- commands:
+  - `git diff --check`
+  - `bash scripts/check-codex-integrations.sh`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: no installer rerun, hook execution, or scheduler run was needed because this change only updates README positioning and harness tracking docs.
+- evidence: README and README_EN now describe Codex Lattice as an enterprise development/operations harness and surface reflection, operational observability, context/review packets, harness health, and validation evidence near the top.

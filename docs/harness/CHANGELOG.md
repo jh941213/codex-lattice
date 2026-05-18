@@ -40,3 +40,4 @@
 - Refined Korean and English README flow with clearer value summary, 3-minute install steps, first-check commands, and repository validation guidance.
 - Fixed docs sync template generation to avoid blank EOF lines that fail `git diff --check`.
 - Added context, review, harness health, and per-run episode packet generation for Codex context selection and review evidence.
+- Repositioned the Korean and English README openings around real enterprise development/operations use, including reflection, operational observability, and review evidence.
