@@ -69,3 +69,24 @@
 - decision: add `docs/harness/SUBAGENT_PROTOCOL.md` and summarize the protocol in `AGENTS.md` and README files.
 - reason: Codex Lattice already has native custom agents and multi-agent support; the missing piece was a consistent contract for prompt context, task status, review order, and parallel ownership.
 - impact: parent agents must provide full task context directly, require `DONE`/`DONE_WITH_CONCERNS`/`NEEDS_CONTEXT`/`BLOCKED` statuses, verify claims against the actual diff, and run spec compliance review before code quality review when sub-agents write code.
+
+## 2026-05-18 - Operations governance skills are first-class workflows
+
+- context: Real-world development needs more than implementation, review, and tests; release handoff, incidents, SLOs, supply chain, tool risk, data governance, and cloud cost create operational risk.
+- decision: add dedicated skills and docs for release readiness, incident response, observability/SLO, supply-chain security, agent tool risk, Azure FinOps, data governance, and postmortems.
+- reason: these workflows should be repeatable and visible before PR, deploy, or HITL instead of depending on ad hoc memory.
+- impact: docs sync can request `SLO_POLICY.md`, `INCIDENT_RESPONSE.md`, `POSTMORTEM_TEMPLATE.md`, `SUPPLY_CHAIN.md`, `AGENT_SECURITY.md`, `DATA_GOVERNANCE.md`, and `COST_MODEL.md` when changed files imply operational governance work.
+
+## 2026-05-18 - Runtime files resolve the git root
+
+- context: Hooks can run from subdirectories, which can fragment `.codex-lattice` logs and model-visible error memory.
+- decision: resolve `git rev-parse --show-toplevel` before writing event logs, major error logs, and visible error reminders.
+- reason: future agents need one durable runtime surface per repository.
+- impact: project-local `.codex-lattice/` files are written at the repository root when the current directory is inside a git worktree.
+
+## 2026-05-18 - Installer replaces active hook scripts atomically
+
+- context: Codex hooks can run while the harness is being reinstalled, so direct `cp` can expose a partially written shell script to an active hook process.
+- decision: copy hook and script files to temporary files and replace them with `mv` after the copy completes.
+- reason: active hook reads should see either the previous complete script or the next complete script, never a truncated intermediate file.
+- impact: reinstall is safer while Codex is running, though users should still restart Codex after config changes.

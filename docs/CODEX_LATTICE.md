@@ -59,6 +59,13 @@ Sub-agents should keep `docs/harness/` synchronized with implementation work.
 - `docs/harness/CHANGELOG.md`: implementation changes
 - `docs/harness/VALIDATION.md`: checks run and skipped checks
 - `docs/harness/RISKS.md`: open risks and major errors
+- `docs/harness/SLO_POLICY.md`: SLOs, error budgets, and alert policy
+- `docs/harness/INCIDENT_RESPONSE.md`: severity, triage, mitigation, and communication
+- `docs/harness/POSTMORTEM_TEMPLATE.md`: blameless incident review template
+- `docs/harness/SUPPLY_CHAIN.md`: dependency, SBOM, provenance, and vulnerability policy
+- `docs/harness/AGENT_SECURITY.md`: MCP, hook, plugin, and sub-agent risk controls
+- `docs/harness/DATA_GOVERNANCE.md`: classification, privacy, retention, and access controls
+- `docs/harness/COST_MODEL.md`: budget, cloud cost drivers, and Azure resource review
 
 Before finalizing coding work, reconcile these docs with `git diff`; use `docs_maintainer` only when Codex agent delegation is explicitly allowed for the run.
 

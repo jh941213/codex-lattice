@@ -29,3 +29,9 @@
 - Added product, feature, API, infra, security, data model, test plan, observability, migration, release, and UX documentation surfaces under `docs/harness/`.
 - Added an operations runbook documentation surface for SLOs, monitoring checks, alert response, rollback, and incident review.
 - Strengthened `rules/coding-style.md` with separation, normalization, simplification, and refactoring rules.
+- Added real-world operations and governance skills: release readiness, incident response, observability/SLO, supply-chain security, agent tool risk, Azure FinOps, data governance, and postmortem.
+- Added `SLO_POLICY.md`, `INCIDENT_RESPONSE.md`, `POSTMORTEM_TEMPLATE.md`, `SUPPLY_CHAIN.md`, `AGENT_SECURITY.md`, `DATA_GOVERNANCE.md`, and `COST_MODEL.md` documentation surfaces.
+- Fixed docs sync to include staged diffs and expanded docs gate classification for SLO, incident, supply-chain, agent security, data governance, and cost changes.
+- Fixed major-error and event logs to resolve the git root before writing `.codex-lattice` runtime files.
+- Updated installer feature flag handling so managed Codex features are enabled consistently during install.
+- Updated installer hook/script copies to use atomic replace so active Codex hook reads do not observe partially copied files during reinstall.

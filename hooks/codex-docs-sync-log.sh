@@ -39,7 +39,9 @@ root = run(cwd, ["git", "rev-parse", "--show-toplevel"])
 if root:
     cwd = Path(root)
 
-changed = sorted(set(filter(None, run(cwd, ["git", "diff", "--name-only"]).splitlines())))
+changed = set(filter(None, run(cwd, ["git", "diff", "--name-only"]).splitlines()))
+changed.update(filter(None, run(cwd, ["git", "diff", "--cached", "--name-only"]).splitlines()))
+changed = sorted(changed)
 if not changed:
     raise SystemExit(0)
 
@@ -70,7 +72,15 @@ def classify_docs(paths):
         if any(token in low for token in ("package.json", "version", "release", "deploy", "ci", "workflow", "changelog")):
             required.update({"RELEASE_PLAN.md", "OPERATIONS_RUNBOOK.md"})
         if any(token in low for token in ("monitor", "metric", "alert", "log", "runbook", "slo", "incident", "ops", "operation")):
-            required.update({"OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md"})
+            required.update({"OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SLO_POLICY.md", "INCIDENT_RESPONSE.md", "POSTMORTEM_TEMPLATE.md"})
+        if any(token in low for token in ("sbom", "slsa", "supply", "dependency", "license", "provenance", "package.json", "package-lock", "pnpm-lock", "yarn.lock", "requirements.txt", "pyproject.toml", "uv.lock", "poetry.lock", "cargo.toml", "cargo.lock", "go.mod", "go.sum")):
+            required.update({"SUPPLY_CHAIN.md", "SECURITY_POLICY.md", "RELEASE_PLAN.md"})
+        if any(token in low for token in ("privacy", "pii", "retention", "gdpr", "compliance", "data-governance", "classification")):
+            required.update({"DATA_GOVERNANCE.md", "SECURITY_POLICY.md", "DATA_MODEL.md"})
+        if any(token in low for token in ("agent", "mcp", "tool", "hook", "plugin", "prompt", "subagent", "sub-agent")):
+            required.update({"AGENT_SECURITY.md", "SECURITY_POLICY.md", "SUBAGENT_PROTOCOL.md"})
+        if any(token in low for token in ("cost", "budget", "finops", "azure", "resource", "quota")):
+            required.update({"COST_MODEL.md", "INFRA_SPEC.md", "OPERATIONS_RUNBOOK.md"})
     return sorted(required)
 
 required_docs = classify_docs(changed)
@@ -93,6 +103,13 @@ for name, content in {
     "TEST_PLAN.md": "# Test Plan\n\n## Unit\n\n## Integration\n\n## E2E\n\n## Regression\n\n## Manual Checks\n\n",
     "OBSERVABILITY.md": "# Observability\n\n## Logs\n\n## Metrics\n\n## Alerts\n\n## Dashboards\n\n## Incident Signals\n\n",
     "OPERATIONS_RUNBOOK.md": "# Operations Runbook\n\n## SLOs\n\n## Monitoring Checklist\n\n## Alert Response\n\n## Rollback\n\n## Incident Review\n\n",
+    "SLO_POLICY.md": "# SLO Policy\n\n## Service Level Indicators\n\n## Objectives\n\n## Error Budget\n\n## Release Freeze Policy\n\n",
+    "INCIDENT_RESPONSE.md": "# Incident Response\n\n## Severity Levels\n\n## Triage\n\n## Mitigation\n\n## Communication\n\n## Follow-Up\n\n",
+    "POSTMORTEM_TEMPLATE.md": "# Postmortem Template\n\n## Summary\n\n## Impact\n\n## Timeline\n\n## Root Causes\n\n## Corrective Actions\n\n",
+    "SUPPLY_CHAIN.md": "# Supply Chain\n\n## Dependency Policy\n\n## SBOM\n\n## Provenance\n\n## Vulnerability Handling\n\n",
+    "AGENT_SECURITY.md": "# Agent Security\n\n## Tool Trust Boundaries\n\n## Prompt Injection Risks\n\n## Excessive Agency Controls\n\n## Secret Exposure Controls\n\n",
+    "DATA_GOVERNANCE.md": "# Data Governance\n\n## Classification\n\n## Retention\n\n## Access\n\n## Privacy Review\n\n",
+    "COST_MODEL.md": "# Cost Model\n\n## Cost Drivers\n\n## Budgets\n\n## Azure Resource Review\n\n## Waste Reduction\n\n",
     "MIGRATION_PLAN.md": "# Migration Plan\n\n## Compatibility\n\n## Data Migration\n\n## Rollback\n\n## Verification\n\n",
     "RELEASE_PLAN.md": "# Release Plan\n\n## Version\n\n## Rollout\n\n## Backout\n\n## User/Operator Notes\n\n",
     "UX_SPEC.md": "# UX Spec\n\n## Primary Flow\n\n## States\n\n## Accessibility\n\n## Responsive Behavior\n\n",
@@ -126,7 +143,7 @@ Last updated: {entry["ts"]}
 ## Required Before HITL, Review, Or Final Response
 - Spawn `docs_maintainer` when the current Codex run allows sub-agents.
 - If sub-agents are not available, the parent agent must update the same docs directly.
-- Keep product brief, feature specs, API specs, infra specs, security policy, data model, test plan, observability, operations runbook, migration, release, UX, validation, risks, and changelog aligned with the actual diff.
+- Keep product brief, feature specs, API specs, infra specs, security policy, agent security, data model, data governance, test plan, observability, SLO policy, operations runbook, incident response, postmortem, supply-chain, cost model, migration, release, UX, validation, risks, and changelog aligned with the actual diff.
 - Do not ask for human review while docs are stale unless the task is blocked.
 
 ## Required Docs

@@ -10,7 +10,7 @@
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#39-skills)
+[![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#47-skills)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#always-on-hooks)
 
@@ -24,7 +24,7 @@
 
 ## What This Is
 
-This repository installs a Codex harness with **39 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+This repository installs a Codex harness with **47 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 The target loop is:
 
@@ -115,7 +115,7 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ```text
 ~/.codex/
 ├── config.toml                         # managed features, skills, hooks, agents
-├── skills/                             # 39 Codex skills
+├── skills/                             # 47 Codex skills
 ├── agents/                             # 14 custom agent TOML files
 ├── hooks/                              # 21 lifecycle hook command registrations
 ├── rules/                              # Git/workflow rules
@@ -154,7 +154,8 @@ These run through Codex lifecycle hooks. They are not user-invoked skills.
 | `codex-reflection-reminder.sh` | Marks the reflection gate for complex sequential prompts or post-compact resume |
 | `codex-visible-error-reminder.sh` | Reminds the agent to inspect major errors after session start or compact |
 | `codex-git-guard.sh` | Blocks force pushes, protected-branch direct pushes, and `.env` commits |
-| `codex-prettier.sh` | Reserved hook slot for formatter integration |
+
+`codex-prettier.sh` is a reserved formatter integration script and is not registered as a default lifecycle hook.
 
 ## Pre-HITL Gates
 
@@ -175,10 +176,17 @@ The docs gate requests these files depending on the changed files.
 | `API_SPEC.md` | Endpoints, request/response, validation, and error contracts |
 | `INFRA_SPEC.md` | Resources, configuration, operations, and monitoring |
 | `SECURITY_POLICY.md` | Trust boundaries, auth, data, secrets, abuse/failure modes |
+| `AGENT_SECURITY.md` | MCP, hooks, plugins, sub-agents, prompt injection, and excessive-agency risk |
 | `DATA_MODEL.md` | Entities, ownership, persistence, and normalization |
+| `DATA_GOVERNANCE.md` | Classification, privacy, retention, access control, and audit |
 | `TEST_PLAN.md` | Unit, integration, E2E, regression, and manual checks |
 | `OBSERVABILITY.md` | Logs, metrics, alerts, dashboards, and incident signals |
 | `OPERATIONS_RUNBOOK.md` | SLOs, monitoring checklist, alert response, rollback, and incident review |
+| `SLO_POLICY.md` | SLIs, SLO targets, error budgets, release freezes, and alert policy |
+| `INCIDENT_RESPONSE.md` | Severity, triage, mitigation, communication, and follow-up |
+| `POSTMORTEM_TEMPLATE.md` | Blameless timeline, root cause, and corrective action |
+| `SUPPLY_CHAIN.md` | Dependency policy, SBOM, provenance, vulnerability handling, and license review |
+| `COST_MODEL.md` | Cost drivers, budgets, Azure resource review, and waste reduction |
 | `MIGRATION_PLAN.md` | Compatibility, data migration, rollback, and verification |
 | `RELEASE_PLAN.md` | Version, rollout, backout, and operator notes |
 | `UX_SPEC.md` | Flows, states, accessibility, and responsive behavior |
@@ -210,7 +218,7 @@ The harness does not recreate what Codex already provides.
 
 No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `$verify`.
 
-## 39 Skills
+## 47 Skills
 
 | Skill | Use case |
 |-------|----------|
@@ -222,6 +230,7 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `$build-fix`, `$tdd`, `$e2e-verify`, `$e2e-agent-browser` | Build recovery, TDD, and E2E verification |
 | `$frontend`, `$ui-ux-pro-max`, `$react-patterns`, `$shadcn-ui`, `$tailwind-design-system` | UI, React, Tailwind, and design systems |
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | Harness diagnostics, audit, and quality evaluation |
+| Operations/security skills | Release readiness, incident response, observability/SLO, supply chain, agent tool risk, Azure FinOps, data governance, postmortem |
 | Technical skills | FastAPI, API design, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, layered plan memory |
 
 ## 14 Custom Agents

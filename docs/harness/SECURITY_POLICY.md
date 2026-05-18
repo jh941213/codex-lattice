@@ -23,3 +23,6 @@
 ## Abuse And Failure Modes
 
 - If a security issue is found, pause feature work, document the risk, and run security review before HITL.
+- MCP, hook, plugin, sub-agent, prompt injection, and excessive-agency risks are tracked in `AGENT_SECURITY.md`.
+- Dependency, SBOM, provenance, and vulnerability decisions are tracked in `SUPPLY_CHAIN.md`.
+- PII, retention, privacy, access, and audit decisions are tracked in `DATA_GOVERNANCE.md`.
