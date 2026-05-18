@@ -15,6 +15,7 @@ Use this file when MCP servers, hooks, plugins, skills, sub-agents, automation l
 - Untrusted content source: user prompts, filenames, README/docs content, package scripts, generated reports
 - Isolation strategy: packet scripts summarize metadata and do not execute prompt text or package scripts
 - Model-visible persistence: packet files are advisory routing aids, not source of truth
+- Untracked files are included in path-level routing so newly created API, infra, hook, or security-sensitive files are not missed before staging
 - Required validation: verify claims against files, git diff, and command output before acting
 
 ## Excessive Agency Controls
@@ -28,6 +29,7 @@ Use this file when MCP servers, hooks, plugins, skills, sub-agents, automation l
 
 - Secrets must not be committed, logged, printed, or written to model-visible files.
 - MCP credentials should come from environment variables or existing local config.
+- Sensitive file contents are never read into packets; paths such as `.env` may appear only as review-routing signals.
 - Redact tokens, keys, connection strings, and credentials in reports.
 
 ## Review Checklist

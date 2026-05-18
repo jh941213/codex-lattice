@@ -14,12 +14,13 @@
 
 - Hidden logs are operational traces and should not be loaded into model context by default.
 - Model-visible files are limited to durable retry context, gate requirements, context/review/health packets, and durable infra assumptions.
-- Context/review/health packets summarize metadata and local file paths; they do not include secret file contents.
+- Context/review/health packets summarize metadata and local file paths, including untracked path-level routing for review; they do not include secret file contents.
 
 ## Secret Handling
 
 - `.env`, keys, credentials, tokens, and connection strings must not be committed.
-- Packet generation excludes sensitive path candidates such as `.env`, tokens, credentials, private keys, `.pem`, and `.key`.
+- Packet generation excludes sensitive path candidates such as `.env`, tokens, credentials, private keys, `.pem`, and `.key` from required-reading candidates.
+- Review packets may mention sensitive paths such as `.env` as security-routing evidence, but must not print or persist their contents.
 - Run `gitleaks` before release or PR.
 
 ## Abuse And Failure Modes

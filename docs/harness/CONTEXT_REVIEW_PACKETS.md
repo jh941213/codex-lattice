@@ -17,6 +17,7 @@ Generated on `UserPromptSubmit` and `PostCompact`.
 Purpose:
 
 - summarize current branch, dirty state, recent commits, and changed files
+- include unstaged, staged, and untracked files in changed-file routing
 - list required reading candidates from `docs/harness/` and model-visible gates
 - list validation command candidates from project scripts and common stack files
 - remind the agent which retrieval tool to use: `rg`, `sg`, `mgrep`, Tavily, Exa, or OpenAI docs
@@ -34,6 +35,7 @@ Generated on `PermissionRequest` and `Stop`.
 Purpose:
 
 - summarize changed files and diff size
+- list untracked files separately so newly created API, infra, hook, or security-sensitive files are not missed before staging
 - classify risk by file path: security, API, infra, UI, data, supply chain, agent/tool, scheduler/ops
 - show gate status for major errors, docs, simplify, context, and harness health
 - surface latest healthcheck/log-analysis report summaries

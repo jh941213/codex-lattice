@@ -84,6 +84,11 @@ def changed_files(cwd: Path) -> list[str]:
     names = set()
     for args in (["git", "diff", "--name-only"], ["git", "diff", "--cached", "--name-only"]):
         names.update(line for line in run(cwd, args).splitlines() if line)
+    names.update(
+        line
+        for line in run(cwd, ["git", "ls-files", "--others", "--exclude-standard"]).splitlines()
+        if line and not any(part in BIG_SKIP_DIRS for part in line.split("/"))
+    )
     return sorted(names)
 
 

@@ -99,6 +99,12 @@ bash scripts/check-codex-integrations.sh
 ./scripts/codex-lattice-scheduler.sh status
 ```
 
+For deeper harness validation, run runtime validation. It covers small static checks first, then temp install, hook trigger simulation, packet generation, event log persistence, git guard, commit logs, scheduler run/enable/disable, and secret scanning.
+
+```bash
+./scripts/validate-codex-lattice-runtime.sh
+```
+
 Inside Codex, inspect:
 
 ```text

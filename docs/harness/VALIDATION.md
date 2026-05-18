@@ -322,3 +322,18 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no installer rerun, hook execution, or scheduler run was needed because this change only updates README positioning and harness tracking docs.
 - evidence: README and README_EN now describe Codex Lattice as an enterprise development/operations harness and surface reflection, operational observability, context/review packets, harness health, and validation evidence near the top.
+
+### 2026-05-18T05:41:00Z
+- task: verify packet/scheduler operation live, fix untracked-file review routing, and add repeatable runtime validation.
+- commands:
+  - `bash -n scripts/validate-codex-lattice-runtime.sh`
+  - `shellcheck scripts/validate-codex-lattice-runtime.sh`
+  - `shfmt -d scripts/validate-codex-lattice-runtime.sh`
+  - `CODEX_LATTICE_KEEP_VALIDATION_TMP=1 scripts/validate-codex-lattice-runtime.sh`
+  - `bash install.sh --ko`
+  - installed packet smoke test with `~/.codex/scripts/codex-lattice-context-packet.sh`
+  - installed packet smoke test with `~/.codex/scripts/codex-lattice-review-packet.sh`
+  - installed packet smoke test with `~/.codex/scripts/codex-lattice-harness-health.sh`
+- result: pass after tightening validation assertions.
+- skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run.
+- evidence: runtime validation passed bash syntax, shellcheck, shfmt, JSON metadata, hook registry, all 47 skill validations, integration checker, temp install, lifecycle hook simulation, scheduler operations, whitespace diff, and gitleaks; temp install produced 47 skill configs, 47 skill dirs, 14 agents, 10 hook scripts, 9 scripts, and 27 hook commands; lifecycle simulation generated context/review/health packets, run episode snapshots, reflection/docs/simplify/major-error gates, event logs for all lifecycle events, git strategy log, commit log, log analysis, and high-risk review routing for untracked `infra/main.bicep`; runtime `.codex-lattice` files were excluded from changed-file routing; seeded secret values did not appear in packet files; scheduler run generated reports and launchd enable/status/disable checks passed with a validation-specific label; local install was refreshed and installed packet scripts reproduced untracked infra routing, secret non-disclosure, and harness health counts with 9 installed scripts.

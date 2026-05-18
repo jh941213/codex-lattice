@@ -23,6 +23,17 @@ RISK_RULES = {
     "scheduler_ops": ("scheduler", "schedule", "cron", "launchd", "systemd", "timer"),
 }
 
+BIG_SKIP_DIRS = {
+    ".git",
+    ".codex-lattice",
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".next",
+    "vendor",
+}
+
 
 def load_input() -> dict:
     raw = os.environ.get("CODEX_HOOK_INPUT", "")
@@ -58,7 +69,16 @@ def changed_files(cwd: Path) -> list[str]:
     names = set()
     for args in (["git", "diff", "--name-only"], ["git", "diff", "--cached", "--name-only"]):
         names.update(line for line in run(cwd, args).splitlines() if line)
+    names.update(line for line in untracked_files(cwd))
     return sorted(names)
+
+
+def untracked_files(cwd: Path) -> list[str]:
+    return sorted(
+        line
+        for line in run(cwd, ["git", "ls-files", "--others", "--exclude-standard"]).splitlines()
+        if line and not any(part in BIG_SKIP_DIRS for part in line.split("/"))
+    )
 
 
 def numstat(cwd: Path) -> tuple[int, int]:
@@ -156,6 +176,7 @@ def write_packet(cwd: Path, data: dict) -> Path:
     session_id = str(data.get("session_id") or data.get("conversation_id") or "").strip()[:120]
     branch = run(cwd, ["git", "branch", "--show-current"]) or "detached-or-non-git"
     files = changed_files(cwd)
+    untracked = untracked_files(cwd)
     added, deleted = numstat(cwd)
     stat = run(cwd, ["git", "diff", "--stat"]) or "(no unstaged diff stat)"
     staged_stat = run(cwd, ["git", "diff", "--cached", "--stat"]) or "(no staged diff stat)"
@@ -180,6 +201,9 @@ Generated: {ts}
 
 ## Changed Files
 {bullet(files)}
+
+## Untracked Files
+{bullet(untracked)}
 
 ## Risk Routing
 {risk_text(risks)}

@@ -86,7 +86,7 @@ bash install.sh --ko
 
 ## 첫 확인
 
-설치가 끝나면 아래 3가지만 확인하면 됩니다.
+설치가 끝나면 아래 3가지를 빠르게 확인합니다.
 
 ```bash
 # 설치된 CLI/MCP/검증 도구 확인
@@ -97,6 +97,12 @@ bash scripts/check-codex-integrations.sh
 
 # scheduler는 기본 OFF인지 확인
 ./scripts/codex-lattice-scheduler.sh status
+```
+
+하네스 자체를 깊게 검증하려면 runtime validation을 실행합니다. 작은 단위의 shell/JSON/skill 검증부터 temp install, hook trigger simulation, packet 생성, event log 적재, git guard, commit log, scheduler run/enable/disable, secret scan까지 한 번에 확인합니다.
+
+```bash
+./scripts/validate-codex-lattice-runtime.sh
 ```
 
 Codex 안에서는 다음 순서로 보면 됩니다.

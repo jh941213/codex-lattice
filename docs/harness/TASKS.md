@@ -27,6 +27,8 @@
 - [x] Validate the harness with a real temporary notepad app and fix the docs-template EOF issue found during validation.
 - [x] Add context/review/health packet generation and verify it in a temporary app repository.
 - [x] Reposition the README opening around enterprise operations, reflection, observability, and review evidence.
+- [x] Verify packet and scheduler operation live, then fix untracked-file routing found during validation.
+- [x] Add repeatable runtime validation covering skills, hooks, triggers, logs, packets, scheduler controls, and secret scanning.
 
 ## Status Legend
 
