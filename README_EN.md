@@ -9,14 +9,23 @@
 **A Codex agent harness built for real enterprise development and operations**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
-[![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#47-skills)
-[![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#15-custom-agents)
+[![Skills](https://img.shields.io/badge/skills-47-2563EB.svg?style=for-the-badge)](#47-skills)
+[![Agents](https://img.shields.io/badge/agents-15-059669.svg?style=for-the-badge)](#15-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-27-111827.svg?style=for-the-badge)](#always-on-hooks)
+[![Runtime Validation](https://img.shields.io/badge/runtime_validation-13_checks-7C3AED.svg?style=for-the-badge)](#repository-validation)
+[![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Observability` · `Scheduler`
 
 <img src="assets/codex-lattice-hero.png" alt="Codex Lattice hero illustration" width="880" />
+
+<table>
+  <tr>
+    <td align="center"><strong>Agent Loop</strong><br />plan, implement, verify, document</td>
+    <td align="center"><strong>Evidence</strong><br />context, review, health packets</td>
+    <td align="center"><strong>Operations</strong><br />prd, infra, SLO, runbook</td>
+  </tr>
+</table>
 
 </div>
 
@@ -24,23 +33,25 @@
 
 ## What This Is
 
-Codex Lattice is an installable harness that configures OpenAI Codex for production-style development work.
+Codex Lattice is an installable harness that configures OpenAI Codex for production-style development and operations work.
 
-It is not a demo prompt pack. It is designed to make Codex usable in enterprise development and operations by binding reflection, operational observability, validation evidence, documentation sync, review boundaries, and scheduling into one repeatable loop.
+> [!NOTE]
+> This is not a demo prompt pack. It is designed to make Codex usable in enterprise development and operations by binding reflection, operational observability, validation evidence, documentation sync, review boundaries, and scheduling into one repeatable loop.
 
 It installs **47 skills**, **15 custom agents**, **27 lifecycle hook commands**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
-| Area | What you get |
-|------|--------------|
-| Work loop | Planning, Git strategy, implementation, verification, docs sync, commit candidate logs |
-| Reflection | Latest-user-request checks, compact resume, instruction drift checks, lesson learned records |
-| Always-on hooks | Event logs, major error logs, docs sync gate, simplify/reflection gates |
-| Skills & agents | PRD, SPEC, review, verification, security, operations, Azure, UI, and testing workers |
-| Operating docs | Feature, API, infra, production/prd, environment strategy, query, security, data, test, SLO, and runbook documents |
-| Operational observability | Health packets, log analysis, scheduler reports, model-visible major error memory |
-| Review evidence | Context packets, review packets, harness health, validation evidence |
-| Search/analysis | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
-| Scheduler | Off-by-default healthcheck/log analysis. Enable only when needed |
+## At A Glance
+
+| Surface | What it includes | What it leaves behind |
+|---------|------------------|-----------------------|
+| **Work Loop** | Planning, Git strategy, implementation, verification, docs sync, commit candidate logs | Work stays resumable and reviewable |
+| **Reflection** | Latest-request checks, compact resume, instruction drift checks | Long sessions keep their goal and order |
+| **Always-On Hooks** | Event logs, major error logs, docs/simplify/reflection gates | Required checks surface before HITL |
+| **Skills & Agents** | PRD, SPEC, review, security, Azure, DB query, UI, testing workers | Specialized roles stay Codex-native |
+| **Ops Docs** | Feature, API, infra, prd, env, query, security, data, SLO, runbook | Operational and handoff evidence stays durable |
+| **Evidence Packets** | Context, review, harness health, validation evidence | The model reads only useful evidence, not full logs |
+| **Search & Analysis** | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic | Local/web/security/structural review in one flow |
+| **Scheduler** | Off-by-default healthcheck, log analysis, read-only report | Optional recurring operations checks |
 
 The default loop is:
 

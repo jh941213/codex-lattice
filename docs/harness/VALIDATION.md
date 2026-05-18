@@ -347,3 +347,12 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run; no live Azure or production database commands were run because these workflows are read-only-first and require explicit scoped approval for live resources/data.
 - evidence: runtime validation passed 13 checks: bash syntax, shellcheck, shfmt, JSON metadata, hook registry, all 47 skills, all 15 agent TOML files, integration checker, temp install, lifecycle hook simulation, scheduler operations, whitespace diff, and gitleaks; temp install expects 15 agents and includes `db_query_specialist`; hook simulation verifies production/PRD/environment/infra/query changes route to `PRODUCTION_READINESS.md`, `ENVIRONMENT_STRATEGY.md`, `INFRA_SPEC.md`, `QUERY_GUIDE.md`, and `DATA_MODEL.md`; review packet risk routing now includes `database_query`; local install reports 47 skill configs, 47 skill dirs, 15 agents, `db-query-specialist.toml` present, `db_query_specialist` registered, 10 hook scripts, 9 scripts, 27 hook commands, `features.hooks = true`, and no deprecated `features.codex_hooks`.
+
+### 2026-05-18T06:56:57Z
+- task: polish Korean and English README visual hierarchy.
+- commands:
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: runtime validation was not rerun because this change only adjusts README presentation and harness tracking docs.
+- evidence: README and README_EN now show a restored logo, clearer badge set, visual summary cards, GitHub callouts, and an at-a-glance table that groups work loop, reflection, hooks, agents, ops docs, evidence packets, search, and scheduler surfaces.
