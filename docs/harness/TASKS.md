@@ -31,6 +31,7 @@
 - [x] Add repeatable runtime validation covering skills, hooks, triggers, logs, packets, scheduler controls, and secret scanning.
 - [x] Add production/PRD environment and infra readiness docs/gate routing.
 - [x] Add a DB query specialist sub-agent and query guide for data-model-based query work.
+- [x] Polish README visual hierarchy and top-of-page scannability.
 
 ## Status Legend
 

@@ -45,3 +45,4 @@
 - Added `validate-codex-lattice-runtime.sh` for repeatable small-to-broad validation of skills, hook registry, temp install, lifecycle hook simulation, packet generation, event logs, git guard, commit logs, scheduler operations, and secret scanning.
 - Added production/`prd` readiness and environment strategy docs, and routed prod/env/infra changes to those docs through the docs sync hook.
 - Added `db_query_specialist` for data-model-driven SQL/ORM query design and review, plus `QUERY_GUIDE.md` and database-query risk routing.
+- Polished the Korean and English README openings with clearer badges, restored logo visibility, visual summary cards, callouts, and a tighter at-a-glance feature table.

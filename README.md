@@ -2,21 +2,30 @@
 
 **🌐 [English](README_EN.md) | 한국어**
 
-
+<img src="assets/lilysTextLogo.svg" alt="Codex Lattice" width="96" />
 
 # Codex Lattice
 
 **엔터프라이즈 운영 환경에서 실제로 쓰기 위한 Codex agent harness**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
-[![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#skills-47개)
-[![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#custom-agents-15개)
+[![Skills](https://img.shields.io/badge/skills-47-2563EB.svg?style=for-the-badge)](#skills-47개)
+[![Agents](https://img.shields.io/badge/agents-15-059669.svg?style=for-the-badge)](#custom-agents-15개)
 [![Hooks](https://img.shields.io/badge/hooks-27-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
+[![Runtime Validation](https://img.shields.io/badge/runtime_validation-13_checks-7C3AED.svg?style=for-the-badge)](#repo-검증-명령)
+[![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Observability` · `Scheduler`
 
 <img src="assets/codex-lattice-hero.png" alt="Codex Lattice hero illustration" width="880" />
+
+<table>
+  <tr>
+    <td align="center"><strong>Agent Loop</strong><br />계획, 구현, 검증, 문서화</td>
+    <td align="center"><strong>Evidence</strong><br />context, review, health packets</td>
+    <td align="center"><strong>Operations</strong><br />prd, infra, SLO, runbook</td>
+  </tr>
+</table>
 
 </div>
 
@@ -24,23 +33,25 @@
 
 ## 무엇인가요
 
-Codex Lattice는 OpenAI Codex를 실무 개발에 맞게 세팅하는 설치형 하네스입니다.
+Codex Lattice는 OpenAI Codex를 실무 개발과 운영에 맞게 세팅하는 설치형 하네스입니다.
 
-데모용 프롬프트 묶음이 아니라, 리플렉션, 운영 관측성, 검증 증거, 문서 동기화, 리뷰 경계, 스케줄링을 하나의 반복 가능한 작업 루프로 묶어 **엔터프라이즈 개발/운영 환경에서 실제로 쓸 수 있게 만드는 것**을 목표로 합니다.
+> [!NOTE]
+> 데모용 프롬프트 묶음이 아닙니다. 리플렉션, 운영 관측성, 검증 증거, 문서 동기화, 리뷰 경계, 스케줄링을 하나의 반복 가능한 작업 루프로 묶어 **엔터프라이즈 개발/운영 환경에서 실제로 쓸 수 있게 만드는 것**을 목표로 합니다.
 
 설치하면 Codex에 **47개 skills**, **15개 custom agents**, **27개 lifecycle hook commands**, 작업 로그, 커밋 로그, 모델이 읽는 주요 에러 로그, Azure Infra memory, docs 자동 동기화 규칙이 들어갑니다.
 
-| 영역 | 제공하는 것 |
-|------|-------------|
-| 작업 루프 | 계획, Git 전략, 구현, 검증, 문서 갱신, 커밋 후보 기록 |
-| 리플렉션 | 최신 사용자 지시 재확인, compact resume, 방향 이탈 점검, lesson learned 기록 |
-| 항상 켜지는 Hooks | 이벤트 로그, 주요 에러 로그, docs sync gate, simplify/reflection gate |
-| Skills & Agents | PRD, SPEC, 리뷰, 검증, 보안, 운영, Azure, UI, 테스트 특화 작업자 |
-| 운영 문서 | 기능 명세, API, 인프라, production/prd, 환경 전략, 쿼리, 보안, 데이터, 테스트, SLO, runbook 문서 |
-| 운영 관측성 | health packet, log analysis, scheduler report, 주요 에러 model-visible memory |
-| 리뷰 증거 | context packet, review packet, harness health, validation evidence |
-| 검색/분석 | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
-| 스케줄러 | 꺼짐 기본값의 healthcheck/log analysis. 필요할 때만 `enable` |
+## 한눈에 보기
+
+| Surface | 들어있는 것 | 결과물 |
+|---------|-------------|--------|
+| **Work Loop** | 계획, Git 전략, 구현, 검증, 문서 갱신, 커밋 후보 기록 | 작업이 재개 가능하고 리뷰 가능한 단위로 남음 |
+| **Reflection** | 최신 지시 재확인, compact resume, 방향 이탈 점검 | 긴 세션에서도 목표와 순서가 흔들리지 않음 |
+| **Always-On Hooks** | 이벤트 로그, 주요 에러 로그, docs/simplify/reflection gate | 사람이 보기 전에 필요한 점검이 자동으로 표면화됨 |
+| **Skills & Agents** | PRD, SPEC, 리뷰, 보안, Azure, DB query, UI, 테스트 특화 작업자 | 필요한 역할을 Codex-native 방식으로 호출 |
+| **Ops Docs** | feature, API, infra, prd, env, query, security, data, SLO, runbook | 실무 운영/배포/인수인계 근거가 문서로 남음 |
+| **Evidence Packets** | context, review, harness health, validation evidence | 전체 로그를 넣지 않고도 모델이 필요한 증거만 읽음 |
+| **Search & Analysis** | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic | 로컬/웹/보안/구조 diff 탐색을 한 흐름에서 사용 |
+| **Scheduler** | 기본 OFF healthcheck, log analysis, read-only report | 필요할 때만 운영 점검을 주기 실행 |
 
 Codex가 따르게 되는 기본 루프는 단순합니다.
 
