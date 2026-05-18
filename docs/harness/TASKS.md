@@ -29,6 +29,8 @@
 - [x] Reposition the README opening around enterprise operations, reflection, observability, and review evidence.
 - [x] Verify packet and scheduler operation live, then fix untracked-file routing found during validation.
 - [x] Add repeatable runtime validation covering skills, hooks, triggers, logs, packets, scheduler controls, and secret scanning.
+- [x] Add production/PRD environment and infra readiness docs/gate routing.
+- [x] Add a DB query specialist sub-agent and query guide for data-model-based query work.
 
 ## Status Legend
 

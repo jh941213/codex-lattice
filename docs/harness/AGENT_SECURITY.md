@@ -21,6 +21,7 @@ Use this file when MCP servers, hooks, plugins, skills, sub-agents, automation l
 ## Excessive Agency Controls
 
 - Read-only by default: packet scripts observe and summarize only
+- Read-only specialist agents: `azure_infra` and `db_query_specialist` must not mutate cloud/database state without explicit scoped approval
 - Human approval required for: destructive git, cloud mutation, permission changes, release, or external publication
 - Guard hooks: `codex-git-guard.sh`, simplify/docs/reflection gates, review packet risk routing
 - Rollback path: delete `.codex-lattice/model-visible/*PACKET.md` or rerun packet generation after correcting state

@@ -27,6 +27,14 @@ Use this file for Azure and infrastructure cost estimation, budget checks, and w
 - Missing tags:
 - Rightsizing candidates:
 
+## Production/PRD Cost Controls
+
+- Environment budgets:
+- Quota limits:
+- Autoscale limits:
+- Alert thresholds:
+- Cost owner:
+
 ## Waste Reduction
 
 - Cleanup candidates:

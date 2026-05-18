@@ -18,6 +18,7 @@ RISK_RULES = {
     "infra": ("infra", "terraform", "bicep", "azure", "docker", "compose", "k8s", "helm", "systemd", "launchd", "cron"),
     "ui_ux": (".tsx", ".jsx", ".css", ".scss", ".vue", ".svelte", "component", "page", "screen"),
     "data": ("db", "database", "schema", "model", "entity", "migration", "sql", "prisma", "drizzle"),
+    "database_query": ("query", "queries", "repository", "dao", "sql", "knex", "typeorm", "prisma", "drizzle", "sequelize", "hibernate"),
     "supply_chain": ("package.json", "package-lock.json", "pnpm-lock", "yarn.lock", "requirements.txt", "pyproject.toml", "uv.lock", "go.mod", "cargo.toml"),
     "agent_tool": ("agent", "mcp", "hook", "plugin", "prompt", "subagent", "sub-agent", ".codex"),
     "scheduler_ops": ("scheduler", "schedule", "cron", "launchd", "systemd", "timer"),

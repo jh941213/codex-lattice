@@ -9,6 +9,7 @@
 
 - Check `/hooks` after install and confirm installed hooks are trusted and active.
 - Run `~/.codex/scripts/check-codex-integrations.sh` after setup changes.
+- Run `./scripts/validate-codex-lattice-runtime.sh` before production/`prd` handoff or after hook/agent changes.
 - Run `./scripts/codex-lattice-scheduler.sh run` for a deterministic healthcheck and log-analysis report.
 - Use `./scripts/codex-lattice-scheduler.sh status` to check optional scheduled operations.
 - Check `.codex-lattice/model-visible/MAJOR_ERRORS.md` after repeated tool failures.
@@ -29,6 +30,7 @@
 - Restore `~/.codex/config.toml` from backup if installer output is wrong.
 - Disable scheduled operations with `./scripts/codex-lattice-scheduler.sh disable` before reverting scheduler changes.
 - Remove stale `.codex-lattice/model-visible/*_REQUIRED.md` files only after the underlying issue is resolved.
+- Production/`prd` rollback must check config, scheduler, hooks, MCP search credentials, and any cloud resource assumptions recorded in `INFRA_SPEC.md` or `AZURE_INFRA_MEMORY.md`.
 
 ## Incident Review
 

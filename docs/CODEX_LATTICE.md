@@ -69,6 +69,9 @@ Sub-agents should keep `docs/harness/` synchronized with implementation work.
 - `docs/harness/SUPPLY_CHAIN.md`: dependency, SBOM, provenance, and vulnerability policy
 - `docs/harness/AGENT_SECURITY.md`: MCP, hook, plugin, and sub-agent risk controls
 - `docs/harness/DATA_GOVERNANCE.md`: classification, privacy, retention, and access controls
+- `docs/harness/ENVIRONMENT_STRATEGY.md`: local/test/staging/production parity and promotion rules
+- `docs/harness/PRODUCTION_READINESS.md`: production/`prd` go/no-go gates and operator handoff
+- `docs/harness/QUERY_GUIDE.md`: data-model-driven query standards, safety, and performance review
 - `docs/harness/COST_MODEL.md`: budget, cloud cost drivers, and Azure resource review
 - `docs/harness/SCHEDULER.md`: optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow
 - `docs/harness/CONTEXT_REVIEW_PACKETS.md`: context, review, health, and run episode packet behavior
@@ -84,6 +87,7 @@ Before finalizing coding work, reconcile these docs with `git diff`; use `docs_m
 - `prd_planner`: CPS/PRD/SPEC planning synthesis.
 - `code_reviewer`: correctness, regressions, missing tests.
 - `security_reviewer`: secrets, auth, input validation, dependency risk.
+- `db_query_specialist`: SQL/ORM query design and review using the data model and query guide.
 - `qa`: user scenarios and verification checklists.
 - `evaluator`: independent result scoring and fix-forward loops.
 - `docs_writer`: durable docs and handoff notes.
