@@ -5,9 +5,14 @@
 .codex-lattice/reports/
 .codex-lattice/docs-sync-queue.jsonl
 .codex-lattice/simplify-state.json
+.codex-lattice/harness-health-latest.json
+.codex-lattice/runs/
 .codex-lattice/model-visible/SIMPLIFY_REQUIRED.md
 .codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md
 .codex-lattice/model-visible/REFLECTION_REQUIRED.md
+.codex-lattice/model-visible/CONTEXT_PACKET.md
+.codex-lattice/model-visible/REVIEW_PACKET.md
+.codex-lattice/model-visible/HARNESS_HEALTH.md
 .compact-state/
 .DS_Store
 node_modules/

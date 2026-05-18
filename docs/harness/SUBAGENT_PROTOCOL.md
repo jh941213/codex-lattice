@@ -26,6 +26,8 @@ Before dispatching, the parent must prepare:
 - verification commands
 - expected report format
 
+Use `.codex-lattice/model-visible/CONTEXT_PACKET.md` as a retrieval aid when it exists, but copy only the relevant task context into the sub-agent prompt. Do not pass hidden logs or entire packet histories to sub-agents by default.
+
 Do not make a sub-agent read a long plan file to discover its own job. The parent reads the plan, extracts the task, and gives the sub-agent the full task text plus only the context it needs.
 
 ## Implementer Prompt Contract
@@ -113,6 +115,7 @@ Verdict format:
 Before HITL, PR, merge, or final response:
 
 - reconcile sub-agent reports with the actual git diff
+- inspect `.codex-lattice/model-visible/REVIEW_PACKET.md` and `HARNESS_HEALTH.md` when present
 - run verification from the parent session
 - resolve `REFLECTION_REQUIRED.md`, `SIMPLIFY_REQUIRED.md`, and `DOCS_AGENT_REQUIRED.md`
 - update `docs/harness/VALIDATION.md`, `TASKS.md`, and `CHANGELOG.md`

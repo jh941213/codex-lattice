@@ -48,6 +48,10 @@ Project-local runtime files are written under `.codex-lattice/`.
 - `.codex-lattice/commits/*.json`: commit metadata
 - `.codex-lattice/commits/*.md`: human-readable commit log
 - `.codex-lattice/model-visible/MAJOR_ERRORS.md`: blocking/repeated errors that the model should read
+- `.codex-lattice/model-visible/CONTEXT_PACKET.md`: compact task context and retrieval routing
+- `.codex-lattice/model-visible/REVIEW_PACKET.md`: diff risk routing and review evidence
+- `.codex-lattice/model-visible/HARNESS_HEALTH.md`: hook/config/log/gate/scheduler health signal
+- `.codex-lattice/runs/<session>/`: per-task context/review packet snapshots
 - `.codex-lattice/docs-sync-queue.jsonl`: changed-file queue for docs maintenance
 
 ## Model-Visible Work Docs
@@ -67,6 +71,7 @@ Sub-agents should keep `docs/harness/` synchronized with implementation work.
 - `docs/harness/DATA_GOVERNANCE.md`: classification, privacy, retention, and access controls
 - `docs/harness/COST_MODEL.md`: budget, cloud cost drivers, and Azure resource review
 - `docs/harness/SCHEDULER.md`: optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow
+- `docs/harness/CONTEXT_REVIEW_PACKETS.md`: context, review, health, and run episode packet behavior
 
 Before finalizing coding work, reconcile these docs with `git diff`; use `docs_maintainer` only when Codex agent delegation is explicitly allowed for the run.
 

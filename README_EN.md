@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#47-skills)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
-[![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#always-on-hooks)
+[![Hooks](https://img.shields.io/badge/hooks-27-111827.svg?style=for-the-badge)](#always-on-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Observability` · `Scheduler`
 
@@ -26,7 +26,7 @@
 
 Codex Lattice is an installable harness that configures OpenAI Codex for production-style development work.
 
-It installs **47 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+It installs **47 skills**, **14 custom agents**, **27 lifecycle hook commands**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 | Area | What you get |
 |------|--------------|
@@ -71,7 +71,7 @@ Restart Codex after installation. On the first run, open `/hooks`, review the ne
 /hooks
 ```
 
-`21 hooks need review before they can run` is expected after a fresh install. Once trusted, the `/hooks` screen should show matching `Installed` and `Active` counts.
+`27 hooks need review before they can run` is expected after a fresh install. Once trusted, the `/hooks` screen should show matching `Installed` and `Active` counts.
 
 ## First Check
 
@@ -150,9 +150,9 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ├── config.toml                         # managed features, skills, hooks, agents
 ├── skills/                             # 47 Codex skills
 ├── agents/                             # 14 custom agent TOML files
-├── hooks/                              # 21 lifecycle hook command registrations
+├── hooks/                              # 27 lifecycle hook command registrations
 ├── rules/                              # Git/workflow rules
-├── scripts/                            # install validation, healthcheck, log analysis, scheduler controls
+├── scripts/                            # install validation, packets, healthcheck, log analysis, scheduler controls
 ```
 
 Project-local runtime logs are written under `.codex-lattice/`.
@@ -189,6 +189,19 @@ These run through Codex lifecycle hooks. They are not user-invoked skills.
 | `codex-git-guard.sh` | Blocks force pushes, protected-branch direct pushes, and `.env` commits |
 
 `codex-prettier.sh` is a reserved formatter integration script and is not registered as a default lifecycle hook.
+
+## Context / Review / Health Packets
+
+When Codex starts work or reaches review/final handoff points, the harness refreshes small model-visible packets. These give the agent useful evidence without loading hidden logs as default context.
+
+| Packet | Path | Purpose |
+|--------|------|---------|
+| Context Packet | `.codex-lattice/model-visible/CONTEXT_PACKET.md` | Branch, dirty files, reading candidates, validation candidates, search routing |
+| Review Packet | `.codex-lattice/model-visible/REVIEW_PACKET.md` | Diff stat, risk routing, gate status, validation evidence, review checklist |
+| Harness Health | `.codex-lattice/model-visible/HARNESS_HEALTH.md` | Hook/config/log/gate/scheduler status and attention items |
+| Run Episode | `.codex-lattice/runs/<session>/` | Per-task context/review packet snapshots |
+
+Packets are read-only observers. They do not execute user input as shell, and they exclude sensitive paths such as `.env`, tokens, and credentials from reading candidates.
 
 ## Optional Scheduled Operations
 
@@ -335,7 +348,7 @@ for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; 
 
 | Symptom | Fix |
 |---------|-----|
-| `21 hooks need review before they can run` | Open `/hooks`, review the hooks, and trust them once. |
+| `27 hooks need review before they can run` | Open `/hooks`, review the hooks, and trust them once. |
 | `[features].codex_hooks is deprecated` | Old config. Run `bash install.sh --en` again to write `features.hooks = true`. |
 | `Skipped loading skill ... invalid YAML` | Pull the latest repo, run `bash install.sh --en`, then restart Codex. |
 | Missing integration tool | Run `brew bundle --file Brewfile.codex`. Some checks auto-skip when tools are missing. |

@@ -20,6 +20,8 @@ Codex 는 이기준을 잘 읽고 작업을 수행합니다.
 - 코드 diff가 생기면 `.codex-lattice/model-visible/DOCS_AGENT_REQUIRED.md`를 확인한다. sub-agent 사용이 가능한 실행에서는 `docs_maintainer`로 기능명세/API 명세/인프라 정의/검증 문서를 맞추고, 불가능하면 부모 에이전트가 직접 갱신한다.
 - sub-agent를 쓰는 작업은 `docs/harness/SUBAGENT_PROTOCOL.md`를 따른다. 부모 에이전트가 plan/task/context를 추출해 전달하고, sub-agent에게 긴 계획 파일을 알아서 읽게 하지 않는다.
 - hidden logs는 기본 컨텍스트가 아니다. 장애 분석, 재시도, 감사 요청 때만 읽는다.
+- 작업 시작 또는 compact 이후 `.codex-lattice/model-visible/CONTEXT_PACKET.md`가 있으면 먼저 읽어 필요한 파일과 검증 후보를 좁힌다.
+- HITL, 리뷰, PR, 최종 응답 전 `.codex-lattice/model-visible/REVIEW_PACKET.md`와 `HARNESS_HEALTH.md`가 있으면 gate, risk, validation evidence를 확인한다.
 
 ## Reflection Guard
 - 최신 사용자 메시지가 항상 우선한다. 이전 목표, 이전 계획, compact 요약, hidden log가 최신 지시를 덮어쓰면 안 된다.
@@ -96,6 +98,10 @@ Codex 는 이기준을 잘 읽고 작업을 수행합니다.
 - Commit candidate logs: `.codex-lattice/commits/*.json` and `.codex-lattice/commits/*.md`
 - Model-visible major errors: `.codex-lattice/model-visible/MAJOR_ERRORS.md`
 - Model-visible reflection gate: `.codex-lattice/model-visible/REFLECTION_REQUIRED.md`
+- Model-visible context packet: `.codex-lattice/model-visible/CONTEXT_PACKET.md`
+- Model-visible review packet: `.codex-lattice/model-visible/REVIEW_PACKET.md`
+- Model-visible harness health: `.codex-lattice/model-visible/HARNESS_HEALTH.md`
+- Run episode snapshots: `.codex-lattice/runs/<session>/`
 - Model-visible work docs: `docs/harness/*.md`
 - Docs sync queue: `.codex-lattice/docs-sync-queue.jsonl`
 
@@ -123,6 +129,7 @@ Codex 는 이기준을 잘 읽고 작업을 수행합니다.
 - `docs/harness/REFLECTION.md` records drift checks for sequential work, interruptions, compact resume, and final response.
 - `docs/harness/SUBAGENT_PROTOCOL.md` records Codex-native delegation, review ordering, report statuses, and parallel ownership rules.
 - `docs/harness/SCHEDULER.md` records optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow.
+- `docs/harness/CONTEXT_REVIEW_PACKETS.md` records context, review, harness health, and run episode packet behavior.
 - `docs/harness/DECISIONS.md` records decisions future agents need.
 - `docs/harness/CHANGELOG.md` summarizes implementation changes.
 - `docs/harness/VALIDATION.md` records checks and skipped checks.

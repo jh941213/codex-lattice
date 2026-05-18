@@ -13,11 +13,13 @@
 ## Data Handling
 
 - Hidden logs are operational traces and should not be loaded into model context by default.
-- Model-visible files are limited to major errors, docs gate requirements, simplify gate requirements, and durable infra assumptions.
+- Model-visible files are limited to durable retry context, gate requirements, context/review/health packets, and durable infra assumptions.
+- Context/review/health packets summarize metadata and local file paths; they do not include secret file contents.
 
 ## Secret Handling
 
 - `.env`, keys, credentials, tokens, and connection strings must not be committed.
+- Packet generation excludes sensitive path candidates such as `.env`, tokens, credentials, private keys, `.pem`, and `.key`.
 - Run `gitleaks` before release or PR.
 
 ## Abuse And Failure Modes
