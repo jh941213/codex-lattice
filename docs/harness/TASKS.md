@@ -22,6 +22,8 @@
 - [x] Add real-world operations/governance skills for release readiness, incident response, observability/SLO, supply-chain security, agent tool risk, Azure FinOps, data governance, and postmortems.
 - [x] Expand docs gate surfaces for SLO, incident response, postmortem, supply chain, agent security, data governance, and cost model docs.
 - [x] Fix docs sync and runtime logs to handle staged diffs and resolve project git roots.
+- [x] Add optional scheduled operations MVP with deterministic healthcheck, log analysis, read-only Codex report mode, and enable/disable/status controls.
+- [x] Polish Korean and English README structure for clearer onboarding and first-run validation.
 
 ## Status Legend
 

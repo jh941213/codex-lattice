@@ -73,6 +73,8 @@ def classify_docs(paths):
             required.update({"RELEASE_PLAN.md", "OPERATIONS_RUNBOOK.md"})
         if any(token in low for token in ("monitor", "metric", "alert", "log", "runbook", "slo", "incident", "ops", "operation")):
             required.update({"OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SLO_POLICY.md", "INCIDENT_RESPONSE.md", "POSTMORTEM_TEMPLATE.md"})
+        if any(token in low for token in ("schedule", "scheduler", "cron", "launchd", "systemd", "timer")):
+            required.update({"SCHEDULER.md", "OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md"})
         if any(token in low for token in ("sbom", "slsa", "supply", "dependency", "license", "provenance", "package.json", "package-lock", "pnpm-lock", "yarn.lock", "requirements.txt", "pyproject.toml", "uv.lock", "poetry.lock", "cargo.toml", "cargo.lock", "go.mod", "go.sum")):
             required.update({"SUPPLY_CHAIN.md", "SECURITY_POLICY.md", "RELEASE_PLAN.md"})
         if any(token in low for token in ("privacy", "pii", "retention", "gdpr", "compliance", "data-governance", "classification")):
@@ -110,6 +112,7 @@ for name, content in {
     "AGENT_SECURITY.md": "# Agent Security\n\n## Tool Trust Boundaries\n\n## Prompt Injection Risks\n\n## Excessive Agency Controls\n\n## Secret Exposure Controls\n\n",
     "DATA_GOVERNANCE.md": "# Data Governance\n\n## Classification\n\n## Retention\n\n## Access\n\n## Privacy Review\n\n",
     "COST_MODEL.md": "# Cost Model\n\n## Cost Drivers\n\n## Budgets\n\n## Azure Resource Review\n\n## Waste Reduction\n\n",
+    "SCHEDULER.md": "# Scheduler\n\n## Default\n\n## Commands\n\n## Output\n\n## Operational Rules\n\n",
     "MIGRATION_PLAN.md": "# Migration Plan\n\n## Compatibility\n\n## Data Migration\n\n## Rollback\n\n## Verification\n\n",
     "RELEASE_PLAN.md": "# Release Plan\n\n## Version\n\n## Rollout\n\n## Backout\n\n## User/Operator Notes\n\n",
     "UX_SPEC.md": "# UX Spec\n\n## Primary Flow\n\n## States\n\n## Accessibility\n\n## Responsive Behavior\n\n",

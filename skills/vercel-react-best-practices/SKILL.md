@@ -9,7 +9,6 @@ license: MIT
 metadata:
   author: vercel
   version: "1.0.0"
-user-invocable: false
 ---
 
 # Vercel React Best Practices

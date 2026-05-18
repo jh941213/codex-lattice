@@ -1,8 +1,6 @@
 ---
 name: compact-guide
 description: "컨텍스트 윈도우 관리 및 토큰 최적화 가이드. Triggers on: 컨텍스트, 토큰, compact, 메모리 관리. NOT for: 코드 작성, 디버깅."
-disable-model-invocation: false
-user-invocable: true
 ---
 
 # 컨텍스트 관리 가이드

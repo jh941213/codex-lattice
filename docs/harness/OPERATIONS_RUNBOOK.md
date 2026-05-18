@@ -9,6 +9,8 @@
 
 - Check `/hooks` after install and confirm installed hooks are trusted and active.
 - Run `~/.codex/scripts/check-codex-integrations.sh` after setup changes.
+- Run `./scripts/codex-lattice-scheduler.sh run` for a deterministic healthcheck and log-analysis report.
+- Use `./scripts/codex-lattice-scheduler.sh status` to check optional scheduled operations.
 - Check `.codex-lattice/model-visible/MAJOR_ERRORS.md` after repeated tool failures.
 - Check `.codex-lattice/model-visible/REFLECTION_REQUIRED.md` before HITL, PR, merge, or final response.
 - Check `.codex-lattice/model-visible/SIMPLIFY_REQUIRED.md` before HITL, review, or PR.
@@ -25,6 +27,7 @@
 
 - Revert the harness commit or reinstall a previous release.
 - Restore `~/.codex/config.toml` from backup if installer output is wrong.
+- Disable scheduled operations with `./scripts/codex-lattice-scheduler.sh disable` before reverting scheduler changes.
 - Remove stale `.codex-lattice/model-visible/*_REQUIRED.md` files only after the underlying issue is resolved.
 
 ## Incident Review

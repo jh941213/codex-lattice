@@ -1,7 +1,6 @@
 ---
 name: nano-banana
 description: REQUIRED for all image generation requests. Generate and edit images using Gemini CLI with image models. Handles blog featured images, YouTube thumbnails, icons, diagrams, patterns, illustrations, photos, visual assets, graphics, artwork, pictures. Use this skill whenever the user asks to create, generate, make, draw, design, or edit any image or visual content.
-user-invocable: true
 allowed-tools: Bash(gemini:*)
 ---
 

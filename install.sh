@@ -52,8 +52,11 @@ if [ -d "$SRC_DIR/hooks" ]; then
 fi
 
 if [ -d "$SRC_DIR/scripts" ]; then
-	copy_file_atomic "$SRC_DIR/scripts/check-codex-integrations.sh" "$CODEX_HOME/scripts/check-codex-integrations.sh"
-	chmod +x "$CODEX_HOME/scripts/check-codex-integrations.sh" 2>/dev/null || true
+	for script in "$SRC_DIR/scripts/"*.sh; do
+		[ -f "$script" ] || continue
+		copy_file_atomic "$script" "$CODEX_HOME/scripts/$(basename "$script")"
+		chmod +x "$CODEX_HOME/scripts/$(basename "$script")"
+	done
 fi
 
 if [ -d "$SRC_DIR/rules" ]; then

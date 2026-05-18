@@ -1,8 +1,6 @@
 ---
 name: handoff
 description: "세션 종료 전 HANDOFF.md 작업 인계 문서 생성. Triggers on: 인계, handoff, 세션 정리, HANDOFF.md, 작업 넘기기. NOT for: 코드 작성, 리뷰."
-user-invocable: true
-disable-model-invocation: true
 allowed-tools: Read, Write, Bash
 ---
 

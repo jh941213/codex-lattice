@@ -1,8 +1,6 @@
 ---
 name: eval
 description: "코드 산출물을 4축(기능/품질/독창성/보안)으로 평가하고 점수 산출. Evaluator 에이전트를 스폰하여 독립 평가 실행. Triggers on: eval, 평가, 품질 점수, 코드 평가, quality score. NOT for: 코드 작성, 구현, 리뷰."
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Bash, Grep, Glob
 ---
 

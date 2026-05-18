@@ -4,6 +4,7 @@
 
 - `.codex-lattice/logs/events.jsonl` records lifecycle events.
 - `.codex-lattice/commits/` records commit candidates and commit metadata.
+- `.codex-lattice/reports/` records scheduled healthcheck, log-analysis, and operations reports.
 
 ## Metrics
 
@@ -16,6 +17,7 @@
 - `MAJOR_ERRORS.md` is model-visible when blocking failures recur.
 - `SIMPLIFY_REQUIRED.md` and `DOCS_AGENT_REQUIRED.md` indicate pre-HITL gates.
 - `REFLECTION_REQUIRED.md` indicates a newest-request and instruction-ledger check is required.
+- Scheduled operations are optional and off by default; use `scripts/codex-lattice-scheduler.sh status` to confirm whether launchd is active.
 
 ## Dashboards
 

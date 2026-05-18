@@ -98,6 +98,11 @@ check_recommended_brew uv uv "Python project and tool runner"
 check_recommended_brew ruff ruff "Python lint and format"
 check_recommended_brew pnpm pnpm "fast Node package manager"
 check_recommended_brew az azure-cli "Azure resource inspection, cost review, and operations"
+if command -v launchctl >/dev/null 2>&1; then
+	printf "ok|optional|launchctl|macOS scheduler control for optional scheduled operations\n"
+else
+	printf "missing|optional|launchctl|macOS-only scheduler control; use cron/systemd examples on non-macOS\n"
+fi
 check_recommended_any_brew "semgrep|sgrep" semgrep "semantic static analysis and security rules" semgrep sgrep
 check_recommended_npm mgrep @mixedbread/mgrep "semantic local search and Codex MCP integration"
 check_optional_secret tavily TAVILY_API_KEY '.mcpServers.tavily.env.TAVILY_API_KEY // empty' "Tavily web search MCP"

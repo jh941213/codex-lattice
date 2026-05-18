@@ -4,8 +4,6 @@ description: >
   Codex용 자율 개발 루프. PRD 항목을 하나씩 처리하며 명시적 검증과 커밋 후보 로그를 남긴다.
   트리거: "autodev", "자율 개발", "밤새 돌려", "/goal", "goal 기반 자동 개발", "자동 개발"
   안티-트리거: "직접 구현해", "한번만 해", "수동"
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

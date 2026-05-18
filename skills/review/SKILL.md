@@ -4,8 +4,6 @@ description: |
   현재 브랜치의 변경사항 코드 리뷰. Codex /review와 code_reviewer 서브에이전트 기준으로 검토.
   트리거: "리뷰", "review", "검토", "코드 리뷰", "PR 리뷰", "변경사항 확인"
   안티-트리거: "구현", "코드 작성", "빌드"
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Bash, Grep, Glob
 ---
 

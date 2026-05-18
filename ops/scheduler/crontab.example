@@ -1,0 +1,3 @@
+# Run Codex Lattice deterministic health/report every hour.
+# Edit the repository path before installing with: crontab ops/scheduler/crontab.example
+0 * * * * cd /Users/kdb/codex-lattice && CODEX_LATTICE_USE_CODEX=0 ./scripts/codex-lattice-scheduled-report.sh >/tmp/codex-lattice-scheduler.log 2>&1

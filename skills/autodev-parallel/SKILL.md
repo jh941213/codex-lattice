@@ -4,8 +4,6 @@ description: >
   Codex 병렬 자율 개발 루프. 명시적으로 허용된 sub-agents가 worktree에서 동시에 PRD 항목을 처리한다.
   트리거: "병렬 실험", "autodev parallel", "동시에 실험", "워크트리 실험", "/goal 병렬"
   안티-트리거: "순차 실험", "하나씩"
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

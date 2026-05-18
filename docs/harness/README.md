@@ -26,6 +26,7 @@ Sub-agents should keep these files aligned with implementation changes:
 - `UX_SPEC.md`: primary flow, states, accessibility, and responsive behavior
 - `REFLECTION.md`: drift checks for sequential work, interruptions, compact resume, and final response
 - `SUBAGENT_PROTOCOL.md`: Codex-native delegation, review ordering, report statuses, and parallel ownership rules
+- `SCHEDULER.md`: optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow
 - `DECISIONS.md`: decisions and rationale
 - `CHANGELOG.md`: implementation changes
 - `VALIDATION.md`: checks run and results

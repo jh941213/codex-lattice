@@ -5,7 +5,6 @@ description: >
   Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects.
   Triggers on "TypeScript 타입", "제네릭", "conditional types", "mapped types", "utility types", "타입 유틸리티".
   Anti-triggers: "JavaScript", "Python 타입 힌트", "일반 TS 코딩".
-user-invocable: false
 ---
 
 # TypeScript Advanced Types

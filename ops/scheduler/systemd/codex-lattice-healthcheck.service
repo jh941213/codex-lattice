@@ -1,0 +1,8 @@
+[Unit]
+Description=Codex Lattice scheduled health report
+
+[Service]
+Type=oneshot
+WorkingDirectory=/Users/kdb/codex-lattice
+Environment=CODEX_LATTICE_USE_CODEX=0
+ExecStart=/Users/kdb/codex-lattice/scripts/codex-lattice-scheduled-report.sh

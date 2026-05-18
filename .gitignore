@@ -1,6 +1,8 @@
 .codex-lattice/logs/*.jsonl
+.codex-lattice/logs/*.log
 .codex-lattice/commits/*.json
 .codex-lattice/commits/*.md
+.codex-lattice/reports/
 .codex-lattice/docs-sync-queue.jsonl
 .codex-lattice/simplify-state.json
 .codex-lattice/model-visible/SIMPLIFY_REQUIRED.md

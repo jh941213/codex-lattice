@@ -4,8 +4,6 @@ description: >
   Codex용 PRD/SPEC 작성 스킬. 아이디어를 CPS, PRD, 시장/사용자/기능/위험/SPEC 문서로 구조화한다.
   트리거: "$prd", "PRD 작성", "제품 기획", "아이디어 정리", "요구사항 문서", "CPS"
   안티-트리거: 이미 확정된 작은 코드 변경, 단순 버그 수정
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 

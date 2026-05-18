@@ -35,3 +35,6 @@
 - Fixed major-error and event logs to resolve the git root before writing `.codex-lattice` runtime files.
 - Updated installer feature flag handling so managed Codex features are enabled consistently during install.
 - Updated installer hook/script copies to use atomic replace so active Codex hook reads do not observe partially copied files during reinstall.
+- Added optional scheduled operations scripts for deterministic healthcheck, log analysis, read-only Codex report generation, and macOS launchd enable/disable/status controls.
+- Added cron and systemd scheduler examples and documented the scheduler workflow in `SCHEDULER.md`.
+- Refined Korean and English README flow with clearer value summary, 3-minute install steps, first-check commands, and repository validation guidance.
