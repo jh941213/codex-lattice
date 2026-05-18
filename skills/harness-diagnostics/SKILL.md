@@ -1,8 +1,6 @@
 ---
 name: harness-diagnostics
 description: "에이전트 하네스 12원칙 기반 자가 진단 및 개선 제안. Triggers on: 하네스 진단, audit, 환경 점검, setup, maintenance, drift 확인. NOT for: 코드 구현, 버그 수정, 테스트 작성."
-user-invocable: true
-disable-model-invocation: true
 allowed-tools: Read, Grep, Glob, Bash
 ---
 

@@ -119,7 +119,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ├── agents/                             # 14개 custom agent TOML
 ├── hooks/                              # 21개 lifecycle hook command 등록
 ├── rules/                              # Git/workflow 규칙
-├── scripts/check-codex-integrations.sh # 설치 검증 스크립트
+├── scripts/                            # 설치 검증, healthcheck, log analysis, scheduler controls
 ```
 
 프로젝트별 런타임 로그는 작업 중인 저장소의 `.codex-lattice/` 아래에 쌓입니다.
@@ -156,6 +156,26 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 | `codex-git-guard.sh` | force push, protected branch 직접 push, `.env` 커밋 같은 위험 작업 차단 |
 
 `codex-prettier.sh`는 포맷터 연동을 위한 예비 스크립트이며 기본 lifecycle hook에는 등록하지 않습니다.
+
+## 선택형 Scheduled Operations
+
+Codex 자체에는 cron 같은 scheduler가 없으므로 Codex Lattice는 외부 스케줄러를 사용합니다. 기본값은 **꺼짐**이며, 켜고 끄는 명령을 제공합니다.
+
+```bash
+# 1회 실행: deterministic healthcheck + log analysis
+./scripts/codex-lattice-scheduler.sh run
+
+# macOS launchd로 주기 실행 켜기
+./scripts/codex-lattice-scheduler.sh enable
+
+# 상태 확인
+./scripts/codex-lattice-scheduler.sh status
+
+# 주기 실행 끄기
+./scripts/codex-lattice-scheduler.sh disable
+```
+
+기본 실행은 모델을 호출하지 않습니다. `CODEX_LATTICE_USE_CODEX=1`을 설정하면 생성된 health/log summary만 `codex exec --sandbox read-only`로 요약합니다.
 
 ## HITL 전 게이트
 

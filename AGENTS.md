@@ -122,6 +122,7 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - `docs/harness/UX_SPEC.md` records flows, states, accessibility, and responsive behavior.
 - `docs/harness/REFLECTION.md` records drift checks for sequential work, interruptions, compact resume, and final response.
 - `docs/harness/SUBAGENT_PROTOCOL.md` records Codex-native delegation, review ordering, report statuses, and parallel ownership rules.
+- `docs/harness/SCHEDULER.md` records optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow.
 - `docs/harness/DECISIONS.md` records decisions future agents need.
 - `docs/harness/CHANGELOG.md` summarizes implementation changes.
 - `docs/harness/VALIDATION.md` records checks and skipped checks.

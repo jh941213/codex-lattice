@@ -227,3 +227,26 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no live Codex TUI `/hooks` trust flow, live Azure resource discovery, or production incident workflow was run.
 - evidence: skill frontmatter parse found 47 valid skills; all 8 new skills passed `quick_validate.py` via `uv --with pyyaml`; temp install produced 47 skill config entries, 47 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; local install now has 47 configured skills, 47 user skill directories excluding `.system`, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; temp install forces managed feature flags `hooks`, `multi_agent`, `plugins`, `goals`, and `image_generation` to true and removes deprecated `codex_hooks`; staged `package.json` simulation required `SUPPLY_CHAIN.md`; hook simulation wrote `.codex-lattice` files at the git root rather than a subdirectory; installer copies hook scripts atomically to avoid active hook reads during reinstall; integration checker, shellcheck, shfmt, whitespace check, and gitleaks passed.
+
+### 2026-05-18T01:29:02Z
+- task: add optional scheduled operations MVP and normalize skill frontmatter for the official validator.
+- commands:
+  - `rg -n "^(agent|context|user-invocable|disable-model-invocation):" skills`
+  - validate all 47 skills with `uv run --with pyyaml python /Users/kdb/.codex/skills/.system/skill-creator/scripts/quick_validate.py <skill-dir>`
+  - `bash -n install.sh && for f in hooks/codex-*.sh scripts/*.sh; do bash -n "$f"; done`
+  - `shellcheck install.sh hooks/codex-*.sh scripts/*.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/*.sh`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - `bash scripts/check-codex-integrations.sh`
+  - `CODEX_LATTICE_USE_CODEX=0 ./scripts/codex-lattice-scheduler.sh run`
+  - `CODEX_LATTICE_USE_CODEX=0 CODEX_LATTICE_INTERVAL_SECONDS=86400 ./scripts/codex-lattice-scheduler.sh enable`
+  - `./scripts/codex-lattice-scheduler.sh status`
+  - `./scripts/codex-lattice-scheduler.sh disable`
+  - `./scripts/codex-lattice-scheduler.sh status`
+  - temp install with `CODEX_HOME=/tmp/... bash install.sh --ko`
+  - local install with `bash install.sh --ko`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: did not run optional `CODEX_LATTICE_USE_CODEX=1` model summary to avoid scheduled model cost.
+- evidence: all 47 skills pass the official `quick_validate.py`; no unsupported frontmatter keys remain; scheduler one-shot run generated `health-latest` and `log-analysis-latest` reports with PASS for bash syntax, JSON metadata, skill YAML, integration checker, shellcheck, shfmt, and gitleaks; launchd toggle test installed `com.codex-lattice.healthcheck`, showed it active, then disabled it and confirmed it was no longer installed; temp install produced 47 skill configs, 47 skill directories, 14 agents, 10 hook scripts, 5 scripts, and 21 hook commands; local install has the same counts; scheduler remains off by default.

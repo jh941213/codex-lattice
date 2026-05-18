@@ -90,3 +90,10 @@
 - decision: copy hook and script files to temporary files and replace them with `mv` after the copy completes.
 - reason: active hook reads should see either the previous complete script or the next complete script, never a truncated intermediate file.
 - impact: reinstall is safer while Codex is running, though users should still restart Codex after config changes.
+
+## 2026-05-18 - Scheduled operations are external and opt-in
+
+- context: Codex CLI has non-interactive `codex exec`, but no built-in cron scheduler.
+- decision: implement scheduled operations as local scripts plus external scheduler templates, with macOS launchd enable/disable/status controls.
+- reason: scheduling is an operating-system concern, while Codex should stay read-only and advisory during routine health reports.
+- impact: default scheduled checks are deterministic and model-free; `CODEX_LATTICE_USE_CODEX=1` enables optional read-only Codex summary generation.

@@ -4,8 +4,6 @@ description: |
   복잡한 작업 전 계획 수립. Plan 모드에서 사용하거나 자동 활성화.
   트리거: "계획", "플랜", "어떻게 구현", "설계", "아키텍처 결정"
   안티-트리거: "바로 구현해", "간단한 수정", "마이크로 수정"
-user-invocable: true
-disable-model-invocation: false
 allowed-tools: Read, Write, Edit, Grep, Glob
 ---
 

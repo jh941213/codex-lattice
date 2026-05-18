@@ -119,7 +119,7 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ├── agents/                             # 14 custom agent TOML files
 ├── hooks/                              # 21 lifecycle hook command registrations
 ├── rules/                              # Git/workflow rules
-├── scripts/check-codex-integrations.sh # install validation helper
+├── scripts/                            # install validation, healthcheck, log analysis, scheduler controls
 ```
 
 Project-local runtime logs are written under `.codex-lattice/`.
@@ -156,6 +156,26 @@ These run through Codex lifecycle hooks. They are not user-invoked skills.
 | `codex-git-guard.sh` | Blocks force pushes, protected-branch direct pushes, and `.env` commits |
 
 `codex-prettier.sh` is a reserved formatter integration script and is not registered as a default lifecycle hook.
+
+## Optional Scheduled Operations
+
+Codex does not include a cron-style scheduler, so Codex Lattice uses external schedulers. It is **off by default** and includes explicit enable/disable commands.
+
+```bash
+# one-shot deterministic healthcheck + log analysis
+./scripts/codex-lattice-scheduler.sh run
+
+# enable periodic macOS launchd execution
+./scripts/codex-lattice-scheduler.sh enable
+
+# inspect status
+./scripts/codex-lattice-scheduler.sh status
+
+# disable scheduled execution
+./scripts/codex-lattice-scheduler.sh disable
+```
+
+The default run does not call a model. Set `CODEX_LATTICE_USE_CODEX=1` to summarize generated health/log summaries with `codex exec --sandbox read-only`.
 
 ## Pre-HITL Gates
 

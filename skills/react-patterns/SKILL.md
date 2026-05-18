@@ -1,18 +1,11 @@
 ---
 name: react-patterns
-version: 2.0.0
 description: |
   Comprehensive React 19 patterns expert covering Server Components, Actions, use() hook, useOptimistic, useFormStatus, useFormState, React Compiler, concurrent features, Suspense, and modern TypeScript development.
   트리거: "React", "컴포넌트", "hooks", "JSX/TSX", "상태 관리"
   안티-트리거: "Vue", "Svelte", "Angular", "백엔드"
-user-invocable: false
-language: typescript,javascript,tsx,jsx
-framework: react
 license: MIT
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
-tags: [react, react-19, typescript, javascript, jsx, tsx, hooks, server-components, actions, suspense, concurrent-rendering, react-compiler, use-optimistic, form-actions]
-category: frontend
-subcategories: [components, hooks, state-management, performance, server-components, forms, testing]
 ---
 
 # React Development Patterns

@@ -66,6 +66,7 @@ Sub-agents should keep `docs/harness/` synchronized with implementation work.
 - `docs/harness/AGENT_SECURITY.md`: MCP, hook, plugin, and sub-agent risk controls
 - `docs/harness/DATA_GOVERNANCE.md`: classification, privacy, retention, and access controls
 - `docs/harness/COST_MODEL.md`: budget, cloud cost drivers, and Azure resource review
+- `docs/harness/SCHEDULER.md`: optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow
 
 Before finalizing coding work, reconcile these docs with `git diff`; use `docs_maintainer` only when Codex agent delegation is explicitly allowed for the run.
 

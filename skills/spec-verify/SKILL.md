@@ -1,9 +1,6 @@
 ---
 name: spec-verify
 description: "SPEC.md 명세서 대비 구현 완료도를 검증합니다. Triggers on: 스펙 검증, spec-verify, 명세서 검증, 구현 검증. NOT for: 코드 리뷰, 단위 테스트, 빌드 검증."
-user-invocable: true
-disable-model-invocation: true
-context: fork
 allowed-tools: Read, Grep, Glob
 ---
 
