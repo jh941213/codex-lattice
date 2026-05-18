@@ -32,7 +32,7 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - 사람에게 승인, 리뷰, PR 판단을 요청하기 전에 reflection gate, simplify gate, docs agent gate를 통과해야 한다.
 - reflection gate는 코드를 자동 수정하지 않는다. 모델이 최신 지시, 순서, 의존성, 현재 단계, 완료 기준을 재확인한다.
 - simplify gate는 코드를 자동 수정하지 않는다. 모델이 `$simplify` 체크리스트 또는 동일 원칙으로 직접 정리하고 검증한다.
-- docs agent gate는 코드를 자동 문서화하지 않는다. `docs_maintainer` 또는 부모 에이전트가 실제 diff 기준으로 제품 맥락, 기능명세, API 명세, 인프라 정의, 보안정책, 데이터 모델, 테스트 계획, 관측성, 운영 런북, 마이그레이션, 릴리즈, UX 문서를 갱신한다.
+- docs agent gate는 코드를 자동 문서화하지 않는다. `docs_maintainer` 또는 부모 에이전트가 실제 diff 기준으로 제품 맥락, 기능명세, API 명세, 인프라 정의, 보안정책, 에이전트 보안, 데이터 모델, 데이터 거버넌스, 테스트 계획, 관측성, SLO, 운영 런북, 사고 대응, 포스트모템, 공급망, 비용 모델, 마이그레이션, 릴리즈, UX 문서를 갱신한다.
 - gate를 통과하지 못하고 HITL이 필요한 경우, `docs/harness/RISKS.md`에 이유와 남은 작업을 먼저 남긴다.
 
 ## Codex Built-ins First
@@ -54,6 +54,9 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - 요구사항이 제품/기획 수준이면 `prd`; 구현 명세가 필요하면 `spec`; 3단계 이상 구현 계획은 `plan`.
 - 테스트 우선 구현: `tdd`; 완료 검증: `verify`; 빌드 실패 복구: `build-fix`.
 - 리뷰 요청: `review`; 커밋/푸시/PR 요청: `commit-push-pr`.
+- PR/배포/운영 인계 전: `release-readiness`; 사고/주요 에러 대응: `incident-response`; 회고 문서화: `postmortem`.
+- 운영 지표/알림/SLO: `observability-slo`; 의존성/빌드/릴리즈 공급망: `supply-chain-security`; MCP/hook/plugin/sub-agent 위험 검토: `agent-tool-risk`.
+- Azure 비용/리소스 검토: `finops-azure`; PII/보존/접근/감사 검토: `data-governance`.
 - UI 작업: `frontend`, `ui-ux-pro-max`, 필요 시 `react-patterns`, `shadcn-ui`, `tailwind-design-system`.
 - 긴 스킬은 필요한 섹션만 읽는다. 관련 없는 reference 파일을 한꺼번에 로드하지 않는다.
 - 하네스 통합 점검은 `scripts/check-codex-integrations.sh` 또는 설치 후 `~/.codex/scripts/check-codex-integrations.sh`를 사용한다.
@@ -103,10 +106,17 @@ Codex 작업자는 이 저장소를 Codex용 에이전트 하네스로 유지한
 - `docs/harness/API_SPEC.md` records endpoint, request/response, validation, and error contracts.
 - `docs/harness/INFRA_SPEC.md` records resources, configuration, operations, monitoring, and rollout notes.
 - `docs/harness/SECURITY_POLICY.md` records trust boundaries, auth, data handling, secrets, and abuse/failure modes.
+- `docs/harness/AGENT_SECURITY.md` records MCP, hook, plugin, sub-agent, prompt injection, excessive agency, and model-visible memory risk.
 - `docs/harness/DATA_MODEL.md` records entities, ownership, persistence, and normalization rules.
+- `docs/harness/DATA_GOVERNANCE.md` records classification, privacy, retention, access control, and audit trail requirements.
 - `docs/harness/TEST_PLAN.md` records unit, integration, E2E, regression, and manual checks.
 - `docs/harness/OBSERVABILITY.md` records logs, metrics, alerts, dashboards, and incident signals.
 - `docs/harness/OPERATIONS_RUNBOOK.md` records SLOs, monitoring checklist, alert response, rollback, and incident review.
+- `docs/harness/SLO_POLICY.md` records SLIs, SLO targets, error budget, release freeze criteria, and alert policy.
+- `docs/harness/INCIDENT_RESPONSE.md` records severity levels, triage, mitigation, communication, and follow-up.
+- `docs/harness/POSTMORTEM_TEMPLATE.md` records blameless incident learning, timeline, root causes, and corrective actions.
+- `docs/harness/SUPPLY_CHAIN.md` records dependency policy, SBOM, provenance, vulnerability handling, and license review.
+- `docs/harness/COST_MODEL.md` records cost drivers, budgets, Azure resource review, and waste reduction.
 - `docs/harness/MIGRATION_PLAN.md` records compatibility, data migration, rollback, and verification.
 - `docs/harness/RELEASE_PLAN.md` records version, rollout, backout, and user/operator notes.
 - `docs/harness/UX_SPEC.md` records flows, states, accessibility, and responsive behavior.

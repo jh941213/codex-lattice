@@ -10,7 +10,7 @@
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-39-blue.svg?style=for-the-badge)](#skills-39개)
+[![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#skills-47개)
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#custom-agents-14개)
 [![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#항상-켜지는-hooks)
 
@@ -24,7 +24,7 @@
 
 ## 한 줄 요약
 
-이 저장소는 OpenAI Codex에 **39개 skills**, **14개 custom agents**, **21개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
+이 저장소는 OpenAI Codex에 **47개 skills**, **14개 custom agents**, **21개 lifecycle hooks**, **작업 로그**, **커밋 로그**, **모델이 읽는 주요 에러 로그**, **Azure Infra memory**, **docs 자동 동기화 규칙**을 설치합니다.
 
 결과적으로 Codex가 매 작업마다 다음 루프를 따르게 됩니다.
 
@@ -115,7 +115,7 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 ```text
 ~/.codex/
 ├── config.toml                         # features, skills, hooks, agents 관리 블록
-├── skills/                             # 39개 Codex skills
+├── skills/                             # 47개 Codex skills
 ├── agents/                             # 14개 custom agent TOML
 ├── hooks/                              # 21개 lifecycle hook command 등록
 ├── rules/                              # Git/workflow 규칙
@@ -154,7 +154,8 @@ Tavily/Exa MCP는 API 키를 repo에 저장하지 않습니다. installer는 `TA
 | `codex-reflection-reminder.sh` | 복잡한 순차 지시나 compact 이후 reflection gate를 표시 |
 | `codex-visible-error-reminder.sh` | 세션/compact 이후 주요 에러 로그 확인을 유도 |
 | `codex-git-guard.sh` | force push, protected branch 직접 push, `.env` 커밋 같은 위험 작업 차단 |
-| `codex-prettier.sh` | 필요 시 포맷터 연동을 위한 hook 슬롯 |
+
+`codex-prettier.sh`는 포맷터 연동을 위한 예비 스크립트이며 기본 lifecycle hook에는 등록하지 않습니다.
 
 ## HITL 전 게이트
 
@@ -175,10 +176,17 @@ docs gate는 변경 파일 성격에 따라 아래 문서를 요구합니다.
 | `API_SPEC.md` | endpoint, request/response, validation, error contract |
 | `INFRA_SPEC.md` | 리소스, 설정, 운영, 모니터링 |
 | `SECURITY_POLICY.md` | trust boundary, auth, data, secret, abuse/failure mode |
+| `AGENT_SECURITY.md` | MCP, hook, plugin, sub-agent, prompt injection, excessive agency 위험 |
 | `DATA_MODEL.md` | entity, ownership, persistence, normalization |
+| `DATA_GOVERNANCE.md` | classification, privacy, retention, access control, audit |
 | `TEST_PLAN.md` | unit, integration, E2E, regression, manual checks |
 | `OBSERVABILITY.md` | logs, metrics, alerts, dashboards, incident signals |
 | `OPERATIONS_RUNBOOK.md` | SLO, monitoring checklist, alert response, rollback, incident review |
+| `SLO_POLICY.md` | SLIs, SLO target, error budget, release freeze, alert policy |
+| `INCIDENT_RESPONSE.md` | severity, triage, mitigation, communication, follow-up |
+| `POSTMORTEM_TEMPLATE.md` | blameless timeline, root cause, corrective action |
+| `SUPPLY_CHAIN.md` | dependency policy, SBOM, provenance, vulnerability, license |
+| `COST_MODEL.md` | cost drivers, budgets, Azure resource review, waste reduction |
 | `MIGRATION_PLAN.md` | compatibility, data migration, rollback, verification |
 | `RELEASE_PLAN.md` | version, rollout, backout, operator notes |
 | `UX_SPEC.md` | flow, states, accessibility, responsive behavior |
@@ -210,7 +218,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 
 `&goal` 같은 별도 alias는 설치하지 않습니다. Codex 내장 명령은 `/goal`, 하네스 skill은 `$verify`처럼 구분합니다.
 
-## Skills 39개
+## Skills 47개
 
 | Skill | 쓰는 상황 |
 |-------|-----------|
@@ -222,6 +230,7 @@ Codex가 이미 잘하는 기능은 다시 만들지 않습니다.
 | `$build-fix`, `$tdd`, `$e2e-verify`, `$e2e-agent-browser` | 빌드 복구, TDD, E2E 검증 |
 | `$frontend`, `$ui-ux-pro-max`, `$react-patterns`, `$shadcn-ui`, `$tailwind-design-system` | UI, React, Tailwind, 디자인 시스템 |
 | `$harness-diagnostics`, `$harness-audit`, `$eval` | 하네스 점검, 감사, 품질 평가 |
+| 운영/보안 스킬 | release readiness, incident response, observability/SLO, supply chain, agent tool risk, Azure FinOps, data governance, postmortem |
 | 기술 스킬 | FastAPI, API 설계, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, 계층형 plan memory |
 
 ## Custom Agents 14개

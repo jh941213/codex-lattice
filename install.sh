@@ -28,6 +28,15 @@ fi
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 mkdir -p "$CODEX_HOME/skills" "$CODEX_HOME/hooks" "$CODEX_HOME/agents" "$CODEX_HOME/scripts" "$CODEX_HOME/rules"
 
+copy_file_atomic() {
+	local src="$1"
+	local dest="$2"
+	local tmp
+	tmp="$(mktemp "${dest}.tmp.XXXXXX")"
+	cp "$src" "$tmp"
+	mv -f "$tmp" "$dest"
+}
+
 echo "Copying Codex skills, hooks, rules, and sub-agent config..."
 
 if [ -d "$SRC_DIR/skills" ]; then
@@ -35,12 +44,15 @@ if [ -d "$SRC_DIR/skills" ]; then
 fi
 
 if [ -d "$SRC_DIR/hooks" ]; then
-	cp "$SRC_DIR/hooks/"codex-*.sh "$CODEX_HOME/hooks/" 2>/dev/null || true
-	chmod +x "$CODEX_HOME/hooks/"codex-*.sh 2>/dev/null || true
+	for hook in "$SRC_DIR/hooks/"codex-*.sh; do
+		[ -f "$hook" ] || continue
+		copy_file_atomic "$hook" "$CODEX_HOME/hooks/$(basename "$hook")"
+		chmod +x "$CODEX_HOME/hooks/$(basename "$hook")"
+	done
 fi
 
 if [ -d "$SRC_DIR/scripts" ]; then
-	cp "$SRC_DIR/scripts/check-codex-integrations.sh" "$CODEX_HOME/scripts/" 2>/dev/null || true
+	copy_file_atomic "$SRC_DIR/scripts/check-codex-integrations.sh" "$CODEX_HOME/scripts/check-codex-integrations.sh"
 	chmod +x "$CODEX_HOME/scripts/check-codex-integrations.sh" 2>/dev/null || true
 fi
 
@@ -243,7 +255,7 @@ def remove_table(value: str, header: str) -> str:
     return "\n".join(out) + ("\n" if value.endswith("\n") else "")
 
 text = strip_managed_block(text)
-text = remove_table_keys(text, "features", {"codex_hooks", "hooks"})
+text = remove_table_keys(text, "features", {"codex_hooks", "hooks", "multi_agent", "plugins", "goals", "image_generation"})
 text = remove_table(text, "[mcp_servers.tavily]")
 text = remove_table(text, "[mcp_servers.exa]")
 text = ensure_table(text, "features", {"hooks": "true", "multi_agent": "true", "plugins": "true", "goals": "true", "image_generation": "true"})
@@ -270,7 +282,9 @@ for agent in agents:
 
 text = text.rstrip() + "\n\n" + block + "\n"
 
-path.write_text(text, encoding="utf-8")
+tmp_path = path.with_name(f".{path.name}.tmp")
+tmp_path.write_text(text, encoding="utf-8")
+tmp_path.replace(path)
 PY
 
 echo "설치 완료. config 변경을 로드하려면 Codex를 재시작하세요."

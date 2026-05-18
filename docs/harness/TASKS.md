@@ -19,6 +19,9 @@
 - [x] Set README/plugin version display to `0.0.1`.
 - [x] Add reflection gate for multi-step prompts, compact resume, and final newest-request checks.
 - [x] Add Codex-native sub-agent protocol for bounded task delegation, status handling, and staged review.
+- [x] Add real-world operations/governance skills for release readiness, incident response, observability/SLO, supply-chain security, agent tool risk, Azure FinOps, data governance, and postmortems.
+- [x] Expand docs gate surfaces for SLO, incident response, postmortem, supply chain, agent security, data governance, and cost model docs.
+- [x] Fix docs sync and runtime logs to handle staged diffs and resolve project git roots.
 
 ## Status Legend
 

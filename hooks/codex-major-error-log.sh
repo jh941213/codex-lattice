@@ -8,6 +8,7 @@ import datetime
 import json
 import os
 import re
+import subprocess
 from pathlib import Path
 
 def load_input():
@@ -22,9 +23,23 @@ def short(value, limit=1200):
         return ""
     return str(value).strip().replace("\r", "")[:limit]
 
+def resolve_cwd(data):
+    tool_input = data.get("tool_input") if isinstance(data.get("tool_input"), dict) else {}
+    cwd = Path(data.get("cwd") or tool_input.get("workdir") or os.getcwd()).expanduser().resolve()
+    try:
+        root = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=str(cwd),
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        root = ""
+    return Path(root) if root else cwd
+
 data = load_input()
 tool_input = data.get("tool_input") if isinstance(data.get("tool_input"), dict) else {}
-cwd = Path(data.get("cwd") or tool_input.get("workdir") or os.getcwd()).expanduser().resolve()
+cwd = resolve_cwd(data)
 
 exit_code = data.get("exit_code") or data.get("returncode")
 status = str(data.get("status") or "").lower()

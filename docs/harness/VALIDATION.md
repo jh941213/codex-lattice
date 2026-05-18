@@ -205,3 +205,25 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no live sub-agent dispatch was run because this change only updates always-read guidance and model-visible docs.
 - evidence: temp install counts remained unchanged at 39 skill config entries, 39 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; `features.hooks` remains true and `features.codex_hooks` is absent; integration checker, JSON/TOML/YAML parsing, shellcheck, shfmt, whitespace check, and gitleaks passed; no external plugin runtime dependency or copied workflow text was introduced.
+
+### 2026-05-18T00:54:37Z
+- task: add operations/governance skills and fix staged diff/root handling in hooks.
+- commands:
+  - `bash -n install.sh && for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - parse all `skills/*/SKILL.md` frontmatter with Ruby `YAML.safe_load`
+  - parse `.codex/agents/*.toml` with Python `tomllib`
+  - `uv run --with pyyaml python /Users/kdb/.codex/skills/.system/skill-creator/scripts/quick_validate.py <new-skill>`
+  - `CODEX_HOME=/tmp/codex-lattice-install.* bash install.sh --ko`
+  - temp install count and `features` verification with Python `tomllib`
+  - temp install over pre-existing false feature flags to verify managed override behavior
+  - local install with `bash install.sh --ko` and parse `~/.codex/config.toml`
+  - staged-diff and subdirectory-cwd hook simulation for docs sync, event log, major error log, and visible error reminder
+  - `bash scripts/check-codex-integrations.sh`
+  - `shellcheck install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: no live Codex TUI `/hooks` trust flow, live Azure resource discovery, or production incident workflow was run.
+- evidence: skill frontmatter parse found 47 valid skills; all 8 new skills passed `quick_validate.py` via `uv --with pyyaml`; temp install produced 47 skill config entries, 47 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; local install now has 47 configured skills, 47 user skill directories excluding `.system`, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; temp install forces managed feature flags `hooks`, `multi_agent`, `plugins`, `goals`, and `image_generation` to true and removes deprecated `codex_hooks`; staged `package.json` simulation required `SUPPLY_CHAIN.md`; hook simulation wrote `.codex-lattice` files at the git root rather than a subdirectory; installer copies hook scripts atomically to avoid active hook reads during reinstall; integration checker, shellcheck, shfmt, whitespace check, and gitleaks passed.

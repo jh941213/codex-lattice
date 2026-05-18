@@ -8,6 +8,7 @@ CODEX_HOOK_EVENT="$EVENT" CODEX_HOOK_INPUT="$INPUT" /usr/bin/python3 - <<'PY'
 import datetime
 import json
 import os
+import subprocess
 from pathlib import Path
 
 def load_input():
@@ -27,8 +28,20 @@ def project_dir(data):
     ]
     for value in candidates:
         if value:
-            return Path(value).expanduser().resolve()
-    return Path.cwd()
+            cwd = Path(value).expanduser().resolve()
+            break
+    else:
+        cwd = Path.cwd()
+    try:
+        root = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=str(cwd),
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        root = ""
+    return Path(root) if root else cwd
 
 def short(value, limit=500):
     if value is None:

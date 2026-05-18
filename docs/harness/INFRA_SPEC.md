@@ -14,3 +14,4 @@
 
 - Hooks record task events, git strategy, commit candidates, major errors, docs sync requirements, and simplify gate requirements.
 - Infra changes must include cost, reliability, security, rollback, and monitoring notes before HITL.
+- Azure resource reviews should update `COST_MODEL.md`, `SLO_POLICY.md`, `OBSERVABILITY.md`, and `OPERATIONS_RUNBOOK.md` when live cloud assumptions change.

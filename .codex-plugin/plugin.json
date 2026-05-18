@@ -1,7 +1,7 @@
 {
   "name": "codex-lattice",
   "version": "0.0.1",
-  "description": "Codex용 에이전트 하네스. skills, custom agents, /goal 정책, Git 전략 로그, 작업 로그, 주요 에러 가시화 훅, Azure Infra memory를 포함합니다.",
+  "description": "Codex용 에이전트 하네스. skills, custom agents, /goal 정책, Git 전략 로그, 작업 로그, 주요 에러 가시화 훅, 운영/보안 거버넌스, Azure Infra memory를 포함합니다.",
   "author": {
     "name": "Community Contributors"
   },
@@ -15,7 +15,11 @@
     "hooks",
     "git-strategy",
     "audit-log",
-    "azure"
+    "azure",
+    "operations",
+    "security",
+    "supply-chain",
+    "finops"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
@@ -23,7 +27,7 @@
   "interface": {
     "displayName": "Codex Lattice",
     "shortDescription": "Codex 작업 로그와 Git 전략을 강제하는 하네스",
-    "longDescription": "매 작업마다 Git 전략을 남기고, 장기 작업은 Codex /goal에 연결하며, 커밋 후보 로그와 전체 작업 이벤트 로그, 모델이 다시 읽을 수 있는 주요 에러 로그, Azure Infra memory, docs/harness 동기화 큐를 관리합니다.",
+    "longDescription": "매 작업마다 Git 전략을 남기고, 장기 작업은 Codex /goal에 연결하며, 커밋 후보 로그와 전체 작업 이벤트 로그, 모델이 다시 읽을 수 있는 주요 에러 로그, Azure Infra memory, docs/harness 동기화 큐, 릴리즈/운영/보안/공급망/비용 거버넌스 문서를 관리합니다.",
     "developerName": "Community Contributors",
     "category": "Productivity",
     "capabilities": [
