@@ -41,3 +41,5 @@
 - Fixed docs sync template generation to avoid blank EOF lines that fail `git diff --check`.
 - Added context, review, harness health, and per-run episode packet generation for Codex context selection and review evidence.
 - Repositioned the Korean and English README openings around real enterprise development/operations use, including reflection, operational observability, and review evidence.
+- Fixed context/review packet routing to include untracked files, so newly created API, infra, hook, or security-sensitive files are visible before staging.
+- Added `validate-codex-lattice-runtime.sh` for repeatable small-to-broad validation of skills, hook registry, temp install, lifecycle hook simulation, packet generation, event logs, git guard, commit logs, scheduler operations, and secret scanning.
