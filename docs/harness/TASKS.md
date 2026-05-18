@@ -24,6 +24,7 @@
 - [x] Fix docs sync and runtime logs to handle staged diffs and resolve project git roots.
 - [x] Add optional scheduled operations MVP with deterministic healthcheck, log analysis, read-only Codex report mode, and enable/disable/status controls.
 - [x] Polish Korean and English README structure for clearer onboarding and first-run validation.
+- [x] Validate the harness with a real temporary notepad app and fix the docs-template EOF issue found during validation.
 
 ## Status Legend
 
