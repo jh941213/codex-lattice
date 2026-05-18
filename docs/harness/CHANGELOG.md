@@ -38,3 +38,4 @@
 - Added optional scheduled operations scripts for deterministic healthcheck, log analysis, read-only Codex report generation, and macOS launchd enable/disable/status controls.
 - Added cron and systemd scheduler examples and documented the scheduler workflow in `SCHEDULER.md`.
 - Refined Korean and English README flow with clearer value summary, 3-minute install steps, first-check commands, and repository validation guidance.
+- Fixed docs sync template generation to avoid blank EOF lines that fail `git diff --check`.

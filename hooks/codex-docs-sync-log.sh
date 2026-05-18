@@ -119,7 +119,7 @@ for name, content in {
 }.items():
     p = docs / name
     if not p.exists():
-        p.write_text(content, encoding="utf-8")
+        p.write_text(content.rstrip() + "\n", encoding="utf-8")
 
 entry = {
     "ts": datetime.datetime.now(datetime.timezone.utc).isoformat(),

@@ -260,3 +260,29 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: no installer rerun or scheduler rerun was needed because this follow-up only changes README and harness tracking docs.
 - evidence: README diff contains only documentation copy/structure changes; integration checker reports required/recommended harness tools available; gitleaks found no leaks.
+
+### 2026-05-18T02:21:00Z
+- task: validate Codex Lattice by building a real temporary notepad app and fix a docs sync issue found during validation.
+- commands:
+  - create temporary git app at `/tmp/codex-lattice-notepad.bImsCi`
+  - run installed hooks: `codex-event-log.sh`, `codex-git-strategy-log.sh`, `codex-docs-sync-log.sh`, `codex-simplify-gate.sh`, `codex-major-error-log.sh`, `codex-commit-log.sh`
+  - `npm install`
+  - `npm run typecheck`
+  - `npm test`
+  - `npm run build`
+  - `npm audit --audit-level=moderate`
+  - `gitleaks detect --source . --no-git --redact --no-banner`
+  - `sg --pattern 'console.log($$$)' --lang ts src/`
+  - `sg --pattern '$A as any' --lang ts src/`
+  - `npm run dev -- --port 5177`
+  - `curl -fsS http://127.0.0.1:5177/`
+  - `bash scripts/codex-lattice-log-analyze.sh .codex-lattice/reports .codex-lattice/logs/events.jsonl`
+  - `bash scripts/codex-lattice-healthcheck.sh .codex-lattice/reports`
+  - docs-template EOF regression repo with `git diff --cached --check`
+  - `CODEX_LATTICE_USE_CODEX=0 CODEX_LATTICE_INTERVAL_SECONDS=86400 ./scripts/codex-lattice-scheduler.sh enable`
+  - `./scripts/codex-lattice-scheduler.sh status`
+  - `./scripts/codex-lattice-scheduler.sh disable`
+  - `./scripts/codex-lattice-scheduler.sh status`
+- result: pass after fixing docs template EOF normalization and one temporary app TypeScript event-target issue.
+- skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run.
+- evidence: the notepad app committed successfully in the temporary repo; docs gate, simplify gate, major-error log, event log, git strategy log, commit log, healthcheck report, and log-analysis report were generated; typecheck, Vitest, Vite build, npm audit, gitleaks, AST slop checks, dev-server HTTP smoke check, scheduler enable/status/disable/status, and the docs-template EOF regression check passed.
