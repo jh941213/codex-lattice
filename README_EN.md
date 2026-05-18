@@ -6,7 +6,7 @@
 
 # Codex Lattice
 
-**An installable agent-first harness for OpenAI Codex**
+**An agent-first harness that turns Codex into a reliable development loop**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
@@ -14,7 +14,7 @@
 [![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-21-111827.svg?style=for-the-badge)](#always-on-hooks)
 
-`Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Major Error Log`
+`Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Observability` · `Scheduler`
 
 <img src="assets/codex-lattice-hero.png" alt="Codex Lattice hero illustration" width="880" />
 
@@ -24,33 +24,44 @@
 
 ## What This Is
 
-This repository installs a Codex harness with **47 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+Codex Lattice is an installable harness that configures OpenAI Codex for production-style development work.
 
-The target loop is:
+It installs **47 skills**, **14 custom agents**, **21 lifecycle hooks**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+
+| Area | What you get |
+|------|--------------|
+| Work loop | Planning, Git strategy, implementation, verification, docs sync, commit candidate logs |
+| Always-on hooks | Event logs, major error logs, docs sync gate, simplify/reflection gates |
+| Skills & agents | PRD, SPEC, review, verification, security, operations, Azure, UI, and testing workers |
+| Operating docs | Feature, API, infra, security, data, test, SLO, and runbook documents |
+| Search/analysis | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
+| Scheduler | Off-by-default healthcheck/log analysis. Enable only when needed |
+
+The default loop is:
 
 ```text
 plan -> write Git strategy -> implement -> log events -> verify -> update docs/harness -> record commit candidates
 ```
 
-## Quick Install
+## 3-Minute Install
 
-The commands below assume macOS and Homebrew.
+The commands below assume macOS and Homebrew. API keys are not stored in the repo; they are read from environment variables or existing `~/.mcp.json` entries.
 
 ```bash
 git clone https://github.com/jh941213/codex-lattice.git
 cd codex-lattice
 
-# Code search, structural diff, secret scanning, shell validation
+# 1. Code search, structural diff, secret scanning, shell validation
 brew bundle --file Brewfile.codex
 
-# mgrep semantic search integration
+# 2. mgrep semantic search integration
 npm install -g @mixedbread/mgrep
 
-# Optional: keep Tavily/Exa MCP keys in env vars or ~/.mcp.json
+# 3. Optional: keep Tavily/Exa MCP keys in env vars or ~/.mcp.json
 export TAVILY_API_KEY="<your tavily key>"
 export EXA_API_KEY="<your exa key>"
 
-# English harness install
+# 4. English harness install
 bash install.sh --en
 ```
 
@@ -62,6 +73,29 @@ Restart Codex after installation. On the first run, open `/hooks`, review the ne
 
 `21 hooks need review before they can run` is expected after a fresh install. Once trusted, the `/hooks` screen should show matching `Installed` and `Active` counts.
 
+## First Check
+
+After installation, verify these three things first.
+
+```bash
+# Installed CLI/MCP/validation tools
+~/.codex/scripts/check-codex-integrations.sh
+
+# Harness checks from this repository
+bash scripts/check-codex-integrations.sh
+
+# Scheduler should be off by default
+./scripts/codex-lattice-scheduler.sh status
+```
+
+Inside Codex, inspect:
+
+```text
+/debug-config
+/hooks
+/status
+```
+
 ## Prerequisites
 
 | Class | Tool | Check |
@@ -71,8 +105,9 @@ Restart Codex after installation. On the first run, open `/hooks`, review the ne
 | Required | OpenAI Codex CLI | `codex --version` |
 | Recommended | Homebrew | `brew --version` |
 | Recommended | GitHub CLI | `gh --version` |
+| Recommended | Node.js/npm | `node --version`, `npm --version` |
 
-Integration tools are installed through `Brewfile.codex`.
+Integration tools are installed through `Brewfile.codex`. Missing tools are skipped where possible, but team use should install the full bundle.
 
 | Tool | Purpose |
 |------|---------|
@@ -91,8 +126,6 @@ Integration tools are installed through `Brewfile.codex`.
 | `uv`, `ruff`, `pnpm` | Python/Node validation and fast local tool execution |
 | `git-delta` | More readable diffs |
 | `az` (`azure-cli`) | Azure resource review, cost estimation, operations monitoring |
-
-If a tool is missing, skills and agents skip that check where possible. For team use, run `brew bundle --file Brewfile.codex`.
 
 `mgrep install-codex` can sync working-directory file content to Mixedbread for semantic search. Enable it only after checking the policy for sensitive repositories.
 
@@ -288,28 +321,14 @@ Codex Lattice treats sub-agents as bounded workers, not as automatic magic. The 
 
 Detailed rules live in `docs/harness/SUBAGENT_PROTOCOL.md`.
 
-## First-Run Checks
+## Repository Validation
 
-After installing:
-
-```bash
-~/.codex/scripts/check-codex-integrations.sh
-```
-
-To validate this repository itself:
+Before opening a PR against this repository, run at least:
 
 ```bash
 bash scripts/check-codex-integrations.sh
 bash -n install.sh
 for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done
-```
-
-Inside Codex, inspect:
-
-```text
-/debug-config
-/hooks
-/status
 ```
 
 ## Troubleshooting

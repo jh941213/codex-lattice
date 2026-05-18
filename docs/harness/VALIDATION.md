@@ -250,3 +250,13 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: did not run optional `CODEX_LATTICE_USE_CODEX=1` model summary to avoid scheduled model cost.
 - evidence: all 47 skills pass the official `quick_validate.py`; no unsupported frontmatter keys remain; scheduler one-shot run generated `health-latest` and `log-analysis-latest` reports with PASS for bash syntax, JSON metadata, skill YAML, integration checker, shellcheck, shfmt, and gitleaks; launchd toggle test installed `com.codex-lattice.healthcheck`, showed it active, then disabled it and confirmed it was no longer installed; temp install produced 47 skill configs, 47 skill directories, 14 agents, 10 hook scripts, 5 scripts, and 21 hook commands; local install has the same counts; scheduler remains off by default.
+
+### 2026-05-18T02:08:28Z
+- task: polish Korean and English README onboarding and first-check flow before merging scheduled operations.
+- commands:
+  - `git diff --check`
+  - `bash scripts/check-codex-integrations.sh`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: no installer rerun or scheduler rerun was needed because this follow-up only changes README and harness tracking docs.
+- evidence: README diff contains only documentation copy/structure changes; integration checker reports required/recommended harness tools available; gitleaks found no leaks.
