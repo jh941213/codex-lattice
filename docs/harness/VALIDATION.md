@@ -141,6 +141,7 @@ Track checks run for each coding task.
 - commands:
   - `bash -n install.sh && for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done`
   - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - `jq '[.. | objects | select(.type? == "command")] | length' hooks/hooks.json`
   - `CODEX_HOME=/tmp/codex-lattice-gates.* bash install.sh --ko`
   - count temp install skill config entries, skill directories, agent TOML files, hook scripts, and hook command registrations
   - parse temp install `features` with Python `tomllib`
@@ -286,3 +287,28 @@ Track checks run for each coding task.
 - result: pass after fixing docs template EOF normalization and one temporary app TypeScript event-target issue.
 - skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run.
 - evidence: the notepad app committed successfully in the temporary repo; docs gate, simplify gate, major-error log, event log, git strategy log, commit log, healthcheck report, and log-analysis report were generated; typecheck, Vitest, Vite build, npm audit, gitleaks, AST slop checks, dev-server HTTP smoke check, scheduler enable/status/disable/status, and the docs-template EOF regression check passed.
+
+### 2026-05-18T05:02:27Z
+- task: add context, review, harness health, and per-run packet generation.
+- commands:
+  - `bash -n install.sh && for f in hooks/codex-*.sh scripts/*.sh; do bash -n "$f"; done`
+  - `shellcheck install.sh hooks/codex-*.sh scripts/*.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/*.sh`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - temp install with `CODEX_HOME=/tmp/codex-lattice-install-packets.* bash install.sh --ko`
+  - local install with `bash install.sh --ko`
+  - parse temp and local `config.toml` counts for skills, agents, hooks, scripts, and hook commands
+  - temporary packet repo at `/tmp/codex-lattice-packets.ega1Lb`
+  - run `codex-lattice-context-packet.sh`, `codex-lattice-review-packet.sh`, and `codex-lattice-harness-health.sh` from repo scripts and installed `~/.codex/scripts`
+  - inspect generated `.codex-lattice/model-visible/CONTEXT_PACKET.md`
+  - inspect generated `.codex-lattice/model-visible/REVIEW_PACKET.md`
+  - inspect generated `.codex-lattice/model-visible/HARNESS_HEALTH.md`
+  - inspect generated `.codex-lattice/runs/<session>/context-packet.md` and `review-packet.md`
+  - grep generated packets for seeded `.env` secret value
+  - `for d in skills/*; do uv run --with pyyaml python /Users/kdb/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$d"; done`
+  - `bash scripts/check-codex-integrations.sh`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+- result: pass.
+- skipped: no browser/app rebuild was needed for this harness-only change; no optional model summary was run.
+- evidence: temp install and local install both report 47 skill configs, 47 skill dirs, 14 agents, 10 hook scripts, 8 scripts, and 27 hook commands; `hooks/hooks.json` also contains 27 command entries; generated context packet includes branch, dirty files, package scripts, validation candidates, required reading, and retrieval rules; generated review packet includes risk routing and validation evidence; generated harness health reports `features.hooks = true`, no deprecated `codex_hooks`, 27 hook commands, 8 scripts, scheduler inactive, and gate attention items; per-run packet snapshots were created; seeded `.env` secret value did not appear in generated packet files; all static, integration, skill, whitespace, and secret checks passed.

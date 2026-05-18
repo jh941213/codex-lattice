@@ -25,6 +25,7 @@
 - [x] Add optional scheduled operations MVP with deterministic healthcheck, log analysis, read-only Codex report mode, and enable/disable/status controls.
 - [x] Polish Korean and English README structure for clearer onboarding and first-run validation.
 - [x] Validate the harness with a real temporary notepad app and fix the docs-template EOF issue found during validation.
+- [x] Add context/review/health packet generation and verify it in a temporary app repository.
 
 ## Status Legend
 

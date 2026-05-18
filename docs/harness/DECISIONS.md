@@ -97,3 +97,10 @@
 - decision: implement scheduled operations as local scripts plus external scheduler templates, with macOS launchd enable/disable/status controls.
 - reason: scheduling is an operating-system concern, while Codex should stay read-only and advisory during routine health reports.
 - impact: default scheduled checks are deterministic and model-free; `CODEX_LATTICE_USE_CODEX=1` enables optional read-only Codex summary generation.
+
+## 2026-05-18 - Context and review packets are advisory evidence
+
+- context: Agents need compact task context, review evidence, and harness health signals without loading hidden logs or entire docs trees by default.
+- decision: generate `CONTEXT_PACKET.md`, `REVIEW_PACKET.md`, `HARNESS_HEALTH.md`, and per-run packet snapshots from read-only local metadata.
+- reason: this follows the context-engineering pattern of giving the model the smallest useful reading path, while keeping verification tied to files and command output.
+- impact: packet scripts run on selected Codex lifecycle hooks, write only under `.codex-lattice/`, exclude sensitive path candidates, and remain advisory rather than source of truth.

@@ -34,6 +34,16 @@
           "type": "command",
           "command": "bash ~/.codex/hooks/codex-reflection-reminder.sh UserPromptSubmit",
           "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-context-packet.sh",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-harness-health.sh",
+          "timeout": 5
         }
       ]
     }
@@ -110,6 +120,11 @@
           "type": "command",
           "command": "bash ~/.codex/hooks/codex-simplify-gate.sh PermissionRequest",
           "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-review-packet.sh",
+          "timeout": 5
         }
       ]
     }
@@ -144,6 +159,11 @@
           "type": "command",
           "command": "bash ~/.codex/hooks/codex-reflection-reminder.sh PostCompact",
           "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-context-packet.sh",
+          "timeout": 5
         }
       ]
     }
@@ -165,6 +185,16 @@
         {
           "type": "command",
           "command": "bash ~/.codex/hooks/codex-reflection-reminder.sh Stop",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-harness-health.sh",
+          "timeout": 5
+        },
+        {
+          "type": "command",
+          "command": "bash ~/.codex/scripts/codex-lattice-review-packet.sh",
           "timeout": 5
         }
       ]

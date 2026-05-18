@@ -27,6 +27,7 @@ Sub-agents should keep these files aligned with implementation changes:
 - `REFLECTION.md`: drift checks for sequential work, interruptions, compact resume, and final response
 - `SUBAGENT_PROTOCOL.md`: Codex-native delegation, review ordering, report statuses, and parallel ownership rules
 - `SCHEDULER.md`: optional scheduled healthcheck, monitoring, log analysis, and read-only report workflow
+- `CONTEXT_REVIEW_PACKETS.md`: model-visible context, review, health, and run episode packet behavior
 - `DECISIONS.md`: decisions and rationale
 - `CHANGELOG.md`: implementation changes
 - `VALIDATION.md`: checks run and results
