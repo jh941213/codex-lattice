@@ -2,8 +2,6 @@
 
 **🌐 [English](README_EN.md) | 한국어**
 
-<img src="assets/lilysTextLogo.svg" alt="Codex Lattice" width="96" />
-
 # Codex Lattice
 
 **엔터프라이즈 운영 환경에서 실제로 쓰기 위한 Codex agent harness**
