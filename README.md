@@ -2,7 +2,7 @@
 
 **🌐 [English](README_EN.md) | 한국어**
 
-<img src="assets/lilysTextLogo.svg" alt="Codex Lattice" width="96" />
+
 
 # Codex Lattice
 
