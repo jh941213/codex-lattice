@@ -6,7 +6,7 @@
 
 # Codex Lattice
 
-**Codex를 현업 개발 루프로 묶어주는 agent-first harness**
+**엔터프라이즈 운영 환경에서 실제로 쓰기 위한 Codex agent harness**
 
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
@@ -26,14 +26,19 @@
 
 Codex Lattice는 OpenAI Codex를 실무 개발에 맞게 세팅하는 설치형 하네스입니다.
 
+데모용 프롬프트 묶음이 아니라, 리플렉션, 운영 관측성, 검증 증거, 문서 동기화, 리뷰 경계, 스케줄링을 하나의 반복 가능한 작업 루프로 묶어 **엔터프라이즈 개발/운영 환경에서 실제로 쓸 수 있게 만드는 것**을 목표로 합니다.
+
 설치하면 Codex에 **47개 skills**, **14개 custom agents**, **27개 lifecycle hook commands**, 작업 로그, 커밋 로그, 모델이 읽는 주요 에러 로그, Azure Infra memory, docs 자동 동기화 규칙이 들어갑니다.
 
 | 영역 | 제공하는 것 |
 |------|-------------|
 | 작업 루프 | 계획, Git 전략, 구현, 검증, 문서 갱신, 커밋 후보 기록 |
+| 리플렉션 | 최신 사용자 지시 재확인, compact resume, 방향 이탈 점검, lesson learned 기록 |
 | 항상 켜지는 Hooks | 이벤트 로그, 주요 에러 로그, docs sync gate, simplify/reflection gate |
 | Skills & Agents | PRD, SPEC, 리뷰, 검증, 보안, 운영, Azure, UI, 테스트 특화 작업자 |
 | 운영 문서 | 기능 명세, API, 인프라, 보안, 데이터, 테스트, SLO, runbook 문서 |
+| 운영 관측성 | health packet, log analysis, scheduler report, 주요 에러 model-visible memory |
+| 리뷰 증거 | context packet, review packet, harness health, validation evidence |
 | 검색/분석 | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
 | 스케줄러 | 꺼짐 기본값의 healthcheck/log analysis. 필요할 때만 `enable` |
 
@@ -42,6 +47,12 @@ Codex가 따르게 되는 기본 루프는 단순합니다.
 ```text
 계획 세우기 -> Git 전략 남기기 -> 구현 -> 로그 기록 -> 검증 -> docs/harness 갱신 -> 커밋 후보 기록
 ```
+
+## 왜 만들었나요
+
+엔터프라이즈 환경에서는 “코드가 돌아간다”만으로 충분하지 않습니다. Codex가 최신 지시를 잃지 않았는지, 어떤 근거로 컨텍스트를 읽었는지, 검증을 실제로 했는지, 운영/보안/데이터/릴리즈 문서가 따라왔는지, 장애와 반복 실패를 다음 실행이 다시 볼 수 있는지까지 남아야 합니다.
+
+Codex Lattice는 그 요구를 README가 아니라 하네스 동작으로 강제합니다. hook은 작업 흐름을 기록하고, packet은 모델이 봐야 할 요약을 만들고, docs gate는 산출물을 밀어 올리며, reflection gate는 순차 지시나 compact 이후 방향을 다시 잡게 합니다.
 
 ## 3분 설치
 

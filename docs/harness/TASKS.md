@@ -26,6 +26,7 @@
 - [x] Polish Korean and English README structure for clearer onboarding and first-run validation.
 - [x] Validate the harness with a real temporary notepad app and fix the docs-template EOF issue found during validation.
 - [x] Add context/review/health packet generation and verify it in a temporary app repository.
+- [x] Reposition the README opening around enterprise operations, reflection, observability, and review evidence.
 
 ## Status Legend
 
