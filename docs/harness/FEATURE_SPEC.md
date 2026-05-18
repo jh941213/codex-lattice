@@ -10,6 +10,7 @@
 - Every code change should leave feature behavior and acceptance criteria synchronized with implementation.
 - When code changes are detected, the docs gate requires `docs_maintainer` or the parent agent to update this file before HITL, review, or final response.
 - Complex sequential prompts and post-compact resumes should produce a reflection gate that forces newest-request alignment before continuing.
+- Sub-agent work should follow bounded task prompts, explicit status reporting, parent-side diff verification, and staged review.
 
 ## Acceptance Criteria
 
@@ -17,3 +18,4 @@
 - Refactors that do not alter behavior explicitly say behavior is unchanged.
 - Validation evidence is linked from `VALIDATION.md`.
 - Reflection prompts create `.codex-lattice/model-visible/REFLECTION_REQUIRED.md` without mutating source code.
+- Sub-agent protocol changes do not add new installed skills or hook registrations; they update always-read guidance and model-visible docs.

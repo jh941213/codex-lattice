@@ -186,3 +186,22 @@ Track checks run for each coding task.
 - result: pass.
 - skipped: Python `yaml` module was not installed locally, so skill frontmatter parsing used Ruby `YAML.safe_load` instead.
 - evidence: temp install produced 39 skill config entries, 39 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; `features.hooks` is true and `features.codex_hooks` is absent; simulated multi-step prompt and PostCompact runs created `REFLECTION_REQUIRED.md`; Stop run printed a pending reflection reminder; local `~/.codex` now has 10 hook scripts, 21 hook command registrations, and `codex-reflection-reminder.sh`; integration checker, JSON/TOML/YAML parsing, shellcheck, shfmt, whitespace check, and gitleaks passed.
+
+### 2026-05-16T08:32:11Z
+- task: add Codex-native sub-agent protocol inspired by fresh-context delegation patterns.
+- commands:
+  - `bash -n install.sh && for f in hooks/codex-*.sh scripts/check-codex-integrations.sh; do bash -n "$f"; done`
+  - `jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json`
+  - parse `.codex/agents/*.toml` with Python `tomllib`
+  - parse `skills/*/SKILL.md` frontmatter with Ruby `YAML.safe_load`
+  - temp install with `CODEX_HOME=/tmp/... bash install.sh --ko`
+  - count temp install skill config entries, skill directories, agent TOML files, hook scripts, and hook command registrations
+  - `shellcheck install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `shfmt -d install.sh hooks/codex-*.sh scripts/check-codex-integrations.sh`
+  - `bash scripts/check-codex-integrations.sh`
+  - `git diff --check`
+  - `gitleaks detect --no-banner --redact --source .`
+  - scan protocol docs for accidental external plugin or non-Codex-specific wording
+- result: pass.
+- skipped: no live sub-agent dispatch was run because this change only updates always-read guidance and model-visible docs.
+- evidence: temp install counts remained unchanged at 39 skill config entries, 39 skill directories, 14 agent TOML files, 10 hook scripts, and 21 hook command registrations; `features.hooks` remains true and `features.codex_hooks` is absent; integration checker, JSON/TOML/YAML parsing, shellcheck, shfmt, whitespace check, and gitleaks passed; no external plugin runtime dependency or copied workflow text was introduced.

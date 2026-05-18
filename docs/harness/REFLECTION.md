@@ -36,6 +36,8 @@ Maintain this ledger mentally or in the working notes before editing:
 - Did I skip a required install, verification, documentation, or local-apply step?
 - Am I changing unrelated files because they are nearby?
 - Am I creating a branch, PR, or merge without the user asking for that level of git action?
+- If using sub-agents, did I give each one bounded context, file ownership, acceptance criteria, and a report format?
+- Did I verify sub-agent claims against the actual diff before continuing?
 - Did code changes also update `docs/harness/` and validation evidence?
 - Did simplify, docs, security, and reflection gates resolve before handoff?
 

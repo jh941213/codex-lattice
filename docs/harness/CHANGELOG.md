@@ -25,6 +25,7 @@
 - Added `codex-simplify-gate.sh` and registered it on PostToolUse, PermissionRequest, and Stop so code changes trigger model-visible simplify requirements before HITL, review, PR, or final response.
 - Expanded docs sync into a docs agent gate that creates `DOCS_AGENT_REQUIRED.md` and classifies required docs by changed file type.
 - Added `codex-reflection-reminder.sh` and `REFLECTION.md` so complex sequential prompts and compact resume create a model-visible reflection gate before continuing.
+- Added a Codex-native sub-agent protocol for bounded context, status reporting, spec-first review, code-quality review, and parallel ownership rules.
 - Added product, feature, API, infra, security, data model, test plan, observability, migration, release, and UX documentation surfaces under `docs/harness/`.
 - Added an operations runbook documentation surface for SLOs, monitoring checks, alert response, rollback, and incident review.
 - Strengthened `rules/coding-style.md` with separation, normalization, simplification, and refactoring rules.

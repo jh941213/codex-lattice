@@ -62,3 +62,10 @@
 - decision: add `docs/harness/REFLECTION.md` and a `codex-reflection-reminder.sh` hook that creates `REFLECTION_REQUIRED.md` for complex sequential prompts, post-compact resume, and Stop reminders.
 - reason: direction checks should be explicit, model-visible, and repeatable instead of relying on hidden conversation memory.
 - impact: before HITL, PR, merge, or final response, the agent must confirm the newest request, ordered steps, dependencies, blocked items, validation, and git status.
+
+## 2026-05-16 - Sub-agents use bounded Codex-native delegation
+
+- context: External agent workflows show that fresh sub-agents work best when the parent controls context, task boundaries, and review loops instead of relying on inherited session memory.
+- decision: add `docs/harness/SUBAGENT_PROTOCOL.md` and summarize the protocol in `AGENTS.md` and README files.
+- reason: Codex Lattice already has native custom agents and multi-agent support; the missing piece was a consistent contract for prompt context, task status, review order, and parallel ownership.
+- impact: parent agents must provide full task context directly, require `DONE`/`DONE_WITH_CONCERNS`/`NEEDS_CONTEXT`/`BLOCKED` statuses, verify claims against the actual diff, and run spec compliance review before code quality review when sub-agents write code.
