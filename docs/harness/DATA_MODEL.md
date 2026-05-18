@@ -20,3 +20,4 @@
 
 - External config is normalized through installer-managed `~/.codex/config.toml` entries.
 - Project docs should not duplicate hidden runtime logs.
+- Query-specific standards, indexes, pagination, and validation cases belong in `QUERY_GUIDE.md` and should reference this data model instead of duplicating entity definitions.

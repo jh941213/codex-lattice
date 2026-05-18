@@ -36,7 +36,7 @@ Purpose:
 
 - summarize changed files and diff size
 - list untracked files separately so newly created API, infra, hook, or security-sensitive files are not missed before staging
-- classify risk by file path: security, API, infra, UI, data, supply chain, agent/tool, scheduler/ops
+- classify risk by file path: security, API, infra, UI, data, database query, supply chain, agent/tool, scheduler/ops
 - show gate status for major errors, docs, simplify, context, and harness health
 - surface latest healthcheck/log-analysis report summaries
 - provide a review checklist before HITL, PR, or final response

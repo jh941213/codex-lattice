@@ -337,3 +337,13 @@ Track checks run for each coding task.
 - result: pass after tightening validation assertions.
 - skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run.
 - evidence: runtime validation passed bash syntax, shellcheck, shfmt, JSON metadata, hook registry, all 47 skill validations, integration checker, temp install, lifecycle hook simulation, scheduler operations, whitespace diff, and gitleaks; temp install produced 47 skill configs, 47 skill dirs, 14 agents, 10 hook scripts, 9 scripts, and 27 hook commands; lifecycle simulation generated context/review/health packets, run episode snapshots, reflection/docs/simplify/major-error gates, event logs for all lifecycle events, git strategy log, commit log, log analysis, and high-risk review routing for untracked `infra/main.bicep`; runtime `.codex-lattice` files were excluded from changed-file routing; seeded secret values did not appear in packet files; scheduler run generated reports and launchd enable/status/disable checks passed with a validation-specific label; local install was refreshed and installed packet scripts reproduced untracked infra routing, secret non-disclosure, and harness health counts with 9 installed scripts.
+
+### 2026-05-18T06:15:36Z
+- task: re-check the full harness, add production/PRD environment and infra readiness, and add a DB query specialist agent.
+- commands:
+  - `scripts/validate-codex-lattice-runtime.sh`
+  - `bash install.sh --ko`
+  - parse local `~/.codex/config.toml` for skills, agents, hooks, scripts, feature flags, and `db_query_specialist`
+- result: pass.
+- skipped: no optional `CODEX_LATTICE_USE_CODEX=1` model summary was run; no live Azure or production database commands were run because these workflows are read-only-first and require explicit scoped approval for live resources/data.
+- evidence: runtime validation passed 13 checks: bash syntax, shellcheck, shfmt, JSON metadata, hook registry, all 47 skills, all 15 agent TOML files, integration checker, temp install, lifecycle hook simulation, scheduler operations, whitespace diff, and gitleaks; temp install expects 15 agents and includes `db_query_specialist`; hook simulation verifies production/PRD/environment/infra/query changes route to `PRODUCTION_READINESS.md`, `ENVIRONMENT_STRATEGY.md`, `INFRA_SPEC.md`, `QUERY_GUIDE.md`, and `DATA_MODEL.md`; review packet risk routing now includes `database_query`; local install reports 47 skill configs, 47 skill dirs, 15 agents, `db-query-specialist.toml` present, `db_query_specialist` registered, 10 hook scripts, 9 scripts, 27 hook commands, `features.hooks = true`, and no deprecated `features.codex_hooks`.

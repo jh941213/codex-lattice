@@ -104,3 +104,17 @@
 - decision: generate `CONTEXT_PACKET.md`, `REVIEW_PACKET.md`, `HARNESS_HEALTH.md`, and per-run packet snapshots from read-only local metadata.
 - reason: this follows the context-engineering pattern of giving the model the smallest useful reading path, while keeping verification tied to files and command output.
 - impact: packet scripts run on selected Codex lifecycle hooks, write only under `.codex-lattice/`, exclude sensitive path candidates, and remain advisory rather than source of truth.
+
+## 2026-05-18 - Production/PRD readiness is a first-class docs surface
+
+- context: Production handoff needs environment, rollout, rollback, observability, security, data, and infra evidence, not just implementation notes.
+- decision: add `PRODUCTION_READINESS.md` and `ENVIRONMENT_STRATEGY.md`, and route prod/prd/env/infra/deploy changes to them through docs sync.
+- reason: enterprise use needs durable go/no-go evidence and environment parity assumptions before HITL, PR, merge, or production handoff.
+- impact: production-facing work must update production readiness, environment strategy, release, infra, observability, operations, and security docs before final review.
+
+## 2026-05-18 - Database query work gets a dedicated read-only specialist
+
+- context: Query quality depends on data model, indexes, cardinality, authorization predicates, transaction boundaries, and production-like data shape.
+- decision: add `db_query_specialist` as a Codex custom agent and `QUERY_GUIDE.md` as the durable query standard surface.
+- reason: general code review often misses query-specific risks such as N+1 access, unstable pagination, missing tenant predicates, unsafe interpolation, and write race conditions.
+- impact: DB/query changes should use the specialist for SQL/ORM query shape and risk review; the agent is read-only by default and must not execute queries or inspect production data without explicit approval.

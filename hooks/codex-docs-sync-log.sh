@@ -19,6 +19,17 @@ CODE_EXTENSIONS = {
     ".vue", ".svelte",
 }
 
+BIG_SKIP_DIRS = {
+    ".git",
+    ".codex-lattice",
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".next",
+    "vendor",
+}
+
 def load_input():
     raw = os.environ.get("CODEX_HOOK_INPUT", "")
     try:
@@ -41,6 +52,10 @@ if root:
 
 changed = set(filter(None, run(cwd, ["git", "diff", "--name-only"]).splitlines()))
 changed.update(filter(None, run(cwd, ["git", "diff", "--cached", "--name-only"]).splitlines()))
+changed.update(
+    path for path in filter(None, run(cwd, ["git", "ls-files", "--others", "--exclude-standard"]).splitlines())
+    if not any(part in BIG_SKIP_DIRS for part in path.split("/"))
+)
 changed = sorted(changed)
 if not changed:
     raise SystemExit(0)
@@ -62,15 +77,19 @@ def classify_docs(paths):
         if any(token in low for token in ("api", "route", "controller", "endpoint", "openapi", "swagger", "schema")):
             required.update({"API_SPEC.md", "SECURITY_POLICY.md", "TEST_PLAN.md"})
         if suffix in {".tf", ".tfvars", ".bicep", ".yaml", ".yml"} or any(token in low for token in ("infra", "terraform", "bicep", "k8s", "kubernetes", "helm", "docker", "compose", "azure", "cloud")):
-            required.update({"INFRA_SPEC.md", "OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SECURITY_POLICY.md", "RELEASE_PLAN.md"})
+            required.update({"INFRA_SPEC.md", "ENVIRONMENT_STRATEGY.md", "PRODUCTION_READINESS.md", "OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SECURITY_POLICY.md", "RELEASE_PLAN.md"})
         if any(token in low for token in ("db", "database", "schema", "model", "entity", "migration", "prisma", "typeorm", "sql", "drizzle")):
-            required.update({"DATA_MODEL.md", "MIGRATION_PLAN.md", "TEST_PLAN.md"})
+            required.update({"DATA_MODEL.md", "QUERY_GUIDE.md", "MIGRATION_PLAN.md", "TEST_PLAN.md"})
+        if any(token in low for token in ("query", "queries", "repository", "dao", "knex", "sequelize", "hibernate")):
+            required.update({"QUERY_GUIDE.md", "DATA_MODEL.md", "TEST_PLAN.md", "SECURITY_POLICY.md"})
         if suffix in {".tsx", ".jsx", ".css", ".scss", ".sass", ".vue", ".svelte"} or any(token in low for token in ("ui", "ux", "component", "page", "screen", "view")):
             required.update({"UX_SPEC.md", "TEST_PLAN.md"})
         if any(token in low for token in ("auth", "security", "permission", "role", "secret", "token", "credential", ".env")):
             required.add("SECURITY_POLICY.md")
         if any(token in low for token in ("package.json", "version", "release", "deploy", "ci", "workflow", "changelog")):
-            required.update({"RELEASE_PLAN.md", "OPERATIONS_RUNBOOK.md"})
+            required.update({"RELEASE_PLAN.md", "PRODUCTION_READINESS.md", "ENVIRONMENT_STRATEGY.md", "OPERATIONS_RUNBOOK.md"})
+        if any(token in low for token in ("prod", "prd", "production", "staging", "environment", "env", "rollout", "release-gate", "deploy")):
+            required.update({"PRODUCTION_READINESS.md", "ENVIRONMENT_STRATEGY.md", "RELEASE_PLAN.md", "OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SECURITY_POLICY.md"})
         if any(token in low for token in ("monitor", "metric", "alert", "log", "runbook", "slo", "incident", "ops", "operation")):
             required.update({"OBSERVABILITY.md", "OPERATIONS_RUNBOOK.md", "SLO_POLICY.md", "INCIDENT_RESPONSE.md", "POSTMORTEM_TEMPLATE.md"})
         if any(token in low for token in ("schedule", "scheduler", "cron", "launchd", "systemd", "timer")):
@@ -102,9 +121,12 @@ for name, content in {
     "INFRA_SPEC.md": "# Infra Spec\n\n## Resources\n\n## Configuration\n\n## Operations And Monitoring\n\n",
     "SECURITY_POLICY.md": "# Security Policy\n\n## Trust Boundaries\n\n## Auth And Authorization\n\n## Data Handling\n\n## Secret Handling\n\n## Abuse And Failure Modes\n\n",
     "DATA_MODEL.md": "# Data Model\n\n## Entities\n\n## Ownership\n\n## Persistence\n\n## Normalization Rules\n\n",
+    "QUERY_GUIDE.md": "# Query Guide\n\n## Data Model Source\n\n## Query Standards\n\n## Performance Review\n\n## Safety Review\n\n## Validation Cases\n\n",
     "TEST_PLAN.md": "# Test Plan\n\n## Unit\n\n## Integration\n\n## E2E\n\n## Regression\n\n## Manual Checks\n\n",
     "OBSERVABILITY.md": "# Observability\n\n## Logs\n\n## Metrics\n\n## Alerts\n\n## Dashboards\n\n## Incident Signals\n\n",
     "OPERATIONS_RUNBOOK.md": "# Operations Runbook\n\n## SLOs\n\n## Monitoring Checklist\n\n## Alert Response\n\n## Rollback\n\n## Incident Review\n\n",
+    "PRODUCTION_READINESS.md": "# Production Readiness\n\n## Scope\n\n## Release Gates\n\n## Production Environment Checklist\n\n## Go/No-Go\n\n",
+    "ENVIRONMENT_STRATEGY.md": "# Environment Strategy\n\n## Environment Matrix\n\n## Configuration Rules\n\n## Data Rules\n\n## Promotion Rules\n\n",
     "SLO_POLICY.md": "# SLO Policy\n\n## Service Level Indicators\n\n## Objectives\n\n## Error Budget\n\n## Release Freeze Policy\n\n",
     "INCIDENT_RESPONSE.md": "# Incident Response\n\n## Severity Levels\n\n## Triage\n\n## Mitigation\n\n## Communication\n\n## Follow-Up\n\n",
     "POSTMORTEM_TEMPLATE.md": "# Postmortem Template\n\n## Summary\n\n## Impact\n\n## Timeline\n\n## Root Causes\n\n## Corrective Actions\n\n",
@@ -146,7 +168,7 @@ Last updated: {entry["ts"]}
 ## Required Before HITL, Review, Or Final Response
 - Spawn `docs_maintainer` when the current Codex run allows sub-agents.
 - If sub-agents are not available, the parent agent must update the same docs directly.
-- Keep product brief, feature specs, API specs, infra specs, security policy, agent security, data model, data governance, test plan, observability, SLO policy, operations runbook, incident response, postmortem, supply-chain, cost model, migration, release, UX, validation, risks, and changelog aligned with the actual diff.
+- Keep product brief, feature specs, API specs, infra specs, environment strategy, production readiness, security policy, agent security, data model, query guide, data governance, test plan, observability, SLO policy, operations runbook, incident response, postmortem, supply-chain, cost model, migration, release, UX, validation, risks, and changelog aligned with the actual diff.
 - Do not ask for human review while docs are stale unless the task is blocked.
 
 ## Required Docs

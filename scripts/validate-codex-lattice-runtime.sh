@@ -146,6 +146,40 @@ skill_validation_check() {
 	fi
 }
 
+agent_toml_check() {
+	python3 - "$ROOT" <<'PY'
+import sys
+from pathlib import Path
+try:
+    import tomllib
+except Exception as exc:
+    raise SystemExit(f"tomllib unavailable: {exc}")
+
+root = Path(sys.argv[1])
+agent_dir = root / ".codex" / "agents"
+agents = sorted(agent_dir.glob("*.toml"))
+if len(agents) != 15:
+    raise SystemExit(f"expected 15 agent TOML files, got {len(agents)}")
+
+names = set()
+for path in agents:
+    data = tomllib.loads(path.read_text(encoding="utf-8"))
+    for key in ("name", "description", "developer_instructions"):
+        if not data.get(key):
+            raise SystemExit(f"{path} missing {key}")
+    name = data["name"]
+    if name in names:
+        raise SystemExit(f"duplicate agent name: {name}")
+    names.add(name)
+
+required = {"azure_infra", "db_query_specialist", "docs_maintainer", "code_reviewer", "security_reviewer"}
+missing = required - names
+if missing:
+    raise SystemExit(f"missing required agents: {sorted(missing)}")
+print(f"agents={len(agents)}")
+PY
+}
+
 temp_install_check() {
 	local tmp_home
 	tmp_home="$(mktemp -d /tmp/codex-lattice-install-validation.XXXXXX)"
@@ -180,7 +214,7 @@ counts = {
 expected = {
     "skills_config": 47,
     "skill_dirs": 47,
-    "agents": 14,
+    "agents": 15,
     "hook_scripts": 10,
     "scripts": 9,
     "hook_commands": 27,
@@ -200,7 +234,7 @@ runtime_hook_simulation_check() {
 	git init -q
 	git config user.email test@example.com
 	git config user.name "Codex Lattice Validation"
-	mkdir -p src infra docs/harness .codex-lattice/model-visible
+	mkdir -p src infra deploy db/queries docs/harness .codex-lattice/model-visible
 	printf '# Runtime Validation App\n' >README.md
 	printf '# AGENTS\n\nUse docs/harness for durable context.\n' >AGENTS.md
 	printf '{"scripts":{"typecheck":"tsc --noEmit","test":"vitest run","build":"vite build"}}\n' >package.json
@@ -212,6 +246,8 @@ runtime_hook_simulation_check() {
 
 	printf 'export const getUser = () => ({ id: "1" });\n' >src/api.ts
 	printf 'param location string = resourceGroup().location\n' >infra/main.bicep
+	printf 'name: prd\nregion: koreacentral\n' >deploy/prd.yaml
+	printf "select id, email from users where tenant_id = \$1 and id = \$2;\n" >db/queries/user_lookup.sql
 
 	hook_input="$(
 		jq -nc \
@@ -238,6 +274,7 @@ runtime_hook_simulation_check() {
 	printf '%s' "$hook_input" | "$ROOT/hooks/codex-reflection-reminder.sh" UserPromptSubmit
 	printf '%s' "$hook_input" | "$ROOT/scripts/codex-lattice-context-packet.sh" >/dev/null
 	printf '%s' "$hook_input" | "$ROOT/hooks/codex-docs-sync-log.sh"
+	jq -e '.required_docs | index("PRODUCTION_READINESS.md") and index("ENVIRONMENT_STRATEGY.md") and index("INFRA_SPEC.md") and index("QUERY_GUIDE.md") and index("DATA_MODEL.md")' .codex-lattice/docs-sync-queue.jsonl >/dev/null
 	printf '%s' "$hook_input" | "$ROOT/hooks/codex-simplify-gate.sh" PermissionRequest >/dev/null
 	printf '%s' "$error_input" | "$ROOT/hooks/codex-major-error-log.sh"
 	printf '%s' "$hook_input" | "$ROOT/scripts/codex-lattice-harness-health.sh" >/dev/null
@@ -245,8 +282,11 @@ runtime_hook_simulation_check() {
 
 	rg -q 'infra/main.bicep' .codex-lattice/model-visible/CONTEXT_PACKET.md
 	rg -q 'infra/main.bicep' .codex-lattice/model-visible/REVIEW_PACKET.md
+	rg -q 'db/queries/user_lookup.sql' .codex-lattice/model-visible/REVIEW_PACKET.md
 	rg -q 'risk level: `high`' .codex-lattice/model-visible/REVIEW_PACKET.md
 	rg -q 'infra: `infra/main.bicep`' .codex-lattice/model-visible/REVIEW_PACKET.md
+	rg -q 'data: `db/queries/user_lookup.sql`' .codex-lattice/model-visible/REVIEW_PACKET.md
+	rg -q 'database_query: `db/queries/user_lookup.sql`' .codex-lattice/model-visible/REVIEW_PACKET.md
 	rg -q 'security: `.env`' .codex-lattice/model-visible/REVIEW_PACKET.md
 	if awk '/## Changed Files/{flag=1; next} /## Risk Routing/{flag=0} flag && /^- `\.codex-lattice/ {found=1} END {exit found ? 0 : 1}' .codex-lattice/model-visible/REVIEW_PACKET.md; then
 		printf "runtime files leaked into changed-file routing\n" >&2
@@ -328,6 +368,7 @@ run_check "shfmt" bash -c "cd '$ROOT' && shfmt -d install.sh hooks/codex-*.sh sc
 run_check "json metadata" bash -c "cd '$ROOT' && jq empty .codex-plugin/plugin.json .agents/plugins/marketplace.json .mcp.json hooks/hooks.json"
 run_check "hook registry" hook_registry_check
 run_check "skill validation" skill_validation_check
+run_check "agent toml" agent_toml_check
 run_check "integration checker" bash -c "cd '$ROOT' && bash scripts/check-codex-integrations.sh"
 run_check "temp install" temp_install_check
 run_check "runtime hook simulation" runtime_hook_simulation_check

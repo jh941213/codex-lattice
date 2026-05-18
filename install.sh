@@ -279,6 +279,7 @@ agents = [
     ("code_reviewer", "변경사항의 버그, 회귀, 보안 위험, 테스트 누락을 찾는 코드 리뷰 에이전트.", "./agents/code-reviewer.toml", ["reviewer", "code-reviewer"]),
     ("security_reviewer", "보안, 비밀정보, 입력 검증, 의존성 위험을 검토하는 에이전트.", "./agents/security-reviewer.toml", ["security", "security-reviewer"]),
     ("azure_infra", "Azure CLI 기반 인프라 산정, 리소스 검토, 운영, 모니터링을 담당하는 에이전트.", "./agents/azure-infra.toml", ["azure", "azure-infra", "azops", "cloudops"]),
+    ("db_query_specialist", "데이터 모델을 기준으로 안전하고 성능 좋은 DB 쿼리 작성과 리뷰를 담당하는 에이전트.", "./agents/db-query-specialist.toml", ["db-query", "query-specialist", "sql", "database-query"]),
     ("qa", "검증, 테스트 시나리오, 사용자 관점 품질 게이트를 담당하는 QA 에이전트.", "./agents/qa.toml", ["qa", "quality-reviewer"]),
     ("evaluator", "작업 결과를 독립적으로 평가하고 개선 루프를 제안하는 에이전트.", "./agents/evaluator.toml", ["evaluator", "quality-evaluator"]),
     ("docs_writer", "변경사항에 맞춰 문서와 인계 내용을 정리하는 에이전트.", "./agents/docs-writer.toml", ["docs", "docs-writer"]),

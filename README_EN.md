@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/version-0.0.1-7C3AED.svg?style=for-the-badge)](https://github.com/jh941213/codex-lattice)
 [![License](https://img.shields.io/badge/license-MIT-E87C3E.svg?style=for-the-badge)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-47-blue.svg?style=for-the-badge)](#47-skills)
-[![Agents](https://img.shields.io/badge/agents-14-green.svg?style=for-the-badge)](#14-custom-agents)
+[![Agents](https://img.shields.io/badge/agents-15-green.svg?style=for-the-badge)](#15-custom-agents)
 [![Hooks](https://img.shields.io/badge/hooks-27-111827.svg?style=for-the-badge)](#always-on-hooks)
 
 `Skills` · `Custom Agents` · `Hooks` · `Git Strategy` · `Docs Sync` · `Observability` · `Scheduler`
@@ -28,7 +28,7 @@ Codex Lattice is an installable harness that configures OpenAI Codex for product
 
 It is not a demo prompt pack. It is designed to make Codex usable in enterprise development and operations by binding reflection, operational observability, validation evidence, documentation sync, review boundaries, and scheduling into one repeatable loop.
 
-It installs **47 skills**, **14 custom agents**, **27 lifecycle hook commands**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
+It installs **47 skills**, **15 custom agents**, **27 lifecycle hook commands**, task logs, commit logs, model-visible major error logs, Azure Infra memory, and always-on docs synchronization rules.
 
 | Area | What you get |
 |------|--------------|
@@ -36,7 +36,7 @@ It installs **47 skills**, **14 custom agents**, **27 lifecycle hook commands**,
 | Reflection | Latest-user-request checks, compact resume, instruction drift checks, lesson learned records |
 | Always-on hooks | Event logs, major error logs, docs sync gate, simplify/reflection gates |
 | Skills & agents | PRD, SPEC, review, verification, security, operations, Azure, UI, and testing workers |
-| Operating docs | Feature, API, infra, security, data, test, SLO, and runbook documents |
+| Operating docs | Feature, API, infra, production/prd, environment strategy, query, security, data, test, SLO, and runbook documents |
 | Operational observability | Health packets, log analysis, scheduler reports, model-visible major error memory |
 | Review evidence | Context packets, review packets, harness health, validation evidence |
 | Search/analysis | `rg`, `sg`, `mgrep`, Tavily, Exa, Semgrep, Gitleaks, Difftastic |
@@ -166,7 +166,7 @@ So the repo has Codex plugin metadata for distribution, while `install.sh` still
 ~/.codex/
 ├── config.toml                         # managed features, skills, hooks, agents
 ├── skills/                             # 47 Codex skills
-├── agents/                             # 14 custom agent TOML files
+├── agents/                             # 15 custom agent TOML files
 ├── hooks/                              # 27 lifecycle hook command registrations
 ├── rules/                              # Git/workflow rules
 ├── scripts/                            # install validation, packets, healthcheck, log analysis, scheduler controls
@@ -316,7 +316,7 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | Operations/security skills | Release readiness, incident response, observability/SLO, supply chain, agent tool risk, Azure FinOps, data governance, postmortem |
 | Technical skills | FastAPI, API design, async Python, pytest, TypeScript, Vercel React, Stitch, Nano Banana, Codex image, Microsoft Agent Framework, layered plan memory |
 
-## 14 Custom Agents
+## 15 Custom Agents
 
 | Agent | Role |
 |-------|------|
@@ -328,6 +328,7 @@ No `&goal` alias is installed. Codex built-ins use `/goal`; harness skills use `
 | `code_reviewer` | Bugs, regressions, missing tests, structural diff review |
 | `security_reviewer` | Secrets, authorization, input validation, dependency security |
 | `azure_infra` | Azure CLI based sizing, cost/security/ops review, monitoring, and Azure memory updates |
+| `db_query_specialist` | Data-model-driven SQL/ORM query design, index/transaction/performance/safety review |
 | `qa` | User scenarios and verification checklists |
 | `evaluator` | Independent quality scoring and improvement loops |
 | `docs_writer` | Product and technical docs |
